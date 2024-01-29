@@ -12,7 +12,7 @@ public class Venditore {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_venditore")
     @SequenceGenerator(name="sequenza_venditore",initialValue = 1,allocationSize = 1)
     private int id;
-    @OneToMany(mappedBy = "venditore_fk")
+    @OneToMany(mappedBy = "venditore",cascade = CascadeType.REMOVE)
     private List<ProdottoAcquistato> prodottiAcquistati;
 
     public Venditore() {
