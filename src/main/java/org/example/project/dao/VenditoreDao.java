@@ -10,7 +10,7 @@ public class VenditoreDao {
     private final EntityManagerFactory emf;
     private final EntityManager em;
     public VenditoreDao(){
-        emf= Persistence.createEntityManagerFactory("Biglietteria");
+        emf= Persistence.createEntityManagerFactory("biglietteria");
         em=emf.createEntityManager();
     }
 
@@ -37,4 +37,6 @@ public class VenditoreDao {
         emf.close();
         em.close();
     }
+
+
 }
