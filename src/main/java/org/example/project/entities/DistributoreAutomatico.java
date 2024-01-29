@@ -25,4 +25,10 @@ public class DistributoreAutomatico extends Venditore{
     public void setStato(StatoDistributore stato) {
         this.stato = stato;
     }
+
+    @Override
+    public String toString() {
+        return  super.toString()+
+                "stato=" + stato;
+    }
 }

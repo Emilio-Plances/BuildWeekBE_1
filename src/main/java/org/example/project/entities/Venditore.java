@@ -21,4 +21,10 @@ public class Venditore {
     public List<ProdottoAcquistato> getProdottiAcquistati() {
         return prodottiAcquistati;
     }
+
+    @Override
+    public String toString() {
+        return  "id=" + id +
+                ", prodottiAcquistati=" + prodottiAcquistati;
+    }
 }
