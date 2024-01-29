@@ -10,7 +10,7 @@ public class TrattaDao {
     private final EntityManagerFactory emf;
     private final EntityManager em;
     public TrattaDao(){
-        emf= Persistence.createEntityManagerFactory("Biglietteria");
+        emf= Persistence.createEntityManagerFactory("biglietteria");
         em=emf.createEntityManager();
     }
 

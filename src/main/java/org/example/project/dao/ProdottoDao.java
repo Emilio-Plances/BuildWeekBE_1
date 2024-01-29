@@ -18,7 +18,7 @@ public class ProdottoDao {
     }
 
     // Metodo per salvare un elemento nel database
-    public void save(ProdottoAcquistato pa) {
+    public void save(ProdottoAcquistato pa) throws Exception{
         EntityTransaction et = em.getTransaction();
         et.begin();
 
@@ -28,12 +28,12 @@ public class ProdottoDao {
     }
 
     // Metodo per ottenere un elemento dato il suo ISBN
-    public ProdottoAcquistato getById(int id) {
+    public ProdottoAcquistato getById(int id) throws Exception {
         return em.find(ProdottoAcquistato.class, id);
     }
 
     // Metodo per eliminare un elemento dal database
-    public void delete(ProdottoAcquistato pa) {
+    public void delete(ProdottoAcquistato pa) throws Exception{
         ProdottoAcquistato pacq = getById(pa.getId());
 
         EntityTransaction et = em.getTransaction();
@@ -45,7 +45,7 @@ public class ProdottoDao {
     }
 
     // Metodo per chiudere l'EntityManager e l'EntityManagerFactory
-    public void close() {
+    public void close() throws Exception{
         em.close();
         emf.close();
     }
