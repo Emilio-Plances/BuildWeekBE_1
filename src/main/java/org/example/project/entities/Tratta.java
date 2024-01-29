@@ -29,7 +29,9 @@ public class Tratta {
     private Double prezzoTratta;
 
     @OneToMany(mappedBy = "tratta")
-    private List<ProdottoAcquistato> prodotto_acquistato;
+    private List<ProdottoAcquistato> prodottiAcquistati;
+
+    private int bigliettiTimbrati=0;
 
     public Tratta(){}
 

@@ -13,6 +13,8 @@ public class Biglietto extends ProdottoAcquistato{
     @Column (name = "ora_partenza")
     private LocalDate oraPartenza;
 
+    private boolean timbrato=false;
+
     public Biglietto(LocalDate oraPartenza) {
         this.oraPartenza = oraPartenza;
     }
