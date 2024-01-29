@@ -18,11 +18,11 @@ public class ProdottoAcquistato {
     private LocalDate dataAcquisto;
 
     @ManyToOne
-    @JoinColumn(name="venditore_id")
+    @JoinColumn(name="venditore_fk")
     private Venditore venditore;
 
     @ManyToOne
-    @JoinColumn(name="tratta_id")
+    @JoinColumn(name="tratta_fk")
     private Tratta tratta;
 
     public int getId() {

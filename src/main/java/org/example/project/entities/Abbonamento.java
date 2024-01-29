@@ -18,7 +18,7 @@ public class Abbonamento extends ProdottoAcquistato{
     private LocalDate fineValidita;
 
     @ManyToOne
-    @JoinColumn (name="tessera_cliente_id")
+    @JoinColumn (name="tessera_cliente_fk")
     private TesseraCliente tesseraCliente;
 
     public Abbonamento() {
