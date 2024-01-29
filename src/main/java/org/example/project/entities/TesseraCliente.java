@@ -29,6 +29,10 @@ public class TesseraCliente {
     @Transient
     private List<Integer> listaTessere = new ArrayList<>();
 
+    @OneToMany(mappedBy = "tesseraCliente")
+    private List<Abbonamento> listaAbbonamenti;
+
+
     public TesseraCliente() {  }
 
     public TesseraCliente(String nome, String cognome, LocalDate dataNascita, Genere genere, CategoriaCliente categoriaCliente) throws Exception {

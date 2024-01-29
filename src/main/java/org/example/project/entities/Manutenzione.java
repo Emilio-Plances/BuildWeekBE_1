@@ -10,8 +10,8 @@ public class Manutenzione {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "veicolo_id")
-    private Veicolo veicolo;
+    @JoinColumn(name = "veicolo_fk")
+    private Veicolo veicoloM;
 
     @Column(name = "data_inizio")
     private String dataInizio;
@@ -19,9 +19,9 @@ public class Manutenzione {
     @Column(name = "data_fine")
     private String dataFine;
 
-    public Manutenzione(int id, Veicolo veicolo, String dataInizio, String dataFine) {
+    public Manutenzione(int id, Veicolo veicoloM, String dataInizio, String dataFine) {
         this.id = id;
-        this.veicolo = veicolo;
+        this.veicoloM = veicoloM;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
     }
@@ -42,7 +42,7 @@ public class Manutenzione {
     }
 
     public Veicolo getVeicolo() {
-        return veicolo;
+        return veicoloM;
     }
 
     public int getId() {
@@ -53,7 +53,7 @@ public class Manutenzione {
     public String toString() {
         return "Manutenzione{" +
                 "id=" + id +
-                ", veicolo=" + veicolo +
+                ", veicolo=" + veicoloM +
                 ", dataInizio='" + dataInizio + '\'' +
                 ", dataFine='" + dataFine + '\'' +
                 '}';

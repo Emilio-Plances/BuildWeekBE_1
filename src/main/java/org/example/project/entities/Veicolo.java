@@ -25,10 +25,10 @@ public class Veicolo {
     @Column(name = "tipo_veicolo")
     private TipoVeicolo tipoVeicolo;
 
-    @OneToMany(mappedBy = "veicolo", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "veicoloM", cascade = CascadeType.ALL)
     private List<Manutenzione> manutenzioni;
 
-    @OneToMany(mappedBy = "veicolo", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "veicoloT", cascade = CascadeType.ALL)
     private List<Tratta> tratte;
 
     public Veicolo(int id, int numeroPosti, StatoVeicolo stato, TipoVeicolo tipoVeicolo) {

@@ -9,8 +9,6 @@ import java.time.LocalDate;
 @Entity
 @Table(name="abbonamenti")
 public class Abbonamento extends ProdottoAcquistato{
-
-
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_abbonamento")
     private TipoAbbonamento tipoAbbonamento;

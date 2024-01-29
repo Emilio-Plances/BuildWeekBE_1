@@ -7,11 +7,9 @@ import java.time.LocalDate;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class ProdottoAcquistato {
-
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_libreria")
-    @SequenceGenerator(name="sequenza_libreria",initialValue = 1,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_prodotto")
+    @SequenceGenerator(name="sequenza_prodotto",initialValue = 1,allocationSize = 1)
     private int id;
 
     @Column(name="data_acquisto")
