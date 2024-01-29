@@ -25,6 +25,7 @@ public class ProdottoAcquistato {
     @JoinColumn(name="tratta_fk")
     private Tratta tratta;
 
+
     public int getId() {
         return id;
     }

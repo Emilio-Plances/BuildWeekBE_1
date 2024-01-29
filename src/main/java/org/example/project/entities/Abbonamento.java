@@ -2,6 +2,7 @@ package org.example.project.entities;
 
 import jakarta.persistence.*;
 import org.example.project.enums.TipoAbbonamento;
+import org.example.project.enums.TipoTratta;
 
 import java.time.LocalDate;
 
@@ -21,6 +22,9 @@ public class Abbonamento extends ProdottoAcquistato{
     @JoinColumn (name="tessera_cliente_fk")
     private TesseraCliente tesseraCliente;
 
+
+    @Column(name = "prezzo_abbonamento")
+    private Double prezzoAbbonamento;
     public Abbonamento() {
     }
 
@@ -47,6 +51,7 @@ public class Abbonamento extends ProdottoAcquistato{
     public void setTesseraCliente(TesseraCliente tesseraCliente) {
         this.tesseraCliente = tesseraCliente;
     }
+
 
     @Override
     public String toString() {

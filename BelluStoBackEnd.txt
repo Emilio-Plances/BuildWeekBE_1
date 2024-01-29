@@ -4,7 +4,7 @@ Venditore{ID, ListaProdottiVenduti}--->RivenditoreAutorizzato
     			  	   |-->DistibutoreAutomatico {StatoDistributore}
 
 ProdottoAcquistato{ID, Venditore, Tratta, DataDiAcquisto}--->Biglietti{OraPartenza}
-				                 	 |-->Abbonamenti{TipoAbbonamento, FineValidità, TesseraCliente}
+				                 	                    |--->Abbonamenti{TipoAbbonamento, FineValidità, TesseraCliente}
 
 Veicolo{Id, numeroPosti, StatoVeicolo,ListaManutenzione, TipoVeicolo, listaTratte}
        						  
