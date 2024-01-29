@@ -1,18 +1,18 @@
 OGGETTI
 
-Venditore{ID, ListaProdotti}--->RivenditoreAutorizzato
-    			    |-->DistibutoreAutomatico {StatoDistributore}
+Venditore{ID, ListaProdottiVenduti}--->RivenditoreAutorizzato
+    			  	   |-->DistibutoreAutomatico {StatoDistributore}
 
 ProdottoAcquistato{ID, Venditore, Tratta, DataDiAcquisto}--->Biglietti{OraPartenza}
 				                 	 |-->Abbonamenti{TipoAbbonamento, FineValidità, TesseraCliente}
 
-Veicoli{Id, numeroPosti, StatoVeicolo,ListaManutenzione, TipoVeicolo }
+Veicolo{Id, numeroPosti, StatoVeicolo,ListaManutenzione, TipoVeicolo, listaTratte}
        						  
 Manutenzione{Id,Veicolo,dataInizio, dataFine}
 
-TesseraCliente {IDTessera, Nome, Cognome, DataNascita, Sesso, Categoria, DataScadenza, DataInizio, luogoDiResidenza??}
+TesseraCliente {IDTessera, Nome, Cognome, DataNascita, Sesso, Categoria, DataScadenza, DataInizio, luogoDiResidenza??,ListaAbbonamenti}
 
-Tratta{ID, Veicolo, mediaDurata(secondi), prezzo(alMinuto), tipoTratta, Partenza, Destinazione }
+Tratta{ID, Veicolo, mediaDurata(secondi), prezzo(alMinuto), tipoTratta, Partenza, Destinazione, ListaBiglietti}
 
 
 DAO
@@ -46,5 +46,6 @@ Categoria--->Studente
 TipoTratta--->Urbana
 	  |-->ExtraUrbana
 
-Citta??--->Palermo
-       |-->Catania
+
+Relazioni
+
