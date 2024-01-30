@@ -26,6 +26,18 @@ public class TesseraCliente {
     @Enumerated(EnumType.STRING)
     @Column(name = "categoria_cliente")
     private CategoriaCliente categoriaCliente;
+
+
+    @Column(name = "data_attivazione")
+    private LocalDate dataAttivazione;
+
+    @Column (name = "data_scadenza")
+    private LocalDate dataScadenza;
+
+    @Column(name = "stato_tessera")
+    private boolean statoTessera;
+
+
     @Transient
     private List<Integer> listaTessere = new ArrayList<>();
 

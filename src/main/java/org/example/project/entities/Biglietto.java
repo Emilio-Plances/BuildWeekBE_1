@@ -14,7 +14,9 @@ public class Biglietto extends ProdottoAcquistato{
     @JoinColumn(name="corsa_fk")
     private Corsa corsa;
 
-    public Biglietto() {
+    public Biglietto(LocalDate dataAcquisto, Venditore venditore, boolean timbrato) {
+        super(dataAcquisto, venditore);
+        this.timbrato = timbrato;
     }
 
     @Override

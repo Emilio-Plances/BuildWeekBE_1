@@ -44,4 +44,6 @@ public class TesseraDao {
         emf.close();
         em.close();
     }
+
+
 }

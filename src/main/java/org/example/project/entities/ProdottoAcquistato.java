@@ -23,6 +23,11 @@ public class ProdottoAcquistato {
     @JoinColumn(name="corsa_fk")
     private Corsa corsa;
 
+    public ProdottoAcquistato( LocalDate dataAcquisto, Venditore venditore) {
+        this.dataAcquisto = dataAcquisto;
+        this.venditore = venditore;
+
+    }
 
     public int getId() {
         return id;
@@ -58,11 +63,9 @@ public class ProdottoAcquistato {
 
     @Override
     public String toString() {
-        return "ProdottoAcquistato{" +
-                "id=" + id +
+        return  "id=" + id +
                 ", dataAcquisto=" + dataAcquisto +
                 ", venditore=" + venditore +
-                ", corsa=" + corsa +
-                '}';
+                ", corsa=" + corsa;
     }
 }

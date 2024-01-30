@@ -1,8 +1,6 @@
 package org.example.project.entities;
-
 import jakarta.persistence.*;
 import org.example.project.enums.TipoAbbonamento;
-import org.example.project.enums.TipoTratta;
 
 import java.time.LocalDate;
 
@@ -17,12 +15,21 @@ public class Abbonamento extends ProdottoAcquistato{
     private LocalDate fineValidita;
 
     @ManyToOne
-    @JoinColumn (name="tessera_cliente_fk")
+    @JoinColumn(name = "tessera_cliente_fk")
     private TesseraCliente tesseraCliente;
 
-    @Column(name = "prezzo_abbonamento")
-    private Double prezzoAbbonamento;
-    public Abbonamento() {
+//    @Column(name = "prezzo_abbonamento")
+//    private Double prezzoAbbonamento;
+
+    public Abbonamento( LocalDate dataAcquisto, Venditore venditore) {
+        super( dataAcquisto, venditore);
+    }
+
+    public Abbonamento( LocalDate dataAcquisto, Venditore venditore, TipoAbbonamento tipoAbbonamento, LocalDate fineValidita, TesseraCliente tesseraCliente, Double prezzoAbbonamento) {
+        super(dataAcquisto, venditore);
+        this.tipoAbbonamento = tipoAbbonamento;
+        this.fineValidita = fineValidita;
+        this.tesseraCliente = tesseraCliente;
     }
 
     public TipoAbbonamento getTipoAbbonamento() {
@@ -49,15 +56,46 @@ public class Abbonamento extends ProdottoAcquistato{
         this.tesseraCliente = tesseraCliente;
     }
 
+//    public Double getPrezzoAbbonamento() {
+//        return prezzoAbbonamento;
+//    }
+
+//    public void setPrezzoAbbonamento(double prezzoAbbonamento) {
+//        this.prezzoAbbonamento = prezzoAbbonamento;
+//    }
+//
+//    // Aggiunto un metodo per calcolare il prezzo dell'abbonamento in base alla tratta
+//    public void calcolaPrezzoAbbonamento(Tratta tratta) {
+//        if (tratta != null) {
+//            double prezzoTratta = tratta.getPrezzoTratta();
+//
+//            switch (tipoAbbonamento) {
+//                case ANNUALE:
+//                    setPrezzoAbbonamento(prezzoTratta * 365 * 0.7);
+//                    break;
+//                case MENSILE:
+//                    setPrezzoAbbonamento(prezzoTratta * 30* 0.8);
+//                    break;
+//                case SETTIMANALE:
+//                    setPrezzoAbbonamento(prezzoTratta * 7* 0.9);
+//                    break;
+//
+//                default:
+//                    setPrezzoAbbonamento(prezzoTratta);
+//                    break;
+//
+//            }
+//        }
+//    }
+
+
 
     @Override
     public String toString() {
-        return "Abbonamento{" +
-                "corsa=" + getCorsa() +
+        return  "corsa=" + getCorsa() +
                 "dataAcquisto=" + getDataAcquisto() +
                 "tipoAbbonamento=" + tipoAbbonamento +
                 ", fineValidita=" + fineValidita +
-                ", tesseraCliente=" + tesseraCliente +
-                '}';
+                ", tesseraCliente=" + tesseraCliente;
     }
 }

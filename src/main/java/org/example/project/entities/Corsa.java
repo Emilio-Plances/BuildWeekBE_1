@@ -3,7 +3,6 @@ package org.example.project.entities;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +22,16 @@ public class Corsa {
 
     @Column(name = "data_partenza")
     private LocalDateTime dataPartenza;
+    @Column(name = "data_arrivo")
+    private LocalDateTime dataArrivo;
     private int durata;
 
-    public Corsa() {
+    public Corsa() {}
+
+    public Corsa(Veicolo veicolo, Tratta tratta, LocalDateTime dataPartenza) {
+        this.veicolo = veicolo;
+        this.tratta = tratta;
+        this.dataPartenza = dataPartenza;
     }
 
     public int getId() {
