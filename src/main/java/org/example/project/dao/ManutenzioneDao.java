@@ -6,6 +6,8 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import org.example.project.entities.Manutenzione;
+import org.example.project.entities.Veicolo;
+import org.example.project.enums.StatoVeicolo;
 
 public class ManutenzioneDao {
     private final EntityManagerFactory emf;
@@ -18,11 +20,15 @@ public class ManutenzioneDao {
 
     public void saveManutenzione(Manutenzione manutenzione) throws Exception{
         EntityTransaction transaction = em.getTransaction();
+        Veicolo veicolo = manutenzione.getVeicoloM();
+        veicolo.setStatoVeicolo(StatoVeicolo.IN_MANUTENZIONE);
         transaction.begin();
         em.persist(manutenzione);
         transaction.commit();
         em.refresh(manutenzione);
     }
+
+
     public Manutenzione getManutenzioneById(int id) {
         return em.find(Manutenzione.class, id);
     }

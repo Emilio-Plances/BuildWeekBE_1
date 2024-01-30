@@ -3,7 +3,9 @@ package org.example.project.dao;
 import jakarta.persistence.*;
 import org.example.project.entities.Abbonamento;
 import org.example.project.entities.Biglietto;
+import org.example.project.entities.DistributoreAutomatico;
 import org.example.project.entities.ProdottoAcquistato;
+import org.example.project.enums.StatoDistributore;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,14 +22,18 @@ public class ProdottoDao {
     }
 
     // Metodo per salvare un elemento nel database
-    public void save(ProdottoAcquistato pa) throws Exception{
+    public void save(ProdottoAcquistato pa) throws Exception {
         EntityTransaction et = em.getTransaction();
         et.begin();
 
-        em.persist(pa);
-
+        if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato() == StatoDistributore.ATTIVO) {
+            em.persist(pa);
+        } else {
+            throw new Exception("Il distributore non è attivo.");
+        }
         et.commit();
     }
+
 
     // Metodo per ottenere un elemento dato il suo ISBN
     public ProdottoAcquistato getById(int id) throws Exception {
@@ -37,7 +43,6 @@ public class ProdottoDao {
     // Metodo per eliminare un elemento dal database
     public void delete(ProdottoAcquistato pa) throws Exception{
         ProdottoAcquistato pacq = getById(pa.getId());
-
         EntityTransaction et = em.getTransaction();
         et.begin();
 

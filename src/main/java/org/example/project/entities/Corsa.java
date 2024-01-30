@@ -1,6 +1,8 @@
 package org.example.project.entities;
 
 import jakarta.persistence.*;
+
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +26,13 @@ public class Corsa {
     @ManyToOne
     @JoinColumn(name = "corsa_fk",nullable = false)
     private Tratta tratta;
-    @OneToMany(mappedBy = "corsa")
+    @OneToMany(mappedBy = "corsa", cascade = CascadeType.ALL)
     private List<ProdottoAcquistato> prodottiAcquistati=new ArrayList<>();
 
     @Column(name = "data_partenza",nullable = false)
     private LocalDateTime dataPartenza;
     @Column(name = "data_arrivo")
-    private LocalDateTime dataArrivo;
+    private LocalDateTime dataArrivoEffettiva;
     private int durata;
 
     public Corsa() {}
@@ -85,11 +87,12 @@ public class Corsa {
     }
 
     public LocalDateTime getDataArrivo() {
-        return dataArrivo;
+        return dataArrivoEffettiva;
     }
 
     public void setDataArrivo(LocalDateTime dataArrivo) {
-        this.dataArrivo = dataArrivo;
+        this.dataArrivoEffettiva = dataArrivo;
+        aggiornaDurata();
     }
 
     public int getDurata() {
@@ -100,13 +103,24 @@ public class Corsa {
         this.durata = durata;
     }
 
+    public void aggiornaDurata() {
+        if (dataPartenza != null && dataArrivoEffettiva != null) {
+            Duration duration = Duration.between(dataPartenza, dataArrivoEffettiva);
+            this.durata = (int) duration.toMinutes();
+        }
+    }
+
+
+
+
+
     @Override
     public String toString() {
         return  "id=" + id +
                 ", veicolo=" + veicolo +
                 ", tratta=" + tratta +
                 ", dataPartenza=" + dataPartenza +
-                ", dataArrivo=" + dataArrivo +
+                ", dataArrivo=" + dataArrivoEffettiva +
                 ", durata=" + durata;
     }
 }

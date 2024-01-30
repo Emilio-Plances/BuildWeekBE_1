@@ -4,6 +4,9 @@ import jakarta.persistence.*;
 import org.example.project.enums.StatoVeicolo;
 import org.example.project.enums.TipoVeicolo;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -33,9 +36,8 @@ public class Veicolo {
     public Veicolo() {}
 
     public Veicolo(TipoVeicolo tipoVeicolo) {
-        this.numeroPosti = setNumeroPosti();
         this.statoVeicolo = StatoVeicolo.IN_SERVIZIO;
-        this.tipoVeicolo = tipoVeicolo;
+        setTipoVeicolo(tipoVeicolo);
     }
 
     public int setNumeroPosti(){
@@ -65,8 +67,28 @@ public class Veicolo {
     }
     public void setTipoVeicolo(TipoVeicolo tipoVeicolo) {
         this.tipoVeicolo = tipoVeicolo;
-        setNumeroPosti();
+        this.numeroPosti= setNumeroPosti();
     }
+
+
+
+    public boolean isDisponibile() {
+        return statoVeicolo == StatoVeicolo.IN_SERVIZIO && isVeicoloNonImpegnato();
+    }
+
+    private boolean isVeicoloNonImpegnato() {
+        if (listaCorse != null && !listaCorse.isEmpty()) {
+            for (Corsa corsa : listaCorse) {
+
+                if (corsa.getDataArrivo() == null || corsa.getDataArrivo().isAfter(LocalDateTime.now())) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+
     @Override
     public String toString() {
         return  "id=" + id +

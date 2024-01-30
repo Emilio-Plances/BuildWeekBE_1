@@ -7,6 +7,7 @@ import jakarta.persistence.Persistence;
 import org.example.project.entities.Biglietto;
 import org.example.project.entities.Corsa;
 import org.example.project.entities.ProdottoAcquistato;
+import org.example.project.entities.Veicolo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,10 @@ public class CorsaDao {
     public void aggiungiCorsa(Corsa c) throws Exception {
         EntityTransaction et = em.getTransaction();
         et.begin();
+        Veicolo veicolo = c.getVeicolo();
+        if (!veicolo.isDisponibile()) {
+            throw new Exception("Il veicolo non è disponibile per la corsa.");
+        }
         em.persist(c);
         et.commit();
         em.refresh(c);
