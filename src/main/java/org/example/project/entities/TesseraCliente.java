@@ -11,6 +11,8 @@ import java.util.Random;
 
 @Entity
 @Table(name="tessere_clienti")
+@NamedQuery(name = "getListaTessereScadute", query = "SELECT t FROM TesseraCliente t WHERE t.dataScadenza < :currentDate")
+
 public class TesseraCliente {
 
     @Id
@@ -33,8 +35,10 @@ public class TesseraCliente {
     private LocalDate dataScadenza;
 
     @Column(name = "stato_tessera")
-    private boolean statoTessera;
+    private boolean statoTessera = true;
 
+    @Column(name = "data_rinnovo")
+    private LocalDate dataRinnovo;
 
     @Transient
     private List<Integer> listaTessere = new ArrayList<>();
@@ -52,6 +56,9 @@ public class TesseraCliente {
         this.dataNascita = dataNascita;
         this.genere = genere;
         this.categoriaCliente = categoriaCliente;
+        this.dataAttivazione = LocalDate.now();
+        rinnovoTessera();
+
     }
     public int setNumTessera() throws Exception {
         Random random = new Random();
@@ -84,6 +91,46 @@ public class TesseraCliente {
 
     public int getTessera_cliente() {
         return tessera_cliente;
+    }
+
+    public LocalDate getDataAttivazione() {
+        return dataAttivazione;
+    }
+
+    public void setDataAttivazione(LocalDate dataAttivazione) {
+        this.dataAttivazione = dataAttivazione;
+    }
+
+    public LocalDate getDataScadenza() {
+        return dataScadenza;
+    }
+
+    public void setDataScadenza(LocalDate dataScadenza) {
+        this.dataScadenza = dataScadenza;
+    }
+
+    public boolean isStatoTessera() {
+        return statoTessera;
+    }
+
+    public void setStatoTessera(boolean statoTessera) {
+        this.statoTessera = statoTessera;
+    }
+
+    public List<Integer> getListaTessere() {
+        return listaTessere;
+    }
+
+    public void setListaTessere(List<Integer> listaTessere) {
+        this.listaTessere = listaTessere;
+    }
+
+    public List<Abbonamento> getListaAbbonamenti() {
+        return listaAbbonamenti;
+    }
+
+    public void setListaAbbonamenti(List<Abbonamento> listaAbbonamenti) {
+        this.listaAbbonamenti = listaAbbonamenti;
     }
 
     public void setTessera_cliente(int tessera_cliente) {
@@ -129,4 +176,14 @@ public class TesseraCliente {
     public void setCategoriaCliente(CategoriaCliente categoriaCliente) {
         this.categoriaCliente = categoriaCliente;
     }
+
+    public void rinnovoTessera(){
+        if(!statoTessera){
+        this.dataRinnovo = LocalDate.now();
+        this.dataScadenza = LocalDate.now().plusYears(1);}
+        else{
+            System.out.println("La tessera non è scaduta");
+        }
+    }
+
 }
