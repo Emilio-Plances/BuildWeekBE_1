@@ -93,7 +93,7 @@ public class Abbonamento extends ProdottoAcquistato{
     @Override
     public String toString() {
         return "Abbonamento{" +
-                "tratta=" + getTratta() +
+                "corsa=" + getCorsa() +
                 "dataAcquisto=" + getDataAcquisto() +
                 "tipoAbbonamento=" + tipoAbbonamento +
                 ", fineValidita=" + fineValidita +

@@ -13,43 +13,25 @@ public class Tratta {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_tratta")
     @SequenceGenerator(name = "sequenza_tratta",initialValue = 1,allocationSize = 1)
     private int id;
-    @ManyToOne
-    @JoinColumn(name = "veicolo_id")
-    private Veicolo veicoloT;
+
     @Column(name =  "media_durata")
     private int mediaDurata;
-    @Column(name = "prezzo_al_minuto")
-    private double prezzoAlMinuto;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_tratta")
     private TipoTratta  tipoTratta;
     private String partenza;
     private String destinazione;
-    @Column(name = "prezzo_tratta")
-    private Double prezzoTratta;
 
     @OneToMany(mappedBy = "tratta")
-    private List<ProdottoAcquistato> prodottiAcquistati;
-
-    private int bigliettiTimbrati=0;
+    private List<Corsa> listaCorse;
 
     public Tratta(){}
 
-    public Tratta(Veicolo veicoloT, int mediaDurata, int prezzoAlMinuto, TipoTratta tipoTratta, String partenza, String destinazione) {
-        this.veicoloT = veicoloT;
-        this.mediaDurata = mediaDurata;
-        this.prezzoAlMinuto = setPrezzoAlMinuto();
+    public Tratta(TipoTratta tipoTratta, String partenza, String destinazione) {
         this.tipoTratta = tipoTratta;
         this.partenza = partenza;
         this.destinazione = destinazione;
-        prezzoTratta = mediaDurata * setPrezzoAlMinuto();
-    }
-    public double setPrezzoAlMinuto(){
-        if (tipoTratta.equals(TipoTratta.URBANA)){
-            return prezzoAlMinuto = 0.4;
-        }else {
-            return prezzoAlMinuto= 0.7;
-        }
     }
 
     public double getPrezzoAlMinuto() {
@@ -70,18 +52,6 @@ public class Tratta {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public Veicolo getVeicolo() {
-        return veicoloT;
-    }
-
-    public void setVeicolo(Veicolo veicolo) {
-        this.veicoloT = veicolo;
     }
 
     public int getMediaDurata() {
@@ -118,14 +88,10 @@ public class Tratta {
 
     @Override
     public String toString() {
-        return "Tratta{" +
-                "id=" + id +
-                ", veicolo=" + veicoloT +
+        return "id=" + id +
                 ", mediaDurata=" + mediaDurata +
-                ", prezzoAlMinuto=" + prezzoAlMinuto +
                 ", tipoTratta=" + tipoTratta +
                 ", partenza='" + partenza + '\'' +
-                ", destinazione='" + destinazione + '\'' +
-                '}';
+                ", destinazione='" + destinazione + '\'';
     }
 }
