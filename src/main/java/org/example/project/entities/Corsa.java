@@ -7,7 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="corse")
+@Table(name = "corsa")
+@NamedQueries({
+        @NamedQuery(
+                name = "Corsa.trovaBigliettiTimbrati",
+                query = "SELECT b FROM Corsa c JOIN c.prodottiAcquistati b WHERE TYPE(b) = Biglietto AND b.timbrato = true"
+        )
+})
 public class Corsa {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_venditore")
@@ -20,7 +26,7 @@ public class Corsa {
     @JoinColumn(name = "corsa_fk")
     private Tratta tratta;
     @OneToMany(mappedBy = "corsa")
-    private List<ProdottoAcquistato> prodottiAcquistati;
+    private List<ProdottoAcquistato> prodottiAcquistati=new ArrayList<>();
 
     @Column(name = "data_partenza")
     private LocalDateTime dataPartenza;
@@ -34,6 +40,26 @@ public class Corsa {
         this.veicolo = veicolo;
         this.tratta = tratta;
         this.dataPartenza = dataPartenza;
+    }
+    public static List<Biglietto> getBigliettiTimbrati (Corsa corsa){
+        List<Biglietto> biglietti = new ArrayList<>();
+        for(ProdottoAcquistato p : corsa.getProdottiAcquistati()){
+            if (p instanceof Biglietto){
+                biglietti.add(((Biglietto)p));
+            }
+        }
+        return biglietti;
+    }
+
+    public void timbraBiglietto(Biglietto biglietto){
+       for(ProdottoAcquistato prodottoAcquistato : prodottiAcquistati){
+           if(prodottoAcquistato instanceof Biglietto b){
+               if (b.getId() == biglietto.getId()){
+                   b.setTimbrato(true);
+                   break;
+               }
+           }
+       }
     }
 
     public int getId() {
