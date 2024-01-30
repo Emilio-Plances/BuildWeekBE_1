@@ -24,6 +24,18 @@ public class Corsa {
     public Corsa() {
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public List<ProdottoAcquistato> getProdottiAcquistati() {
+        return prodottiAcquistati;
+    }
+
+    public void addProdotto(ProdottoAcquistato prodotto){
+        prodottiAcquistati.add(prodotto);
+    }
+
     public Veicolo getVeicolo() {
         return veicolo;
     }
@@ -46,5 +58,14 @@ public class Corsa {
 
     public void setDurata(int durata) {
         this.durata = durata;
+    }
+
+    @Override
+    public String toString() {
+        return  "id=" + id +
+                ", veicolo=" + veicolo +
+                ", tratta=" + tratta +
+                ", prodottiAcquistati=" + prodottiAcquistati +
+                ", durata=" + durata;
     }
 }
