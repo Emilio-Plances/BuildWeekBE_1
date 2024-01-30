@@ -15,15 +15,16 @@ public class Biglietto extends ProdottoAcquistato{
 
     private boolean timbrato=false;
 
-    public Biglietto(LocalDate oraPartenza) {
+
+
+    public Biglietto(LocalDate oraPartenza, LocalDate dataAcquisto, Venditore venditore, Tratta tratta) {
+        super(dataAcquisto, venditore, tratta);
         this.oraPartenza = oraPartenza;
     }
 
-    public Biglietto() {
-    }
 
-    public LocalDate getOraPartenza() {
-        return oraPartenza;
+
+    public LocalDate getOraPartenza() {return oraPartenza;
     }
 
     public void setOraPartenza(LocalDate oraPartenza) {
