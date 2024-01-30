@@ -1,38 +1,41 @@
 package org.example.project.dao;
 
+
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.Persistence;
 import org.example.project.entities.Manutenzione;
 
-import java.util.List;
-
-
 public class ManutenzioneDao {
-    private EntityManager entityManager;
+    private final EntityManagerFactory emf;
+    private final EntityManager em;
 
-    public ManutenzioneDao(EntityManager entityManager) {
-        this.entityManager = entityManager;
+    public ManutenzioneDao() {
+        emf= Persistence.createEntityManagerFactory("biglietteria");
+        em=emf.createEntityManager();
     }
 
-    public void saveManutenzione(Manutenzione manutenzione) {
-        EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.persist(manutenzione);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
+    public void saveManutenzione(Manutenzione manutenzione) throws Exception{
+        EntityTransaction transaction = em.getTransaction();
+        transaction.begin();
+        em.persist(manutenzione);
+        transaction.commit();
+        em.refresh(manutenzione);
     }
     public Manutenzione getManutenzioneById(int id) {
-        return entityManager.find(Manutenzione.class, id);
+        return em.find(Manutenzione.class, id);
     }
 
-    public List<Manutenzione> getAllManutenzioni() {
-        return entityManager.createQuery("seleziona oggetti da Manutenzione ", Manutenzione.class).getResultList();
+    public void deleteManutenzione(int id){
+        EntityTransaction et=em.getTransaction();
+        et.begin();
+        em.remove(getManutenzioneById(id));
+        et.commit();
     }
 
+    public void closeEM(){
+        emf.close();
+        em.close();
+    }
 }

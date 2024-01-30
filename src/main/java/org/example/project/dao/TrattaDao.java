@@ -22,7 +22,7 @@ public class TrattaDao {
         em.refresh(t);
     }
 
-    public Tratta cercaTrattaById(int id) throws Exception{
+    public Tratta cercaTrattaById(int id){
         return em.find(Tratta.class,id);
     }
 

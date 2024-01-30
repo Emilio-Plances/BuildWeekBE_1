@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name="corse")
 public class Corsa {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_venditore")
@@ -18,7 +20,7 @@ public class Corsa {
     @JoinColumn(name = "corsa_fk")
     private Tratta tratta;
     @OneToMany(mappedBy = "corsa")
-    private List<ProdottoAcquistato> prodottiAcquistati=new ArrayList<>();
+    private List<ProdottoAcquistato> prodottiAcquistati;
 
     @Column(name = "data_partenza")
     private LocalDateTime dataPartenza;

@@ -14,7 +14,7 @@ public class VenditoreDao {
         em=emf.createEntityManager();
     }
 
-    public void aggiungiVenditore(Venditore v) throws Exception{
+    public void save(Venditore v) throws Exception{
         EntityTransaction et=em.getTransaction();
         et.begin();
         em.persist(v);
@@ -22,14 +22,14 @@ public class VenditoreDao {
         em.refresh(v);
     }
 
-    public Venditore cercaVenditoreById(int id) throws Exception{
+    public Venditore getById(int id){
         return em.find(Venditore.class,id);
     }
 
-    public void cancellaVenditoreById(int id) throws Exception{
+    public void deleteById(int id) throws Exception{
         EntityTransaction et=em.getTransaction();
         et.begin();
-        em.remove(cercaVenditoreById(id));
+        em.remove(getById(id));
         et.commit();
     }
 

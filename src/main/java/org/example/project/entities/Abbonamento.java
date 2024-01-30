@@ -6,6 +6,8 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name="abbonamenti")
+@NamedQuery(name="checkValidita",query = "SELECT a FROM Abbonamento a WHERE a.id=:id ")
+@NamedQuery(name="abbonamentiScaduti",query = "SELECT a FROM Abbonamento a WHERE a.fineValidita<CURRENT_DATE")
 public class Abbonamento extends ProdottoAcquistato{
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_abbonamento")
@@ -18,14 +20,15 @@ public class Abbonamento extends ProdottoAcquistato{
     @JoinColumn(name = "tessera_cliente_fk")
     private TesseraCliente tesseraCliente;
 
+    private boolean validitaAbbonamento=true;
+
 //    @Column(name = "prezzo_abbonamento")
 //    private Double prezzoAbbonamento;
 
-    public Abbonamento( LocalDate dataAcquisto, Venditore venditore) {
-        super( dataAcquisto, venditore);
+    public Abbonamento() {
     }
 
-    public Abbonamento( LocalDate dataAcquisto, Venditore venditore, TipoAbbonamento tipoAbbonamento, LocalDate fineValidita, TesseraCliente tesseraCliente, Double prezzoAbbonamento) {
+    public Abbonamento( LocalDate dataAcquisto, Venditore venditore, TipoAbbonamento tipoAbbonamento, TesseraCliente tesseraCliente) {
         super(dataAcquisto, venditore);
         this.tipoAbbonamento = tipoAbbonamento;
         this.fineValidita = fineValidita;
@@ -89,6 +92,13 @@ public class Abbonamento extends ProdottoAcquistato{
 //    }
 
 
+    public boolean isValiditaAbbonamento() {
+        return validitaAbbonamento;
+    }
+
+    public void setValiditaAbbonamento(boolean validitaAbbonamento) {
+        this.validitaAbbonamento = validitaAbbonamento;
+    }
 
     @Override
     public String toString() {

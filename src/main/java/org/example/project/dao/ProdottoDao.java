@@ -1,10 +1,12 @@
 package org.example.project.dao;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
+import jakarta.persistence.*;
+import org.example.project.entities.Abbonamento;
+import org.example.project.entities.Biglietto;
 import org.example.project.entities.ProdottoAcquistato;
+
+import java.time.LocalDate;
+import java.util.List;
 
 
 public class ProdottoDao {
@@ -45,10 +47,34 @@ public class ProdottoDao {
     }
 
     // Metodo per chiudere l'EntityManager e l'EntityManagerFactory
-    public void close() throws Exception{
+    public void closeEM(){
         em.close();
         emf.close();
     }
 
+    public boolean checkValidita(int id){
+        Query q=em.createNamedQuery("checkValidita");
+        q.setParameter("id",id);
+        ProdottoAcquistato prod=(ProdottoAcquistato) q.getSingleResult();
+        if(prod instanceof Abbonamento a) return a.isValiditaAbbonamento();
+        return false;
+    }
+    public List<Abbonamento> abbonamentiScaduti(){
+        Query q = em.createNamedQuery("abbonamentiScaduti");
+        return q.getResultList();
+    }
 
+    public List<ProdottoAcquistato> venditeEffettuateInData(LocalDate dataInizio,LocalDate dataFine,int idVenditore){
+        Query q=em.createNamedQuery("bigliettiVenduti");
+        q.setParameter("dataInizio",dataInizio);
+        q.setParameter("dataFine",dataFine);
+        q.setParameter("idVenditore",idVenditore);
+        return q.getResultList();
+    }
+
+    public List<ProdottoAcquistato> vendutiDaVenditore(int idVenditore){
+        Query q= em.createNamedQuery("vendutiDaVenditore");
+        q.setParameter("idVenditore",idVenditore);
+        return q.getResultList();
+    }
 }

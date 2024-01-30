@@ -14,36 +14,35 @@ public class TesseraDao {
         this.emf = Persistence.createEntityManagerFactory("biglietteria");
         this.em = emf.createEntityManager();
     }
-    public void save (Tratta a){
+    public void save (TesseraCliente t){
         try {
             EntityTransaction et = em.getTransaction();
             et.begin();
-            em.persist(a);
+            em.persist(t);
             et.commit();
+            em.refresh(t);
         }catch (Exception e ){
             e.printStackTrace();
         }
+
     }
 
-    public Tratta getById(int id) {
-        return em.find(Tratta.class,id);
+    public TesseraCliente getById(int id) {
+        return em.find(TesseraCliente.class,id);
     }
-    public void delete (Tratta a){
+    public void delete (int id){
         try{
             EntityTransaction et = em.getTransaction();
             et.begin();
-            Tratta art = getById(a.getId());
-            em.remove(art);
+            TesseraCliente tes = getById(id);
+            em.remove(tes);
             et.commit();
         }catch (Exception e){
             e.printStackTrace();
         }
     }
-
-    public void close() {
+    public void closeEM() {
         emf.close();
         em.close();
     }
-
-
 }

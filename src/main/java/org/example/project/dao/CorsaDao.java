@@ -21,7 +21,7 @@ public class CorsaDao {
         em.refresh(c);
     }
 
-    public Corsa cercaCorsaById(int id) throws Exception{
+    public Corsa cercaCorsaById(int id){
         return em.find(Corsa.class,id);
     }
 

@@ -31,7 +31,9 @@ public class VeicoloDao {
             entityManager.close();
         }
     }
-
+    public void closeEM(){
+        entityManagerFactory.close();
+    }
 
 }
 

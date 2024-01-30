@@ -6,7 +6,9 @@ import java.time.LocalDate;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class ProdottoAcquistato {
+@NamedQuery(name="bigliettiVenduti", query="SELECT COUNT(p) FROM ProdottoAcquistato p WHERE :dataInizio>=p.dataAcquisto AND :dataFine<=p.dataAcquisto AND p.venditore=:idVenditore ")
+@NamedQuery(name="vendutiDaVenditore",query="SELECT COUNT(p) FROM ProdottoAcquistato p WHERE p.venditore=:idVenditore")
+public abstract class ProdottoAcquistato {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_prodotto")
     @SequenceGenerator(name="sequenza_prodotto",initialValue = 1,allocationSize = 1)
@@ -23,6 +25,7 @@ public class ProdottoAcquistato {
     @JoinColumn(name="corsa_fk")
     private Corsa corsa;
 
+    public ProdottoAcquistato(){}
     public ProdottoAcquistato( LocalDate dataAcquisto, Venditore venditore) {
         this.dataAcquisto = dataAcquisto;
         this.venditore = venditore;
