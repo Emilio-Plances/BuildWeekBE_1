@@ -45,16 +45,13 @@ public class Corsa {
         this.veicolo = veicolo;
         this.tratta = tratta;
         this.dataPartenza = dataPartenza;
-        this.dataArrivo= dataArrivo;
-        this.durata = setDataArrivo();
     }
 
-    public int setDataArrivo() {
-
+    public void setDataArrivo(LocalDateTime dataArrivo) {
+        this.dataArrivo=dataArrivo;
         if (dataArrivo.isAfter(dataPartenza)){
             this.durata = (int) Duration.between(this.dataPartenza, this.dataArrivo).toMinutes();
         }
-        return durata;
     }
 
     public void timbraBiglietto(Biglietto biglietto){
@@ -101,10 +98,6 @@ public class Corsa {
 
     public LocalDateTime getDataArrivo() {
         return dataArrivo;
-    }
-
-    public void setDataArrivo(LocalDateTime dataArrivo) {
-        this.dataArrivo = dataArrivo;
     }
 
     public int getDurata() {

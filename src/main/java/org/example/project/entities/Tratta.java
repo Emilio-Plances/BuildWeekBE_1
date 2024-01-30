@@ -13,10 +13,8 @@ public class Tratta {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenza_tratta")
     @SequenceGenerator(name = "sequenza_tratta", initialValue = 1, allocationSize = 1)
     private int id;
-
     @Column(name = "media_durata")
     private Double mediaDurata;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_tratta", nullable = false)
     private TipoTratta tipoTratta;
@@ -38,15 +36,15 @@ public class Tratta {
         this.mediaDurata = setmediaDurata();
     }
 
-    public Double setmediaDurata() {
-        Integer somma = 0;
-        Double media;
-        if (listaCorse != null && listaCorse.isEmpty()){
+    public double setmediaDurata() {
+        int somma = 0;
+        if (listaCorse != null && !listaCorse.isEmpty()){
             for (Corsa c : listaCorse) {
                 somma += c.getDurata();
             }
+            return (double) somma / this.listaCorse.size();
         }
-        return media = (double) somma / this.listaCorse.size();
+        return 0;
     }
 
     public int getId() {
@@ -84,7 +82,6 @@ public class Tratta {
     public void setDestinazione(String destinazione) {
         this.destinazione = destinazione;
     }
-
     @Override
     public String toString() {
         return "id=" + id +
