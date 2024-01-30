@@ -9,14 +9,13 @@ import java.time.LocalDate;
 public class Biglietto extends ProdottoAcquistato {
 
     private boolean timbrato = false;
+    public Biglietto() {}
+    public Biglietto(Venditore venditore, Corsa corsa) {
+        super(venditore, corsa);
+    }
 
-    @OneToMany()
-    @JoinColumn(name = "corsa_fk")
-    private Corsa corsa;
-
-    public Biglietto(LocalDate dataAcquisto, Venditore venditore, boolean timbrato) {
-        super(dataAcquisto, venditore);
-        this.timbrato = timbrato;
+    public boolean isTimbrato() {
+        return timbrato;
     }
 
     public void setTimbrato(boolean timbrato) {
@@ -25,7 +24,7 @@ public class Biglietto extends ProdottoAcquistato {
 
     @Override
     public String toString() {
-        return "corsa=" + getCorsa() +
-                "dataAcquisto=" + getDataAcquisto();
+        return super.toString()+
+                ", timbrato=" + timbrato;
     }
 }

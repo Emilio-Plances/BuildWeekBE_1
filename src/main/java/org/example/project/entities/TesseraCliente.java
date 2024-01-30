@@ -14,11 +14,9 @@ import java.util.Random;
 @NamedQuery(name = "getListaTessereScadute", query = "SELECT t FROM TesseraCliente t WHERE t.dataScadenza < :currentDate")
 
 public class TesseraCliente {
-
     @Id
     @Column(name = "tessera_cliente")
     private int tessera_cliente;
-
     private String nome;
     private String cognome;
     @Column(name = "data_di_nascita")
@@ -46,7 +44,6 @@ public class TesseraCliente {
     @OneToMany(mappedBy = "tesseraCliente")
     private List<Abbonamento> listaAbbonamenti;
 
-
     public TesseraCliente() {  }
 
     public TesseraCliente(String nome, String cognome, LocalDate dataNascita, Genere genere, CategoriaCliente categoriaCliente) throws Exception {
@@ -58,7 +55,6 @@ public class TesseraCliente {
         this.categoriaCliente = categoriaCliente;
         this.dataAttivazione = LocalDate.now();
         rinnovoTessera();
-
     }
     public int setNumTessera() throws Exception {
         Random random = new Random();
@@ -76,17 +72,13 @@ public class TesseraCliente {
             throw new Exception("No more space in archive");
         }
     }
-
-    @Override
-    public String toString() {
-        return "TesseraCliente{" +
-                "tessera_cliente=" + tessera_cliente +
-                ", nome='" + nome + '\'' +
-                ", cognome='" + cognome + '\'' +
-                ", dataNascita=" + dataNascita +
-                ", genere=" + genere +
-                ", categoriaCliente=" + categoriaCliente +
-                '}';
+    public void rinnovoTessera(){
+        if(!statoTessera){
+        this.dataRinnovo = LocalDate.now();
+        this.dataScadenza = LocalDate.now().plusYears(1);}
+        else{
+            System.out.println("La tessera non è scaduta");
+        }
     }
 
     public int getTessera_cliente() {
@@ -97,44 +89,16 @@ public class TesseraCliente {
         return dataAttivazione;
     }
 
-    public void setDataAttivazione(LocalDate dataAttivazione) {
-        this.dataAttivazione = dataAttivazione;
-    }
-
-    public LocalDate getDataScadenza() {
-        return dataScadenza;
-    }
-
-    public void setDataScadenza(LocalDate dataScadenza) {
-        this.dataScadenza = dataScadenza;
-    }
-
-    public boolean isStatoTessera() {
-        return statoTessera;
-    }
-
-    public void setStatoTessera(boolean statoTessera) {
-        this.statoTessera = statoTessera;
+    public LocalDate getDataRinnovo() {
+        return dataRinnovo;
     }
 
     public List<Integer> getListaTessere() {
         return listaTessere;
     }
 
-    public void setListaTessere(List<Integer> listaTessere) {
-        this.listaTessere = listaTessere;
-    }
-
     public List<Abbonamento> getListaAbbonamenti() {
         return listaAbbonamenti;
-    }
-
-    public void setListaAbbonamenti(List<Abbonamento> listaAbbonamenti) {
-        this.listaAbbonamenti = listaAbbonamenti;
-    }
-
-    public void setTessera_cliente(int tessera_cliente) {
-        this.tessera_cliente = tessera_cliente;
     }
 
     public String getNome() {
@@ -177,13 +141,33 @@ public class TesseraCliente {
         this.categoriaCliente = categoriaCliente;
     }
 
-    public void rinnovoTessera(){
-        if(!statoTessera){
-        this.dataRinnovo = LocalDate.now();
-        this.dataScadenza = LocalDate.now().plusYears(1);}
-        else{
-            System.out.println("La tessera non è scaduta");
-        }
+    public LocalDate getDataScadenza() {
+        return dataScadenza;
     }
 
+    public void setDataScadenza(LocalDate dataScadenza) {
+        this.dataScadenza = dataScadenza;
+    }
+
+    public boolean isStatoTessera() {
+        return statoTessera;
+    }
+
+    public void setStatoTessera(boolean statoTessera) {
+        this.statoTessera = statoTessera;
+    }
+
+    @Override
+    public String toString() {
+        return  "tessera_cliente=" + tessera_cliente +
+                ", nome='" + nome + '\'' +
+                ", cognome='" + cognome + '\'' +
+                ", dataNascita=" + dataNascita +
+                ", genere=" + genere +
+                ", categoriaCliente=" + categoriaCliente +
+                ", dataAttivazione=" + dataAttivazione +
+                ", dataScadenza=" + dataScadenza +
+                ", statoTessera=" + statoTessera +
+                ", dataRinnovo=" + dataRinnovo;
+    }
 }

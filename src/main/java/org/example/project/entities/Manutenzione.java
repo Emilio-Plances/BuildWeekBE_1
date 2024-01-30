@@ -25,43 +25,47 @@ public class Manutenzione {
     @Column(name = "data_fine")
     private LocalDate dataFine;
 
-    public Manutenzione(int id, Veicolo veicoloM, LocalDate dataInizio, LocalDate dataFine) {
-        this.id = id;
+    public Manutenzione() {}
+
+    public Manutenzione(Veicolo veicoloM, LocalDate dataInizio, LocalDate dataFine) {
         this.veicoloM = veicoloM;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
-    }
-
-    public LocalDate getDataInizio() {
-        return dataInizio;
-    }
-
-    public LocalDate getDataFine() {
-        return dataFine;
-    }
-
-    public void setDataInizio(LocalDate dataInizio) {
-        this.dataInizio = dataInizio;
-    }
-    public void setDataFine(LocalDate dataFine) {
-        this.dataFine = dataFine;
-    }
-
-    public Veicolo getVeicolo() {
-        return veicoloM;
     }
 
     public int getId() {
         return id;
     }
 
+    public Veicolo getVeicoloM() {
+        return veicoloM;
+    }
+
+    public void setVeicoloM(Veicolo veicoloM) {
+        this.veicoloM = veicoloM;
+    }
+
+    public LocalDate getDataInizio() {
+        return dataInizio;
+    }
+
+    public void setDataInizio(LocalDate dataInizio) {
+        this.dataInizio = dataInizio;
+    }
+
+    public LocalDate getDataFine() {
+        return dataFine;
+    }
+
+    public void setDataFine(LocalDate dataFine) {
+        this.dataFine = dataFine;
+    }
+
     @Override
     public String toString() {
-        return "Manutenzione{" +
-                "id=" + id +
-                ", veicolo=" + veicoloM +
-                ", dataInizio='" + dataInizio + '\'' +
-                ", dataFine='" + dataFine + '\'' +
-                '}';
+        return  "id=" + id +
+                ", veicoloM=" + veicoloM +
+                ", dataInizio=" + dataInizio +
+                ", dataFine=" + dataFine;
     }
 }

@@ -41,7 +41,7 @@ public class TesseraDao {
         }
     }
 
-    public void close() {
+    public void closeEM() {
         emf.close();
         em.close();
     }

@@ -41,15 +41,6 @@ public class Corsa {
         this.tratta = tratta;
         this.dataPartenza = dataPartenza;
     }
-    public static List<Biglietto> getBigliettiTimbrati (Corsa corsa){
-        List<Biglietto> biglietti = new ArrayList<>();
-        for(ProdottoAcquistato p : corsa.getProdottiAcquistati()){
-            if (p instanceof Biglietto){
-                biglietti.add(((Biglietto)p));
-            }
-        }
-        return biglietti;
-    }
 
     public void timbraBiglietto(Biglietto biglietto){
        for(ProdottoAcquistato prodottoAcquistato : prodottiAcquistati){
@@ -70,10 +61,6 @@ public class Corsa {
         return prodottiAcquistati;
     }
 
-    public void addProdotto(ProdottoAcquistato prodotto){
-        prodottiAcquistati.add(prodotto);
-    }
-
     public Veicolo getVeicolo() {
         return veicolo;
     }
@@ -90,6 +77,22 @@ public class Corsa {
         this.tratta = tratta;
     }
 
+    public LocalDateTime getDataPartenza() {
+        return dataPartenza;
+    }
+
+    public void setDataPartenza(LocalDateTime dataPartenza) {
+        this.dataPartenza = dataPartenza;
+    }
+
+    public LocalDateTime getDataArrivo() {
+        return dataArrivo;
+    }
+
+    public void setDataArrivo(LocalDateTime dataArrivo) {
+        this.dataArrivo = dataArrivo;
+    }
+
     public int getDurata() {
         return durata;
     }
@@ -103,7 +106,8 @@ public class Corsa {
         return  "id=" + id +
                 ", veicolo=" + veicolo +
                 ", tratta=" + tratta +
-                ", prodottiAcquistati=" + prodottiAcquistati +
+                ", dataPartenza=" + dataPartenza +
+                ", dataArrivo=" + dataArrivo +
                 ", durata=" + durata;
     }
 }

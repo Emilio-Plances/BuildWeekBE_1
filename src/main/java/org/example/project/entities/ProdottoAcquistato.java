@@ -26,18 +26,15 @@ public abstract class ProdottoAcquistato {
     private Corsa corsa;
 
     public ProdottoAcquistato(){}
-    public ProdottoAcquistato( LocalDate dataAcquisto, Venditore venditore) {
-        this.dataAcquisto = dataAcquisto;
-        this.venditore = venditore;
 
+    public ProdottoAcquistato(Venditore venditore, Corsa corsa) {
+        this.venditore = venditore;
+        this.corsa = corsa;
+        dataAcquisto=LocalDate.now();
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public LocalDate getDataAcquisto() {

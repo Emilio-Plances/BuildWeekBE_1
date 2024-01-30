@@ -14,7 +14,8 @@ public class DistributoreAutomatico extends Venditore{
 
     public DistributoreAutomatico(){}
 
-    public DistributoreAutomatico(StatoDistributore stato) {
+    public DistributoreAutomatico(String name, StatoDistributore stato) {
+        super(name);
         this.stato = stato;
     }
 
@@ -29,6 +30,6 @@ public class DistributoreAutomatico extends Venditore{
     @Override
     public String toString() {
         return  super.toString()+
-                "stato=" + stato;
+                ", stato=" + stato;
     }
 }

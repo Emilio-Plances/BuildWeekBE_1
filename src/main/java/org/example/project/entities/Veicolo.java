@@ -34,78 +34,48 @@ public class Veicolo {
     @OneToMany(mappedBy = "veicolo", cascade = CascadeType.ALL)
     private List<Corsa> listaCorse;
 
-    public Veicolo(int id, StatoVeicolo stato, TipoVeicolo tipoVeicolo) {
-        this.id = id;
-        this.numeroPosti = setCapianzaVeiclo();
+    public Veicolo() {}
+
+    public Veicolo(TipoVeicolo tipoVeicolo) {
+        this.numeroPosti = setNumeroPosti();
         this.statoVeicolo = StatoVeicolo.IN_SERVIZIO;
         this.tipoVeicolo = tipoVeicolo;
-        this.manutenzioni = new ArrayList<>();
-        this.listaCorse = new ArrayList<>();
     }
 
-    public int setCapianzaVeiclo(){
+    public int setNumeroPosti(){
         if (this.tipoVeicolo.equals(TipoVeicolo.TRAM)){
             return 50;
         }else {
             return 100;
         }
     }
-
-    public void setStateVeicolo(StatoVeicolo state) {
-        this.statoVeicolo = state;
-    }
-
-    public StatoVeicolo getStateVeicolo() {
-        return statoVeicolo;
-    }
-
-    public void addManutenzione(Manutenzione manutenzione) {
-        manutenzioni.add(manutenzione);
-    }
-
-    public void removeManutenzione(Manutenzione manutenzione) {
-        manutenzioni.remove(manutenzione);
-    }
-
-    public void addCorsa(Corsa corsa) {
-        listaCorse.add(corsa);
-    }
-
-    public void removeCorsa(Corsa corsa) {
-        listaCorse.remove(corsa);
-    }
-
-    public int getNumeroPosti() {
-        return numeroPosti;
-    }
-
-    public TipoVeicolo getTipoVeicolo() {
-        return tipoVeicolo;
-    }
-
     public int getId() {
         return id;
     }
-
-    public void setId(int id) {
-        this.id = id;
+    public int getNumeroPosti() {
+        return numeroPosti;
     }
-
+    public void setNumeroPosti(int numeroPosti) {
+        this.numeroPosti = numeroPosti;
+    }
     public StatoVeicolo getStatoVeicolo() {
         return statoVeicolo;
     }
-
     public void setStatoVeicolo(StatoVeicolo statoVeicolo) {
         this.statoVeicolo = statoVeicolo;
     }
-
+    public TipoVeicolo getTipoVeicolo() {
+        return tipoVeicolo;
+    }
+    public void setTipoVeicolo(TipoVeicolo tipoVeicolo) {
+        this.tipoVeicolo = tipoVeicolo;
+        setNumeroPosti();
+    }
     @Override
     public String toString() {
-        return "Veicolo{" +
-                "id=" + id +
+        return  "id=" + id +
                 ", numeroPosti=" + numeroPosti +
                 ", statoVeicolo=" + statoVeicolo +
-                ", tipoVeicolo=" + tipoVeicolo +
-                '}';
+                ", tipoVeicolo=" + tipoVeicolo;
     }
 }
