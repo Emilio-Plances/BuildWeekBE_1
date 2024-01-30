@@ -25,6 +25,11 @@ public class ProdottoAcquistato {
     @JoinColumn(name="tratta_fk")
     private Tratta tratta;
 
+    public ProdottoAcquistato( LocalDate dataAcquisto, Venditore venditore, Tratta tratta) {
+        this.dataAcquisto = dataAcquisto;
+        this.venditore = venditore;
+        this.tratta = tratta;
+    }
 
     public int getId() {
         return id;
