@@ -22,9 +22,14 @@ public class Abbonamento extends ProdottoAcquistato{
     @Column(name="validita_abbonamento",nullable = false)
     private boolean validitaAbbonamento=true;
 
+    @ManyToOne
+    @JoinColumn(name="tratta_fk",nullable = false)
+    private Tratta tratta;
+
     public Abbonamento() {}
-    public Abbonamento(Venditore venditore, Corsa corsa, TipoAbbonamento tipoAbbonamento, TesseraCliente tesseraCliente) {
-        super(venditore, corsa);
+    public Abbonamento(Venditore venditore, Tratta tratta, TipoAbbonamento tipoAbbonamento, TesseraCliente tesseraCliente) {
+        super(venditore);
+        this.tratta=tratta;
         this.tipoAbbonamento = tipoAbbonamento;
         this.tesseraCliente = tesseraCliente;
     }
@@ -61,6 +66,7 @@ public class Abbonamento extends ProdottoAcquistato{
     public String toString() {
         return  super.toString()+
                 ", tipoAbbonamento=" + tipoAbbonamento +
+                ", tratta="+ tratta+
                 ", fineValidita=" + fineValidita +
                 ", tesseraCliente=" + tesseraCliente +
                 ", validitaAbbonamento=" + validitaAbbonamento;

@@ -10,17 +10,16 @@ import java.util.List;
 
 
 public class VeicoloDao {
+    EntityManager entityManager;
     private EntityManagerFactory emf;
 
     public VeicoloDao() {
-
         this.emf = Persistence.createEntityManagerFactory("biglietteria");
+        entityManager =emf.createEntityManager();
     }
 
     public void saveVeicolo(Veicolo veicolo) {
-        EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
-
         try {
             transaction.begin();
             entityManager.persist(veicolo);
@@ -30,12 +29,21 @@ public class VeicoloDao {
                 transaction.rollback();
             }
             e.printStackTrace();
-        } finally {
-            entityManager.close();
         }
     }
 
+    public Veicolo getVeicoloById(int id){
+        return entityManager.find(Veicolo.class,id);
+    }
+    public void delete(int id){
+        EntityTransaction et=entityManager.getTransaction();
+        et.begin();
+        entityManager.remove(getVeicoloById(id));
+        et.commit();
+    }
+
     public void closeEM(){
+        entityManager.close();
         emf.close();
     }
 
