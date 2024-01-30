@@ -20,7 +20,6 @@ public class Abbonamento extends ProdottoAcquistato{
     @JoinColumn (name="tessera_cliente_fk")
     private TesseraCliente tesseraCliente;
 
-
     @Column(name = "prezzo_abbonamento")
     private Double prezzoAbbonamento;
     public Abbonamento() {
@@ -54,7 +53,7 @@ public class Abbonamento extends ProdottoAcquistato{
     @Override
     public String toString() {
         return "Abbonamento{" +
-                "tratta=" + getTratta() +
+                "corsa=" + getCorsa() +
                 "dataAcquisto=" + getDataAcquisto() +
                 "tipoAbbonamento=" + tipoAbbonamento +
                 ", fineValidita=" + fineValidita +

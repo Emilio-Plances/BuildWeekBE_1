@@ -28,8 +28,8 @@ public class Veicolo {
     @OneToMany(mappedBy = "veicoloM", cascade = CascadeType.ALL)
     private List<Manutenzione> manutenzioni;
 
-    @OneToMany(mappedBy = "veicoloT", cascade = CascadeType.ALL)
-    private List<Tratta> tratte;
+    @OneToMany(mappedBy = "veicolo", cascade = CascadeType.ALL)
+    private List<Corsa> listaCorse;
 
     public Veicolo(int id, int numeroPosti, StatoVeicolo stato, TipoVeicolo tipoVeicolo) {
         this.id = id;
@@ -37,7 +37,7 @@ public class Veicolo {
         this.statoVeicolo = StatoVeicolo.IN_SERVIZIO;
         this.tipoVeicolo = tipoVeicolo;
         this.manutenzioni = new ArrayList<>();
-        this.tratte = new ArrayList<>();
+        this.listaCorse = new ArrayList<>();
     }
         public void setStateVeicolo(StatoVeicolo state){
             this.statoVeicolo = state;
@@ -55,12 +55,12 @@ public class Veicolo {
             manutenzioni.remove(manutenzione);
         }
 
-        public void addTratta(Tratta tratta){
-            tratte.add(tratta);
+        public void addCorsa(Corsa corsa){
+            listaCorse.add(corsa);
         }
 
-        public void removeTratta(Tratta tratta){
-            tratte .remove(tratta);
+        public void removeCorsa(Corsa corsa){
+            listaCorse.remove(corsa);
         }
 
         public int getNumeroPosti() {
