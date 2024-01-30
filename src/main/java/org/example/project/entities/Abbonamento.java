@@ -5,9 +5,6 @@ import org.example.project.enums.TipoAbbonamento;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "abbonamenti")
-public class Abbonamento extends ProdottoAcquistato {
-
 @Table(name="abbonamenti")
 public class Abbonamento extends ProdottoAcquistato{
     @Enumerated(EnumType.STRING)
