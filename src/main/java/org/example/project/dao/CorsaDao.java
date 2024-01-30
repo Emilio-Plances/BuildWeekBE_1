@@ -5,8 +5,6 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import org.example.project.entities.Corsa;
-import org.example.project.entities.Venditore;
-
 public class CorsaDao {
     private final EntityManagerFactory emf;
     private final EntityManager em;
