@@ -3,6 +3,9 @@ package org.example.project.entities;
 import jakarta.persistence.*;
 
 import java.time.Duration;
+
+import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,23 +20,23 @@ import java.util.List;
 })
 public class Corsa {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_venditore")
-    @SequenceGenerator(name="sequenza_venditore",initialValue = 1,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenza_venditore")
+    @SequenceGenerator(name = "sequenza_venditore", initialValue = 1, allocationSize = 1)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "veicolo_fk",nullable = false)
+    @JoinColumn(name = "veicolo_fk", nullable = false)
     private Veicolo veicolo;
     @ManyToOne
-    @JoinColumn(name = "corsa_fk",nullable = false)
+    @JoinColumn(name = "corsa_fk", nullable = false)
     private Tratta tratta;
 
     @OneToMany(mappedBy = "corsa", cascade = CascadeType.ALL)
     private List<Biglietto> biglietti=new ArrayList<>();
 
-    @Column(name = "data_partenza",nullable = false)
+    @Column(name = "data_partenza", nullable = false)
     private LocalDateTime dataPartenza;
     @Column(name = "data_arrivo")
-    private LocalDateTime dataArrivoEffettiva;
+    private LocalDateTime dataArrivo;
     private int durata;
 
     public Corsa() {}
@@ -42,6 +45,16 @@ public class Corsa {
         this.veicolo = veicolo;
         this.tratta = tratta;
         this.dataPartenza = dataPartenza;
+        this.dataArrivo= dataArrivo;
+        this.durata = setDataArrivo();
+    }
+
+    public int setDataArrivo() {
+
+        if (dataArrivo.isAfter(dataPartenza)){
+            this.durata = (int) Duration.between(this.dataPartenza, this.dataArrivo).toMinutes();
+        }
+        return durata;
     }
 
     public void timbraBiglietto(Biglietto biglietto){
@@ -87,12 +100,11 @@ public class Corsa {
     }
 
     public LocalDateTime getDataArrivo() {
-        return dataArrivoEffettiva;
+        return dataArrivo;
     }
 
     public void setDataArrivo(LocalDateTime dataArrivo) {
-        this.dataArrivoEffettiva = dataArrivo;
-        aggiornaDurata();
+        this.dataArrivo = dataArrivo;
     }
 
     public int getDurata() {
@@ -103,20 +115,13 @@ public class Corsa {
         this.durata = durata;
     }
 
-    public void aggiornaDurata() {
-        if (dataPartenza != null && dataArrivoEffettiva != null) {
-            Duration duration = Duration.between(dataPartenza, dataArrivoEffettiva);
-            this.durata = (int) duration.toMinutes();
-        }
-    }
-
     @Override
     public String toString() {
-        return  "id=" + id +
+        return "id=" + id +
                 ", veicolo=" + veicolo +
                 ", tratta=" + tratta +
                 ", dataPartenza=" + dataPartenza +
-                ", dataArrivo=" + dataArrivoEffettiva +
+                ", dataArrivo=" + dataArrivo +
                 ", durata=" + durata;
     }
 }
