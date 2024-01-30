@@ -2,6 +2,8 @@ package org.example.project.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,6 +21,8 @@ public class Corsa {
     @OneToMany(mappedBy = "corsa")
     private List<ProdottoAcquistato> prodottiAcquistati=new ArrayList<>();
 
+    @Column(name = "data_partenza")
+    private LocalDateTime dataPartenza;
     private int durata;
 
     public Corsa() {
