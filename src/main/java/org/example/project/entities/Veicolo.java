@@ -39,7 +39,7 @@ public class Veicolo {
     }
 
     public int setNumeroPosti(){
-        if (this.tipoVeicolo.equals(TipoVeicolo.TRAM)){
+        if (this.tipoVeicolo==TipoVeicolo.TRAM){
             return 50;
         }else {
             return 100;
@@ -50,9 +50,6 @@ public class Veicolo {
     }
     public int getNumeroPosti() {
         return numeroPosti;
-    }
-    public void setNumeroPosti(int numeroPosti) {
-        this.numeroPosti = numeroPosti;
     }
     public StatoVeicolo getStatoVeicolo() {
         return statoVeicolo;

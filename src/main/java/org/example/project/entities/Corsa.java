@@ -10,7 +10,7 @@ import java.util.List;
 @NamedQueries({
         @NamedQuery(
                 name = "Corsa.trovaBigliettiTimbrati",
-                query = "SELECT b FROM Corsa c JOIN c.prodottiAcquistati b WHERE TYPE(b) = Biglietto AND b.timbrato = true"
+                query = "SELECT b FROM Corsa c JOIN c.biglietti b WHERE b.timbrato = true"
         )
 })
 public class Corsa {
@@ -25,7 +25,7 @@ public class Corsa {
     @JoinColumn(name = "corsa_fk",nullable = false)
     private Tratta tratta;
     @OneToMany(mappedBy = "corsa")
-    private List<ProdottoAcquistato> prodottiAcquistati=new ArrayList<>();
+    private List<Biglietto> biglietti=new ArrayList<>();
 
     @Column(name = "data_partenza",nullable = false)
     private LocalDateTime dataPartenza;
@@ -42,22 +42,21 @@ public class Corsa {
     }
 
     public void timbraBiglietto(Biglietto biglietto){
-       for(ProdottoAcquistato prodottoAcquistato : prodottiAcquistati){
-           if(prodottoAcquistato instanceof Biglietto b){
-               if (b.getId() == biglietto.getId()){
-                   b.setTimbrato(true);
-                   break;
-               }
+        for(Biglietto b : biglietti){
+           if (b.getId() == biglietto.getId()){
+               b.setTimbrato(true);
+               return;
            }
-       }
+        }
+        System.out.println("Questo biglietto non è su questa corsa");
     }
 
     public int getId() {
         return id;
     }
 
-    public List<ProdottoAcquistato> getProdottiAcquistati() {
-        return prodottiAcquistati;
+    public List<Biglietto> getBiglietti() {
+        return biglietti;
     }
 
     public Veicolo getVeicolo() {

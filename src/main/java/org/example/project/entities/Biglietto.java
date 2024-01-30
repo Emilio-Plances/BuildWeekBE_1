@@ -7,9 +7,15 @@ import jakarta.persistence.*;
 public class Biglietto extends ProdottoAcquistato {
     @Column(nullable = false)
     private boolean timbrato = false;
+
+    @ManyToOne
+    @JoinColumn(name="corsa_fk",nullable = false)
+    private Corsa corsa;
+
     public Biglietto() {}
     public Biglietto(Venditore venditore, Corsa corsa) {
-        super(venditore, corsa);
+        super(venditore);
+        this.corsa=corsa;
     }
 
     public boolean isTimbrato() {
@@ -23,6 +29,7 @@ public class Biglietto extends ProdottoAcquistato {
     @Override
     public String toString() {
         return  super.toString()+
+                ", corsa="+corsa+
                 ", timbrato=" + timbrato;
     }
 }

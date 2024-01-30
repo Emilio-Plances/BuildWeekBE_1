@@ -16,7 +16,6 @@ public class Tratta {
 
     @Column(name =  "media_durata")
     private int mediaDurata;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_tratta",nullable = false)
     private TipoTratta  tipoTratta;
@@ -24,6 +23,8 @@ public class Tratta {
     private String partenza;
     @Column(nullable = false)
     private String destinazione;
+    @OneToMany(mappedBy = "tratta")
+    private List<Abbonamento> listaAbbonamenti;
     @OneToMany(mappedBy = "tratta")
     private List<Corsa> listaCorse;
 

@@ -20,15 +20,10 @@ public abstract class ProdottoAcquistato {
     @JoinColumn(name="venditore_fk",nullable = false)
     private Venditore venditore;
 
-    @ManyToOne
-    @JoinColumn(name="corsa_fk",nullable = false)
-    private Corsa corsa;
-
     public ProdottoAcquistato(){}
 
-    public ProdottoAcquistato(Venditore venditore, Corsa corsa) {
+    public ProdottoAcquistato(Venditore venditore) {
         this.venditore = venditore;
-        this.corsa = corsa;
         dataAcquisto=LocalDate.now();
     }
 
@@ -52,19 +47,11 @@ public abstract class ProdottoAcquistato {
         this.venditore = venditore;
     }
 
-    public Corsa getCorsa() {
-        return corsa;
-    }
-
-    public void setCorsa(Corsa corsa) {
-        this.corsa = corsa;
-    }
 
     @Override
     public String toString() {
         return  "id=" + id +
                 ", dataAcquisto=" + dataAcquisto +
-                ", venditore=" + venditore +
-                ", corsa=" + corsa;
+                ", venditore=" + venditore;
     }
 }

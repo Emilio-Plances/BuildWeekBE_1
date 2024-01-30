@@ -14,7 +14,7 @@ public class TrattaDao {
         em=emf.createEntityManager();
     }
 
-    public void aggiungiTratta(Tratta t) throws Exception{
+    public void save(Tratta t) throws Exception{
         EntityTransaction et=em.getTransaction();
         et.begin();
         em.persist(t);
@@ -22,14 +22,14 @@ public class TrattaDao {
         em.refresh(t);
     }
 
-    public Tratta cercaTrattaById(int id){
+    public Tratta getTrattaById(int id){
         return em.find(Tratta.class,id);
     }
 
-    public void cancellaTrattaById(int id) throws Exception{
+    public void deleteById(int id) throws Exception{
         EntityTransaction et=em.getTransaction();
         et.begin();
-        em.remove(cercaTrattaById(id));
+        em.remove(getTrattaById(id));
         et.commit();
     }
 
