@@ -8,6 +8,8 @@ import java.time.LocalDate;
 @Table(name = "abbonamenti")
 public class Abbonamento extends ProdottoAcquistato {
 
+@Table(name="abbonamenti")
+public class Abbonamento extends ProdottoAcquistato{
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_abbonamento")
     private TipoAbbonamento tipoAbbonamento;

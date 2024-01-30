@@ -3,17 +3,19 @@ package org.example.project.entities;
 import jakarta.persistence.*;
 import org.example.project.enums.TipoTratta;
 
+import java.util.List;
+
 @Entity
 @Table(name="tratte")
 public class Tratta {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_biglietteria")
-    @SequenceGenerator(name = "sequenza_biglietteria",initialValue = 1,allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_tratta")
+    @SequenceGenerator(name = "sequenza_tratta",initialValue = 1,allocationSize = 1)
     private int id;
     @ManyToOne
     @JoinColumn(name = "veicolo_id")
-    private Veicolo veicolo;
+    private Veicolo veicoloT;
     @Column(name =  "media_durata")
     private int mediaDurata;
     @Column(name = "prezzo_al_minuto")
@@ -26,10 +28,15 @@ public class Tratta {
     @Column(name = "prezzo_tratta")
     private Double prezzoTratta;
 
+    @OneToMany(mappedBy = "tratta")
+    private List<ProdottoAcquistato> prodottiAcquistati;
+
+    private int bigliettiTimbrati=0;
+
     public Tratta(){}
 
-    public Tratta(Veicolo veicolo, int mediaDurata, int prezzoAlMinuto, TipoTratta tipoTratta, String partenza, String destinazione) {
-        this.veicolo = veicolo;
+    public Tratta(Veicolo veicoloT, int mediaDurata, int prezzoAlMinuto, TipoTratta tipoTratta, String partenza, String destinazione) {
+        this.veicoloT = veicoloT;
         this.mediaDurata = mediaDurata;
         this.prezzoAlMinuto = setPrezzoAlMinuto();
         this.tipoTratta = tipoTratta;
@@ -70,11 +77,11 @@ public class Tratta {
     }
 
     public Veicolo getVeicolo() {
-        return veicolo;
+        return veicoloT;
     }
 
     public void setVeicolo(Veicolo veicolo) {
-        this.veicolo = veicolo;
+        this.veicoloT = veicolo;
     }
 
     public int getMediaDurata() {
@@ -113,7 +120,7 @@ public class Tratta {
     public String toString() {
         return "Tratta{" +
                 "id=" + id +
-                ", veicolo=" + veicolo +
+                ", veicolo=" + veicoloT +
                 ", mediaDurata=" + mediaDurata +
                 ", prezzoAlMinuto=" + prezzoAlMinuto +
                 ", tipoTratta=" + tipoTratta +
