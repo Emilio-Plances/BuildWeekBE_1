@@ -52,12 +52,10 @@ public class Abbonamento extends ProdottoAcquistato{
 
     @Override
     public String toString() {
-        return "Abbonamento{" +
-                "corsa=" + getCorsa() +
+        return  "corsa=" + getCorsa() +
                 "dataAcquisto=" + getDataAcquisto() +
                 "tipoAbbonamento=" + tipoAbbonamento +
                 ", fineValidita=" + fineValidita +
-                ", tesseraCliente=" + tesseraCliente +
-                '}';
+                ", tesseraCliente=" + tesseraCliente;
     }
 }

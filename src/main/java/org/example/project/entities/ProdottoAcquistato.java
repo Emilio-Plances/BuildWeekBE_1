@@ -58,11 +58,9 @@ public class ProdottoAcquistato {
 
     @Override
     public String toString() {
-        return "ProdottoAcquistato{" +
-                "id=" + id +
+        return  "id=" + id +
                 ", dataAcquisto=" + dataAcquisto +
                 ", venditore=" + venditore +
-                ", corsa=" + corsa +
-                '}';
+                ", corsa=" + corsa;
     }
 }
