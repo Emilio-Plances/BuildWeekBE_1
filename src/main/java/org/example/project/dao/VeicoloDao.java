@@ -6,16 +6,19 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import org.example.project.entities.Veicolo;
 
+import java.util.List;
+
 
 public class VeicoloDao {
-    private EntityManagerFactory entityManagerFactory;
+    private EntityManagerFactory emf;
 
     public VeicoloDao() {
-        this.entityManagerFactory = Persistence.createEntityManagerFactory("biglietteria");
+
+        this.emf = Persistence.createEntityManagerFactory("biglietteria");
     }
 
     public void saveVeicolo(Veicolo veicolo) {
-        EntityManager entityManager = entityManagerFactory.createEntityManager();
+        EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = entityManager.getTransaction();
 
         try {
@@ -32,6 +35,18 @@ public class VeicoloDao {
         }
     }
 
-
+    public List<Object[]> dataManutenzioniVeicolo(int idVeicolo) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.createNamedQuery("Manutenzione.findDataByVeicoloId", Object[].class)
+                    .setParameter("idVeicolo", idVeicolo)
+                    .getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        } finally {
+            em.close();
+        }
+    }
 }
 

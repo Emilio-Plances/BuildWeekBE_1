@@ -2,8 +2,14 @@ package org.example.project.entities;
 
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name="manutenzioni")
+@NamedQueries({
+        @NamedQuery(name = "Manutenzione.cercaPerVeicoloId",
+        query = "SELECT m.dataInizio, m.dataFine FROM Manutenzione m WHERE m.veicoloM.id = :idVeicolo")
+})
 public class Manutenzione {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,30 +20,30 @@ public class Manutenzione {
     private Veicolo veicoloM;
 
     @Column(name = "data_inizio")
-    private String dataInizio;
+    private LocalDate dataInizio;
 
     @Column(name = "data_fine")
-    private String dataFine;
+    private LocalDate dataFine;
 
-    public Manutenzione(int id, Veicolo veicoloM, String dataInizio, String dataFine) {
+    public Manutenzione(int id, Veicolo veicoloM, LocalDate dataInizio, LocalDate dataFine) {
         this.id = id;
         this.veicoloM = veicoloM;
         this.dataInizio = dataInizio;
         this.dataFine = dataFine;
     }
 
-    public String getDataInizio() {
+    public LocalDate getDataInizio() {
         return dataInizio;
     }
 
-    public String getDataFine() {
+    public LocalDate getDataFine() {
         return dataFine;
     }
 
-    public void setDataInizio(String dataInizio) {
+    public void setDataInizio(LocalDate dataInizio) {
         this.dataInizio = dataInizio;
     }
-    public void setDataFine(String dataFine) {
+    public void setDataFine(LocalDate dataFine) {
         this.dataFine = dataFine;
     }
 
