@@ -18,15 +18,15 @@ public class Abbonamento extends ProdottoAcquistato{
     @JoinColumn(name = "tessera_cliente_fk")
     private TesseraCliente tesseraCliente;
 
-    @Column(name = "prezzo_abbonamento")
-    private Double prezzoAbbonamento;
+//    @Column(name = "prezzo_abbonamento")
+//    private Double prezzoAbbonamento;
 
-    public Abbonamento( LocalDate dataAcquisto, Venditore venditore, Tratta tratta) {
-        super( dataAcquisto, venditore, tratta);
+    public Abbonamento( LocalDate dataAcquisto, Venditore venditore) {
+        super( dataAcquisto, venditore);
     }
 
-    public Abbonamento( LocalDate dataAcquisto, Venditore venditore, Tratta tratta, TipoAbbonamento tipoAbbonamento, LocalDate fineValidita, TesseraCliente tesseraCliente, Double prezzoAbbonamento) {
-        super(dataAcquisto, venditore, tratta);
+    public Abbonamento( LocalDate dataAcquisto, Venditore venditore, TipoAbbonamento tipoAbbonamento, LocalDate fineValidita, TesseraCliente tesseraCliente, Double prezzoAbbonamento) {
+        super(dataAcquisto, venditore);
         this.tipoAbbonamento = tipoAbbonamento;
         this.fineValidita = fineValidita;
         this.tesseraCliente = tesseraCliente;
@@ -56,37 +56,37 @@ public class Abbonamento extends ProdottoAcquistato{
         this.tesseraCliente = tesseraCliente;
     }
 
-    public Double getPrezzoAbbonamento() {
-        return prezzoAbbonamento;
-    }
+//    public Double getPrezzoAbbonamento() {
+//        return prezzoAbbonamento;
+//    }
 
-    public void setPrezzoAbbonamento(Double prezzoAbbonamento) {
-        this.prezzoAbbonamento = prezzoAbbonamento;
-    }
-
-    // Aggiunto un metodo per calcolare il prezzo dell'abbonamento in base alla tratta
-    public void calcolaPrezzoAbbonamento(Tratta tratta) {
-        if (tratta != null) {
-            double prezzoTratta = tratta.getPrezzoTratta();
-
-            switch (tipoAbbonamento) {
-                case ANNUALE:
-                    setPrezzoAbbonamento(prezzoTratta * 365 * 0.7);
-                    break;
-                case MENSILE:
-                    setPrezzoAbbonamento(prezzoTratta * 30* 0.8);
-                    break;
-                case SETTIMANALE:
-                    setPrezzoAbbonamento(prezzoTratta * 7* 0.9);
-                    break;
-
-                default:
-                    setPrezzoAbbonamento(prezzoTratta);
-                    break;
-
-            }
-        }
-    }
+//    public void setPrezzoAbbonamento(double prezzoAbbonamento) {
+//        this.prezzoAbbonamento = prezzoAbbonamento;
+//    }
+//
+//    // Aggiunto un metodo per calcolare il prezzo dell'abbonamento in base alla tratta
+//    public void calcolaPrezzoAbbonamento(Tratta tratta) {
+//        if (tratta != null) {
+//            double prezzoTratta = tratta.getPrezzoTratta();
+//
+//            switch (tipoAbbonamento) {
+//                case ANNUALE:
+//                    setPrezzoAbbonamento(prezzoTratta * 365 * 0.7);
+//                    break;
+//                case MENSILE:
+//                    setPrezzoAbbonamento(prezzoTratta * 30* 0.8);
+//                    break;
+//                case SETTIMANALE:
+//                    setPrezzoAbbonamento(prezzoTratta * 7* 0.9);
+//                    break;
+//
+//                default:
+//                    setPrezzoAbbonamento(prezzoTratta);
+//                    break;
+//
+//            }
+//        }
+//    }
 
 
 

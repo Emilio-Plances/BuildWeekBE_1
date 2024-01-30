@@ -34,21 +34,21 @@ public class Tratta {
         this.destinazione = destinazione;
     }
 
-    public double getPrezzoAlMinuto() {
-        return prezzoAlMinuto;
-    }
+//    public double getPrezzoAlMinuto() {
+//        return prezzoAlMinuto;
+//    }
 
-    public void setPrezzoAlMinuto(double prezzoAlMinuto) {
-        this.prezzoAlMinuto = prezzoAlMinuto;
-    }
+//    public void setPrezzoAlMinuto(double prezzoAlMinuto) {
+//        this.prezzoAlMinuto = prezzoAlMinuto;
+//    }
 
-    public void setPrezzoTratta(Double prezzoTratta) {
-        this.prezzoTratta = prezzoTratta;
-    }
+//    public void setPrezzoTratta(Double prezzoTratta) {
+//        this.prezzoTratta = prezzoTratta;
+//    }
 
-    public Double getPrezzoTratta() {
-        return prezzoTratta;
-    }
+//    public Double getPrezzoTratta() {
+//        return prezzoTratta;
+//    }
 
     public int getId() {
         return id;

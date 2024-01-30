@@ -23,10 +23,10 @@ public class ProdottoAcquistato {
     @JoinColumn(name="corsa_fk")
     private Corsa corsa;
 
-    public ProdottoAcquistato( LocalDate dataAcquisto, Venditore venditore, Tratta tratta) {
+    public ProdottoAcquistato( LocalDate dataAcquisto, Venditore venditore) {
         this.dataAcquisto = dataAcquisto;
         this.venditore = venditore;
-        this.tratta = tratta;
+
     }
 
     public int getId() {
