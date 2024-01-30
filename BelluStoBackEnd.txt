@@ -3,8 +3,8 @@ OGGETTI
 Venditore{ID, ListaProdottiVenduti}--->RivenditoreAutorizzato
     			  	   |-->DistibutoreAutomatico {StatoDistributore}
 
-ProdottoAcquistato{ID, Venditore, Tratta, DataDiAcquisto}--->Biglietti{OraPartenza}
-				                 	                    |--->Abbonamenti{TipoAbbonamento, FineValidità, TesseraCliente}
+ProdottoAcquistato{ID, Venditore, Tratta, DataDiAcquisto}--->Biglietti{OraPartenza, Timbrato}
+				                 	 |-->Abbonamenti{TipoAbbonamento, FineValidità, TesseraCliente}
 
 Veicolo{Id, numeroPosti, StatoVeicolo,ListaManutenzione, TipoVeicolo, listaTratte}
        						  
@@ -12,12 +12,19 @@ Manutenzione{Id,Veicolo,dataInizio, dataFine}
 
 TesseraCliente {IDTessera, Nome, Cognome, DataNascita, Sesso, Categoria, DataScadenza, DataInizio, luogoDiResidenza??,ListaAbbonamenti}
 
-Tratta{ID, Veicolo, mediaDurata(secondi), prezzo(alMinuto), tipoTratta, Partenza, Destinazione, ListaBiglietti}
+Tratta{ID, mediaDurata(secondi), tipoTratta, Partenza, Destinazione, listaCorse}
+
+Corsa--->{Id,Veicolo,Tratta,ListaProdottiAcquistati,durata}
 
 
 DAO
 
-VeicoliDao-->ListagetManutenzione, ListagetInServizio
+VenditoriDao--->CheckStatus?ID, ListaAttivi, ListaFuoriServizio 
+
+ProdottiDao--->CheckAbbonamento?ID,AbbonamentiScaduti,CountVendite?InRangeData?DaChi,
+	   |-->Countvendite?DaChi
+
+VeicoliDao-->ListagetManutenzione, ListagetInServizio, sumBigliettiTimbrati?InrangeData
 
 
 ENUM

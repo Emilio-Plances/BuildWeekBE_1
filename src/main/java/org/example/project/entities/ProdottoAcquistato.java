@@ -20,8 +20,8 @@ public class ProdottoAcquistato {
     private Venditore venditore;
 
     @ManyToOne
-    @JoinColumn(name="tratta_fk")
-    private Tratta tratta;
+    @JoinColumn(name="corsa_fk")
+    private Corsa corsa;
 
 
     public int getId() {
@@ -48,12 +48,12 @@ public class ProdottoAcquistato {
         this.venditore = venditore;
     }
 
-    public Tratta getTratta() {
-        return tratta;
+    public Corsa getCorsa() {
+        return corsa;
     }
 
-    public void setTratta(Tratta tratta) {
-        this.tratta = tratta;
+    public void setCorsa(Corsa corsa) {
+        this.corsa = corsa;
     }
 
     @Override
@@ -62,7 +62,7 @@ public class ProdottoAcquistato {
                 "id=" + id +
                 ", dataAcquisto=" + dataAcquisto +
                 ", venditore=" + venditore +
-                ", tratta=" + tratta +
+                ", corsa=" + corsa +
                 '}';
     }
 }

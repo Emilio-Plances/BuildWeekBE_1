@@ -1,8 +1,6 @@
 package org.example.project.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
@@ -10,32 +8,18 @@ import java.time.LocalDate;
 @Table(name="biglietti")
 public class Biglietto extends ProdottoAcquistato{
 
-    @Column (name = "ora_partenza")
-    private LocalDate oraPartenza;
-
     private boolean timbrato=false;
 
-    public Biglietto(LocalDate oraPartenza) {
-        this.oraPartenza = oraPartenza;
-    }
+    @OneToMany()
+    @JoinColumn(name="corsa_fk")
+    private Corsa corsa;
 
     public Biglietto() {
     }
 
-    public LocalDate getOraPartenza() {
-        return oraPartenza;
-    }
-
-    public void setOraPartenza(LocalDate oraPartenza) {
-        this.oraPartenza = oraPartenza;
-    }
-
     @Override
     public String toString() {
-        return "Biglietto{" +
-                "tratta=" + getTratta() +
-                "dataAcquisto=" + getDataAcquisto() +
-                "oraPartenza=" + oraPartenza +
-                '}';
+        return  "corsa=" + getCorsa() +
+                "dataAcquisto=" + getDataAcquisto();
     }
 }
