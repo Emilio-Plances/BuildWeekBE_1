@@ -26,6 +26,7 @@ ProdottiDao--->CheckAbbonamento?ID,AbbonamentiScaduti,CountVendite?InRangeData?D
 
 VeicoliDao-->ListagetManutenzione, ListagetInServizio, sumBigliettiTimbrati?InrangeData
 
+TesseraDao--> ControllaTesseraById, DisattivaTessera, AttivaTessera, ControllaOgniTessera
 
 ENUM
 
