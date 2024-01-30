@@ -2,12 +2,10 @@ package org.example.project.entities;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDate;
-
 @Entity
 @Table(name = "biglietti")
 public class Biglietto extends ProdottoAcquistato {
-
+    @Column(nullable = false)
     private boolean timbrato = false;
     public Biglietto() {}
     public Biglietto(Venditore venditore, Corsa corsa) {
@@ -24,7 +22,7 @@ public class Biglietto extends ProdottoAcquistato {
 
     @Override
     public String toString() {
-        return super.toString()+
+        return  super.toString()+
                 ", timbrato=" + timbrato;
     }
 }

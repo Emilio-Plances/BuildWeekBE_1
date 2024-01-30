@@ -15,15 +15,13 @@ public class TesseraDao {
         this.emf = Persistence.createEntityManagerFactory("biglietteria");
         this.em = emf.createEntityManager();
     }
-    public void save (TesseraCliente t){
-        try {
-            EntityTransaction et = em.getTransaction();
-            et.begin();
-            em.persist(t);
-            et.commit();
-        }catch (Exception e ){
-            e.printStackTrace();
-        }
+    public void save (TesseraCliente t)throws Exception{
+
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.persist(t);
+        et.commit();
+
     }
 
     public TesseraCliente getById(int id) {

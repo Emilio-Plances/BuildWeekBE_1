@@ -1,7 +1,6 @@
 package org.example.project.entities;
 import jakarta.persistence.*;
 import org.example.project.enums.TipoAbbonamento;
-
 import java.time.LocalDate;
 
 @Entity
@@ -10,20 +9,18 @@ import java.time.LocalDate;
 @NamedQuery(name="abbonamentiScaduti",query = "SELECT a FROM Abbonamento a WHERE a.fineValidita<CURRENT_DATE")
 public class Abbonamento extends ProdottoAcquistato{
     @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_abbonamento")
+    @Column(name = "tipo_abbonamento",nullable = false)
     private TipoAbbonamento tipoAbbonamento;
 
-    @Column(name = "fine_validita")
+    @Column(name = "fine_validita",nullable = false)
     private LocalDate fineValidita;
 
     @ManyToOne
-    @JoinColumn(name = "tessera_cliente_fk")
+    @JoinColumn(name = "tessera_cliente_fk",nullable = false)
     private TesseraCliente tesseraCliente;
 
+    @Column(name="validita_abbonamento",nullable = false)
     private boolean validitaAbbonamento=true;
-
-//    @Column(name = "prezzo_abbonamento")
-//    private Double prezzoAbbonamento;
 
     public Abbonamento() {}
     public Abbonamento(Venditore venditore, Corsa corsa, TipoAbbonamento tipoAbbonamento, TesseraCliente tesseraCliente) {

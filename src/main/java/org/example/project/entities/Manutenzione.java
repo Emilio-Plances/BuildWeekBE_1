@@ -1,7 +1,6 @@
 package org.example.project.entities;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 @Entity
@@ -16,17 +15,20 @@ public class Manutenzione {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "veicolo_fk")
+    @JoinColumn(name = "veicolo_fk",nullable = false)
     private Veicolo veicoloM;
 
-    @Column(name = "data_inizio")
+    @Column(name = "data_inizio",nullable = false)
     private LocalDate dataInizio;
 
     @Column(name = "data_fine")
     private LocalDate dataFine;
 
     public Manutenzione() {}
-
+    public Manutenzione(Veicolo veicoloM, LocalDate dataInizio) {
+        this.veicoloM = veicoloM;
+        this.dataInizio = dataInizio;
+    }
     public Manutenzione(Veicolo veicoloM, LocalDate dataInizio, LocalDate dataFine) {
         this.veicoloM = veicoloM;
         this.dataInizio = dataInizio;

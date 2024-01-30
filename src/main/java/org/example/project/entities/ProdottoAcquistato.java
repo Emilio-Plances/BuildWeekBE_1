@@ -1,7 +1,6 @@
 package org.example.project.entities;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 @Entity
@@ -14,15 +13,15 @@ public abstract class ProdottoAcquistato {
     @SequenceGenerator(name="sequenza_prodotto",initialValue = 1,allocationSize = 1)
     private int id;
 
-    @Column(name="data_acquisto")
+    @Column(name="data_acquisto",nullable = false)
     private LocalDate dataAcquisto;
 
     @ManyToOne
-    @JoinColumn(name="venditore_fk")
+    @JoinColumn(name="venditore_fk",nullable = false)
     private Venditore venditore;
 
     @ManyToOne
-    @JoinColumn(name="corsa_fk")
+    @JoinColumn(name="corsa_fk",nullable = false)
     private Corsa corsa;
 
     public ProdottoAcquistato(){}

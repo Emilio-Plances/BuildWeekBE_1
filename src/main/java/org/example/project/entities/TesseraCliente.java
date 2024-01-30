@@ -12,30 +12,30 @@ import java.util.Random;
 @Entity
 @Table(name="tessere_clienti")
 @NamedQuery(name = "getListaTessereScadute", query = "SELECT t FROM TesseraCliente t WHERE t.dataScadenza < :currentDate")
-
 public class TesseraCliente {
     @Id
-    @Column(name = "tessera_cliente")
+    @Column(name = "tessera_cliente",nullable = false)
     private int tessera_cliente;
+    @Column(nullable = false)
     private String nome;
+    @Column(nullable = false)
     private String cognome;
-    @Column(name = "data_di_nascita")
+    @Column(name = "data_di_nascita",nullable = false)
     private LocalDate dataNascita;
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private Genere genere;
     @Enumerated(EnumType.STRING)
-    @Column(name = "categoria_cliente")
+    @Column(name = "categoria_cliente",nullable = false)
     private CategoriaCliente categoriaCliente;
-    @Column(name = "data_attivazione")
+    @Column(name = "data_attivazione",nullable = false)
     private LocalDate dataAttivazione;
-
     @Column (name = "data_scadenza")
     private LocalDate dataScadenza;
+    @Column(name = "stato_tessera",nullable = false)
+    private boolean statoTessera = false;
 
-    @Column(name = "stato_tessera")
-    private boolean statoTessera = true;
-
-    @Column(name = "data_rinnovo")
+    @Column(name = "data_rinnovo",nullable = false)
     private LocalDate dataRinnovo;
 
     @Transient
@@ -75,8 +75,9 @@ public class TesseraCliente {
     public void rinnovoTessera(){
         if(!statoTessera){
         this.dataRinnovo = LocalDate.now();
-        this.dataScadenza = LocalDate.now().plusYears(1);}
-        else{
+        this.dataScadenza = LocalDate.now().plusYears(1);
+        statoTessera=true;
+        }else{
             System.out.println("La tessera non è scaduta");
         }
     }

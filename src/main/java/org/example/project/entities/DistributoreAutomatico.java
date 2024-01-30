@@ -1,15 +1,13 @@
 package org.example.project.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.example.project.enums.StatoDistributore;
 
 @Entity
 @Table(name="distributori_automatici")
 public class DistributoreAutomatico extends Venditore{
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private StatoDistributore stato;
 
     public DistributoreAutomatico(){}

@@ -1,7 +1,6 @@
 package org.example.project.entities;
 
 import jakarta.persistence.*;
-
 import java.util.List;
 
 @Entity
@@ -12,6 +11,7 @@ public class Venditore {
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_venditore")
     @SequenceGenerator(name="sequenza_venditore",initialValue = 1,allocationSize = 1)
     private int id;
+    @Column(nullable = false)
     private String name;
     @OneToMany(mappedBy = "venditore")
     private List<ProdottoAcquistato> prodottiAcquistati;

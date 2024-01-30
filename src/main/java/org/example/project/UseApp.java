@@ -20,11 +20,11 @@ public class UseApp {
     public static void main(String[] args) {
 
         //TesseraCliente t1= creaTessera("Emilio","Plances",LocalDate.of(1997,3,7),Genere.M,CategoriaCliente.STANDARD);
-        TesseraCliente t1=tesseraDao.getById(159);
-        System.out.println(t1);
+        //TesseraCliente t1=tesseraDao.getById(159);
+        //System.out.println(t1);
 
         //Venditore v1=creaVenditore();
-        venditoreDao.getById(1);
+        //venditoreDao.getById(1);
 
         //Abbonamento a1=creaAbbonamento();
 

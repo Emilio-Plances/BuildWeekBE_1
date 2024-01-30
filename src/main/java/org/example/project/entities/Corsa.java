@@ -1,7 +1,6 @@
 package org.example.project.entities;
 
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,15 +19,15 @@ public class Corsa {
     @SequenceGenerator(name="sequenza_venditore",initialValue = 1,allocationSize = 1)
     private int id;
     @ManyToOne
-    @JoinColumn(name = "veicolo_fk")
+    @JoinColumn(name = "veicolo_fk",nullable = false)
     private Veicolo veicolo;
     @ManyToOne
-    @JoinColumn(name = "corsa_fk")
+    @JoinColumn(name = "corsa_fk",nullable = false)
     private Tratta tratta;
     @OneToMany(mappedBy = "corsa")
     private List<ProdottoAcquistato> prodottiAcquistati=new ArrayList<>();
 
-    @Column(name = "data_partenza")
+    @Column(name = "data_partenza",nullable = false)
     private LocalDateTime dataPartenza;
     @Column(name = "data_arrivo")
     private LocalDateTime dataArrivo;

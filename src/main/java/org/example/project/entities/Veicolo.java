@@ -1,11 +1,9 @@
 package org.example.project.entities;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import org.example.project.enums.StatoVeicolo;
 import org.example.project.enums.TipoVeicolo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -15,17 +13,15 @@ public class Veicolo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "numero_posti")
+    @Column(name = "numero_posti",nullable = false)
     private int numeroPosti;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
-    @Column(name = "stato_veicolo")
+    @Column(name = "stato_veicolo",nullable = false)
     private StatoVeicolo statoVeicolo;
 
     @Enumerated(EnumType.STRING)
-    @NotNull
-    @Column(name = "tipo_veicolo")
+    @Column(name = "tipo_veicolo",nullable = false)
     private TipoVeicolo tipoVeicolo;
 
     @OneToMany(mappedBy = "veicoloM", cascade = CascadeType.ALL)
