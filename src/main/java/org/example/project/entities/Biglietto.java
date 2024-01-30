@@ -17,11 +17,6 @@ public class Biglietto extends ProdottoAcquistato {
         super(venditore);
         this.corsa=corsa;
     }
-
-    @ManyToOne
-    @JoinColumn(name="corsa_fk",nullable = false)
-    private Corsa corsa;
-
     public boolean isTimbrato() {
         return timbrato;
     }
