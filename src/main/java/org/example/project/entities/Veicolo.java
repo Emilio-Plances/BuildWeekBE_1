@@ -80,10 +80,12 @@ public class Veicolo {
         }
 
         public StatoVeicolo getStatoVeicolo() {
+
             return statoVeicolo;
         }
 
         public void setStatoVeicolo(StatoVeicolo statoVeicolo) {
+
             this.statoVeicolo = statoVeicolo;
         }
 
