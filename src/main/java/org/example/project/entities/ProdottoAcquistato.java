@@ -5,8 +5,11 @@ import java.time.LocalDate;
 
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-@NamedQuery(name="bigliettiVenduti", query="SELECT COUNT(p) FROM ProdottoAcquistato p WHERE :dataInizio>=p.dataAcquisto AND :dataFine<=p.dataAcquisto AND p.venditore=:idVenditore ")
-@NamedQuery(name="vendutiDaVenditore",query="SELECT COUNT(p) FROM ProdottoAcquistato p WHERE p.venditore=:idVenditore")
+@NamedQuery(
+        name = "bigliettiVenduti",
+        query = "SELECT COUNT(p) FROM ProdottoAcquistato p WHERE p.dataAcquisto BETWEEN :dataInizio AND :dataFine AND p.venditore.id = :idVenditore"
+)
+@NamedQuery(name="vendutiDaVenditore",query="SELECT COUNT(p) FROM ProdottoAcquistato p WHERE p.venditore=:Venditore")
 public abstract class ProdottoAcquistato {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_prodotto")

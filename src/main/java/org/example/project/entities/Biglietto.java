@@ -1,5 +1,4 @@
 package org.example.project.entities;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -17,7 +16,6 @@ public class Biglietto extends ProdottoAcquistato {
         super(venditore);
         this.corsa=corsa;
     }
-
     public boolean isTimbrato() {
         return timbrato;
     }

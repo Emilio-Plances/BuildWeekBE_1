@@ -7,8 +7,11 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "abbonamenti")
-@NamedQuery(name = "checkValidita", query = "SELECT a FROM Abbonamento a WHERE a.id=:id ")
+@NamedQuery(name = "checkValidita", query = "SELECT a FROM Abbonamento a WHERE a.id=:id")
 @NamedQuery(name = "abbonamentiScaduti", query = "SELECT a FROM Abbonamento a WHERE a.fineValidita<CURRENT_DATE")
+@NamedQuery(name = "abbonamentiScadutiPerUtente", query = "SELECT a.id, a.tesseraCliente.cognome, a.validitaAbbonamento" +
+        " FROM Abbonamento a WHERE a.fineValidita<CURRENT_DATE or a.validitaAbbonamento = false " +
+        "and a.tesseraCliente.tesseraCliente = :tesseraCliente")
 public class Abbonamento extends ProdottoAcquistato {
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_abbonamento", nullable = false)

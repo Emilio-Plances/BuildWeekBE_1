@@ -22,19 +22,17 @@ public class ProdottoDao {
     public void save(ProdottoAcquistato pa) throws Exception {
         EntityTransaction et = em.getTransaction();
         et.begin();
-
-        if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato() == StatoDistributore.ATTIVO ||
-                pa.getVenditore() instanceof Venditore) {
-            em.persist(pa);
-        }else {
+        //CONTROLLO SE ABBONAMENTO GIA PRESENTE
+        if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato()==StatoDistributore.FUORI_SERVIZIO) {
             throw new Exception("Il distributore non è attivo.");
         }
+        em.persist(pa);
         et.commit();
     }
 
 
     // Metodo per ottenere un elemento dato il suo ISBN
-    public ProdottoAcquistato getById(int id) throws Exception {
+    public ProdottoAcquistato getById(int id){
         return em.find(ProdottoAcquistato.class, id);
     }
 
@@ -67,17 +65,23 @@ public class ProdottoDao {
         return q.getResultList();
     }
 
-    public List<ProdottoAcquistato> venditeEffettuateInData(LocalDate dataInizio,LocalDate dataFine,int idVenditore){
+    public List<Object> abbonamentiScadutiPerTessera(int tesseraCliente){
+        Query q = em.createNamedQuery("abbonamentiScadutiPerUtente");
+        q.setParameter("tesseraCliente",tesseraCliente);
+        return q.getResultList();
+    }
+
+    public Object venditeEffettuateInData(LocalDate dataInizio,LocalDate dataFine,int idVenditore){
         Query q=em.createNamedQuery("bigliettiVenduti");
         q.setParameter("dataInizio",dataInizio);
         q.setParameter("dataFine",dataFine);
         q.setParameter("idVenditore",idVenditore);
-        return q.getResultList();
+        return q.getSingleResult();
     }
 
-    public List<ProdottoAcquistato> vendutiDaVenditore(int idVenditore){
+    public Object vendutiDaVenditore(Venditore venditore){
         Query q= em.createNamedQuery("vendutiDaVenditore");
-        q.setParameter("idVenditore",idVenditore);
-        return q.getResultList();
+        q.setParameter("Venditore",venditore);
+        return q.getSingleResult();
     }
 }

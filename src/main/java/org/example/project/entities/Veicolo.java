@@ -39,12 +39,11 @@ public class Veicolo {
 
     public Veicolo() {}
 
-    public Veicolo(TipoVeicolo tipoVeicolo,LocalDate dataEntrataInServizio) {
-        this.dataInizioServizio = dataEntrataInServizio;
+    public Veicolo(TipoVeicolo tipoVeicolo) {
+        this.dataInizioServizio = LocalDate.now().minusMonths(3);
         this.statoVeicolo = StatoVeicolo.IN_SERVIZIO;
         setTipoVeicolo(tipoVeicolo);
     }
-
     public int setNumeroPosti(){
         if (this.tipoVeicolo==TipoVeicolo.TRAM){
             return 50;
@@ -95,7 +94,6 @@ public class Veicolo {
     private boolean isVeicoloNonImpegnato() {
         if (listaCorse != null && !listaCorse.isEmpty()) {
             for (Corsa corsa : listaCorse) {
-
                 if (corsa.getDataArrivo() == null || corsa.getDataArrivo().isAfter(LocalDateTime.now())) {
                     return false;
                 }
