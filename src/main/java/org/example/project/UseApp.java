@@ -189,3 +189,23 @@ public class UseApp {
 //        Manutenzione manutenzione1 = creaManutenzione(veicolo1, LocalDate.of(2024,3,10),LocalDate.of(2024,3,20));
 //        Manutenzione m1 = manutenzioneDao.getManutenzioneById(1);
 //        Manutenzione m2 = manutenzioneDao.getManutenzioneById(2);
+
+//List<Object[]> manutenzioni = veicoloDao.dataManutenzioniVeicolo(veicolo1.getId());
+//        for (Object[] manutenzione : manutenzioni){
+//LocalDate dataInizio = (LocalDate)manutenzione[0];
+//LocalDate dataFine = (LocalDate) manutenzione[1];
+//            System.out.println("Data Inizio: " + dataInizio + ", Data Fine: " + dataFine);
+//        }
+//
+//
+//List<Object[]> periodiServizio = veicoloDao.periodiServizioVeicolo(1);
+//
+//        for (Object[] periodo : periodiServizio) {
+//LocalDate dataInizio = (LocalDate) periodo[0];
+//LocalDate dataFine = (LocalDate) periodo[1];
+//
+//            System.out.println("Periodo di servizio: " + dataInizio + " - " + dataFine);
+//        }
+//
+//                System.out.println("Il veicolo con ID: "+ veicolo1.getId()+" ha effettuato " +veicoloDao.sommaGiorniServizio(veicolo1.getId())+" giorni di servizio");
+//        System.out.println("Il veicolo con ID: "+ veicolo1.getId()+" ha effettuato " +veicoloDao.sommaGiorniManutenzione(veicolo1.getId())+" giorni di manutenzione");

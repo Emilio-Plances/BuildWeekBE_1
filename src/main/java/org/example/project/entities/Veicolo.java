@@ -39,8 +39,8 @@ public class Veicolo {
 
     public Veicolo() {}
 
-    public Veicolo(TipoVeicolo tipoVeicolo,LocalDate dataEntrataInServizio) {
-        this.dataInizioServizio = dataEntrataInServizio;
+    public Veicolo(TipoVeicolo tipoVeicolo) {
+        this.dataInizioServizio = LocalDate.now().minusMonths(3);
         this.statoVeicolo = StatoVeicolo.IN_SERVIZIO;
         setTipoVeicolo(tipoVeicolo);
     }
