@@ -22,7 +22,11 @@ public class ProdottoDao {
     public void save(ProdottoAcquistato pa) throws Exception {
         EntityTransaction et = em.getTransaction();
         et.begin();
-        //CONTROLLO SE ABBONAMENTO GIA PRESENTE
+
+        boolean check=true;
+        if(pa instanceof Abbonamento a) check=checkPresenzaAbbonamento(a);
+
+        if (!check) throw new Exception("Questo utente è già sottoscritto a questo abbonamento");
         if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato()==StatoDistributore.FUORI_SERVIZIO) {
             throw new Exception("Il distributore non è attivo.");
         }
@@ -83,5 +87,12 @@ public class ProdottoDao {
         Query q= em.createNamedQuery("vendutiDaVenditore");
         q.setParameter("Venditore",venditore);
         return q.getSingleResult();
+    }
+
+    public boolean checkPresenzaAbbonamento(Abbonamento a){
+        Query q= em.createNamedQuery("checkExisting");
+        q.setParameter("trattaId",a.getTratta().getId());
+        q.setParameter("tesseraId",a.getTesseraCliente().getTessera_cliente());
+        return q.getResultList().isEmpty();
     }
 }
