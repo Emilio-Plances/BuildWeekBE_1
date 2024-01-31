@@ -24,11 +24,13 @@ public class Corsa {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenza_venditore")
     @SequenceGenerator(name = "sequenza_venditore", initialValue = 1, allocationSize = 1)
     private int id;
+
     @ManyToOne
     @JoinColumn(name = "veicolo_fk", nullable = false)
     private Veicolo veicolo;
+
     @ManyToOne
-    @JoinColumn(name = "corsa_fk", nullable = false)
+    @JoinColumn(name = "tratta_fk", nullable = false)
     private Tratta tratta;
 
     @OneToMany(mappedBy = "corsa", cascade = CascadeType.ALL)
@@ -64,6 +66,7 @@ public class Corsa {
         }
         System.out.println("Questo biglietto non è su questa corsa");
     }
+
 
     public int getId() {
         return id;

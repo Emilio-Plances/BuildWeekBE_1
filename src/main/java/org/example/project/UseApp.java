@@ -30,11 +30,11 @@ public class UseApp {
         System.out.println("conteggio di prodotti venduti in una data:" + nrProdotti);
 
         //Verifica rapida di validità abbonamento per singola tessera
-        TesseraCliente t1 = tesseraDao.getById(283);
-        List<Object> abbonamentiScaduti = prodottoDao.abbonamentiScadutiPerTessera(t1.getTessera_cliente());
-        for (int i = 0; i < abbonamentiScaduti.size(); i++){
-            System.out.println();
-        }
+//        TesseraCliente t1 = tesseraDao.getById(283);
+//        List<Object> abbonamentiScaduti = prodottoDao.abbonamentiScadutiPerTessera(t1.getTessera_cliente());
+//        for (int i = 0; i < abbonamentiScaduti.size(); i++){
+//            System.out.println();
+//        }
 
 
         //metodo per avere la lista di manutenzioni:
@@ -48,6 +48,10 @@ public class UseApp {
 //        trattaDao.closeEM();
 //        veicoloDao.closeEM();
 //        venditoreDao.closeEM();
+
+        Veicolo veicolo1 = veicoloDao.getVeicoloById(1);
+        Manutenzione manutenzione2 = creaManutenzione(veicolo1, LocalDate.of(2024,3,10),LocalDate.of(2024,3,20));
+
     }
 
     public static TesseraCliente creaTessera(String nome, String cognome, LocalDate dataNascita, Genere genere, CategoriaCliente categoriaCliente) {
@@ -155,6 +159,9 @@ public class UseApp {
             System.out.println(" data inizio:" + dataInizio + " data fine:" + dataInizio);
         }
     }
+
+
+
 }
 
 
@@ -175,7 +182,7 @@ public class UseApp {
 //        Abbonamento abbonamento1 = (Abbonamento) prodottoDao.getById(1);
 
 //        Veicolo veicolo1=creaVeicolo(TipoVeicolo.AUTOBUS);
-//        Veicolo veicolo1 = veicoloDao.getVeicoloById(1);
+
 
 //        Corsa c = creaCorsa(veicolo1,tratta1,LocalDateTime.of(2024,1,28,8,20));
 //        Corsa corsa1 = corsaDao.cercaCorsaById(3);
@@ -186,7 +193,6 @@ public class UseApp {
 //        Biglietto biglietto2 = (Biglietto) prodottoDao.getById(3);
 //        Biglietto biglietto3 = (Biglietto) prodottoDao.getById(4);
 
-//        Manutenzione manutenzione1 = creaManutenzione(veicolo1, LocalDate.of(2024,3,10),LocalDate.of(2024,3,20));
 //        Manutenzione m1 = manutenzioneDao.getManutenzioneById(1);
 //        Manutenzione m2 = manutenzioneDao.getManutenzioneById(2);
 

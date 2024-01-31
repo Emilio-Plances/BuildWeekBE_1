@@ -11,6 +11,7 @@ import java.util.List;
 public class ProdottoDao {
     private EntityManagerFactory emf;
     private EntityManager em;
+    private CorsaDao corsaDao;
 
     // Costruttore: inizializza l'EntityManagerFactory e l'EntityManager
     public ProdottoDao() {
@@ -22,9 +23,15 @@ public class ProdottoDao {
     public void save(ProdottoAcquistato pa) throws Exception {
         EntityTransaction et = em.getTransaction();
         et.begin();
-        //CONTROLLO SE ABBONAMENTO GIA PRESENTE
+
         if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato()==StatoDistributore.FUORI_SERVIZIO) {
             throw new Exception("Il distributore non è attivo.");
+        }
+        if(pa instanceof Biglietto){
+            int postiMassimi = ((Biglietto) pa).getCorsa().getVeicolo().getNumeroPosti();
+            int bigliettiTimbrati= corsaDao.numeroBigliettiTimbrati(((Biglietto) pa).getCorsa().getId());
+                    if(postiMassimi< bigliettiTimbrati){
+                        throw new Exception("Il veicolo ha raggiunto la capienza massima");}
         }
         em.persist(pa);
         et.commit();
@@ -60,6 +67,7 @@ public class ProdottoDao {
         if(prod instanceof Abbonamento a) return a.isValiditaAbbonamento();
         return false;
     }
+
     public List<Abbonamento> abbonamentiScaduti(){
         Query q = em.createNamedQuery("abbonamentiScaduti");
         return q.getResultList();

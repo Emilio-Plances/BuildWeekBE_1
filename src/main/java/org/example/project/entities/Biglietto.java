@@ -24,6 +24,14 @@ public class Biglietto extends ProdottoAcquistato {
         this.timbrato = timbrato;
     }
 
+    public Corsa getCorsa() {
+        return corsa;
+    }
+
+    public void setCorsa(Corsa corsa) {
+        this.corsa = corsa;
+    }
+
     @Override
     public String toString() {
         return  super.toString()+
