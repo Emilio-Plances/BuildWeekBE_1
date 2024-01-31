@@ -1,10 +1,7 @@
 package org.example.project.dao;
 
 import jakarta.persistence.*;
-import org.example.project.entities.Abbonamento;
-import org.example.project.entities.Biglietto;
-import org.example.project.entities.DistributoreAutomatico;
-import org.example.project.entities.ProdottoAcquistato;
+import org.example.project.entities.*;
 import org.example.project.enums.StatoDistributore;
 
 import java.time.LocalDate;
@@ -26,9 +23,10 @@ public class ProdottoDao {
         EntityTransaction et = em.getTransaction();
         et.begin();
 
-        if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato() == StatoDistributore.ATTIVO) {
+        if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato() == StatoDistributore.ATTIVO ||
+                pa.getVenditore() instanceof Venditore) {
             em.persist(pa);
-        } else {
+        }else {
             throw new Exception("Il distributore non è attivo.");
         }
         et.commit();

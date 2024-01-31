@@ -19,9 +19,13 @@ public class Veicolo {
     @Column(name = "numero_posti",nullable = false)
     private int numeroPosti;
 
+    @Column(name = "data_inizio_servizio")
+    private LocalDate dataInizioServizio;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "stato_veicolo",nullable = false)
     private StatoVeicolo statoVeicolo;
+
 
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_veicolo",nullable = false)
@@ -35,7 +39,8 @@ public class Veicolo {
 
     public Veicolo() {}
 
-    public Veicolo(TipoVeicolo tipoVeicolo) {
+    public Veicolo(TipoVeicolo tipoVeicolo,LocalDate dataEntrataInServizio) {
+        this.dataInizioServizio = dataEntrataInServizio;
         this.statoVeicolo = StatoVeicolo.IN_SERVIZIO;
         setTipoVeicolo(tipoVeicolo);
     }
@@ -68,10 +73,24 @@ public class Veicolo {
     }
 
 
+    public LocalDate getDataInizioServizio() {
+        return dataInizioServizio;
+    }
+
+    public void setDataInizioServizio(LocalDate dataInizioServizio) {
+        this.dataInizioServizio = dataInizioServizio;
+    }
+
+    public boolean isInManutenzione() {
+        return this.statoVeicolo == StatoVeicolo.IN_MANUTENZIONE;
+    }
+
+
 
     public boolean isDisponibile() {
         return statoVeicolo == StatoVeicolo.IN_SERVIZIO && isVeicoloNonImpegnato();
     }
+
 
     private boolean isVeicoloNonImpegnato() {
         if (listaCorse != null && !listaCorse.isEmpty()) {

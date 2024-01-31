@@ -37,4 +37,10 @@ public class VenditoreDao {
         emf.close();
         em.close();
     }
+
+
+
+
+
+
 }
