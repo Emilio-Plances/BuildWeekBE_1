@@ -76,7 +76,6 @@ public class Veicolo {
     private boolean isVeicoloNonImpegnato() {
         if (listaCorse != null && !listaCorse.isEmpty()) {
             for (Corsa corsa : listaCorse) {
-
                 if (corsa.getDataArrivo() == null || corsa.getDataArrivo().isAfter(LocalDateTime.now())) {
                     return false;
                 }
