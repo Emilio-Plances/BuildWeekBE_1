@@ -54,15 +54,8 @@ public class Corsa {
             this.durata = (int) Duration.between(this.dataPartenza, this.dataArrivo).toMinutes();
         }
     }
-
     public void timbraBiglietto(Biglietto biglietto){
-        for(Biglietto b : biglietti){
-           if (b.getId() == biglietto.getId()){
-               b.setTimbrato(true);
-               return;
-           }
-        }
-        System.out.println("Questo biglietto non è su questa corsa");
+        biglietto.setTimbrato(true);
     }
 
     public int getId() {
@@ -71,6 +64,10 @@ public class Corsa {
 
     public List<Biglietto> getBiglietti() {
         return biglietti;
+    }
+
+    public void setBiglietti(Biglietto biglietto) {
+        this.biglietti.add(biglietto);
     }
 
     public Veicolo getVeicolo() {

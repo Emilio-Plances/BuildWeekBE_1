@@ -15,12 +15,10 @@ import java.util.List;
 public class CorsaDao {
     private final EntityManagerFactory emf;
     private final EntityManager em;
-
     public CorsaDao() {
         emf = Persistence.createEntityManagerFactory("biglietteria");
         em = emf.createEntityManager();
     }
-
     public List<Biglietto> getBigliettiTimbratiInCorsa(int idCorsa) {
         try {
             return em.createNamedQuery("Corsa.trovaBigliettiTimbrati", Biglietto.class)
@@ -31,7 +29,6 @@ public class CorsaDao {
             return null;
         }
     }
-
     public void aggiungiCorsa(Corsa c) throws Exception {
         EntityTransaction et = em.getTransaction();
         et.begin();
@@ -43,7 +40,6 @@ public class CorsaDao {
         et.commit();
         em.refresh(c);
     }
-
     public Corsa cercaCorsaById(int id){
         return em.find(Corsa.class, id);
     }
