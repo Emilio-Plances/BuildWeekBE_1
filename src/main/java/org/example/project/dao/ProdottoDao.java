@@ -22,19 +22,17 @@ public class ProdottoDao {
     public void save(ProdottoAcquistato pa) throws Exception {
         EntityTransaction et = em.getTransaction();
         et.begin();
-
-        if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato() == StatoDistributore.ATTIVO ||
-                pa.getVenditore() instanceof Venditore) {
-            em.persist(pa);
-        }else {
+        //CONTROLLO SE ABBONAMENTO GIA PRESENTE
+        if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato()==StatoDistributore.FUORI_SERVIZIO) {
             throw new Exception("Il distributore non è attivo.");
         }
+        em.persist(pa);
         et.commit();
     }
 
 
     // Metodo per ottenere un elemento dato il suo ISBN
-    public ProdottoAcquistato getById(int id) {
+    public ProdottoAcquistato getById(int id){
         return em.find(ProdottoAcquistato.class, id);
     }
 

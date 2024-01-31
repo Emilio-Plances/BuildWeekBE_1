@@ -22,6 +22,7 @@ public class ManutenzioneDao {
         EntityTransaction transaction = em.getTransaction();
         Veicolo veicolo = manutenzione.getVeicoloM();
         veicolo.setStatoVeicolo(StatoVeicolo.IN_MANUTENZIONE);
+        //SERVE AGGIORNARE IL DB
         transaction.begin();
         em.persist(manutenzione);
         transaction.commit();

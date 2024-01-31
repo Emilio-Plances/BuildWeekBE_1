@@ -1,6 +1,7 @@
 package org.example.project.entities;
 
 import jakarta.persistence.*;
+import org.example.project.dao.CorsaDao;
 
 import java.time.Duration;
 
