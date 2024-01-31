@@ -56,3 +56,9 @@ TipoTratta--->Urbana
 
 Relazioni
 
+
+
+
+CheckPostiDisponibili alla creazione di biglietti e timbratura
+Numero di corse che effettua un veicolo su una tratta
+Alla creazione di Manutenzione controllare se già è in manutenzione
