@@ -39,7 +39,6 @@ public class Veicolo {
         this.statoVeicolo = StatoVeicolo.IN_SERVIZIO;
         setTipoVeicolo(tipoVeicolo);
     }
-
     public int setNumeroPosti(){
         if (this.tipoVeicolo==TipoVeicolo.TRAM){
             return 50;

@@ -15,7 +15,7 @@ import java.util.Random;
 public class TesseraCliente {
     @Id
     @Column(name = "tessera_cliente",nullable = false)
-    private int tessera_cliente;
+    private int tesseraCliente;
     @Column(nullable = false)
     private String nome;
     @Column(nullable = false)
@@ -47,7 +47,7 @@ public class TesseraCliente {
     public TesseraCliente() {  }
 
     public TesseraCliente(String nome, String cognome, LocalDate dataNascita, Genere genere, CategoriaCliente categoriaCliente) throws Exception {
-        this.tessera_cliente = setNumTessera();
+        this.tesseraCliente = setNumTessera();
         this.nome = nome;
         this.cognome = cognome;
         this.dataNascita = dataNascita;
@@ -83,7 +83,7 @@ public class TesseraCliente {
     }
 
     public int getTessera_cliente() {
-        return tessera_cliente;
+        return tesseraCliente;
     }
 
     public LocalDate getDataAttivazione() {
@@ -160,7 +160,7 @@ public class TesseraCliente {
 
     @Override
     public String toString() {
-        return  "tessera_cliente=" + tessera_cliente +
+        return  "tesseraCliente=" + tesseraCliente +
                 ", nome='" + nome + '\'' +
                 ", cognome='" + cognome + '\'' +
                 ", dataNascita=" + dataNascita +

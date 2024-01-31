@@ -1,10 +1,7 @@
 package org.example.project.dao;
 
 import jakarta.persistence.*;
-import org.example.project.entities.Abbonamento;
-import org.example.project.entities.Biglietto;
-import org.example.project.entities.DistributoreAutomatico;
-import org.example.project.entities.ProdottoAcquistato;
+import org.example.project.entities.*;
 import org.example.project.enums.StatoDistributore;
 
 import java.time.LocalDate;
@@ -26,9 +23,10 @@ public class ProdottoDao {
         EntityTransaction et = em.getTransaction();
         et.begin();
 
-        if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato() == StatoDistributore.ATTIVO) {
+        if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato() == StatoDistributore.ATTIVO ||
+                pa.getVenditore() instanceof Venditore) {
             em.persist(pa);
-        } else {
+        }else {
             throw new Exception("Il distributore non è attivo.");
         }
         et.commit();
@@ -36,7 +34,7 @@ public class ProdottoDao {
 
 
     // Metodo per ottenere un elemento dato il suo ISBN
-    public ProdottoAcquistato getById(int id) throws Exception {
+    public ProdottoAcquistato getById(int id) {
         return em.find(ProdottoAcquistato.class, id);
     }
 
@@ -69,17 +67,23 @@ public class ProdottoDao {
         return q.getResultList();
     }
 
-    public List<ProdottoAcquistato> venditeEffettuateInData(LocalDate dataInizio,LocalDate dataFine,int idVenditore){
+    public List<Object> abbonamentiScadutiPerTessera(int tesseraCliente){
+        Query q = em.createNamedQuery("abbonamentiScadutiPerUtente");
+        q.setParameter("tesseraCliente",tesseraCliente);
+        return q.getResultList();
+    }
+
+    public Object venditeEffettuateInData(LocalDate dataInizio,LocalDate dataFine,int idVenditore){
         Query q=em.createNamedQuery("bigliettiVenduti");
         q.setParameter("dataInizio",dataInizio);
         q.setParameter("dataFine",dataFine);
         q.setParameter("idVenditore",idVenditore);
-        return q.getResultList();
+        return q.getSingleResult();
     }
 
-    public List<ProdottoAcquistato> vendutiDaVenditore(int idVenditore){
+    public Object vendutiDaVenditore(Venditore venditore){
         Query q= em.createNamedQuery("vendutiDaVenditore");
-        q.setParameter("idVenditore",idVenditore);
-        return q.getResultList();
+        q.setParameter("Venditore",venditore);
+        return q.getSingleResult();
     }
 }

@@ -50,7 +50,7 @@ public class VeicoloDao {
     public List<Object[]> dataManutenzioniVeicolo(int idVeicolo) {
         EntityManager em = emf.createEntityManager();
         try {
-            return em.createNamedQuery("Manutenzione.findDataByVeicoloId", Object[].class)
+            return em.createNamedQuery("Manutenzione.cercaPerVeicoloId", Object[].class)
                     .setParameter("idVeicolo", idVeicolo)
                     .getResultList();
         } catch (Exception e) {
