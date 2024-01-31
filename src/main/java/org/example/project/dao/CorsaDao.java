@@ -32,13 +32,17 @@ public class CorsaDao {
         }
     }
 
-
-    public int numeroBigliettiTimbrati(int idCorsa){
+    public int numeroBigliettiTimbrati(int idCorsa) {
         List<Biglietto> bigliettiTimbrati = getBigliettiTimbratiInCorsa(idCorsa);
-        int numeroBiglietti = bigliettiTimbrati.size();
-
-        return numeroBiglietti;
+        if (bigliettiTimbrati != null) {
+            return bigliettiTimbrati.size();
+        } else {
+            return 0;
+        }
     }
+
+
+
 
     public void aggiungiCorsa(Corsa c) throws Exception {
         EntityTransaction et = em.getTransaction();

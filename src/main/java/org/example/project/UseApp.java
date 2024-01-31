@@ -20,14 +20,14 @@ public class UseApp {
 
     public static void main(String[] args) throws Exception {
         //ricerca di prodottiAcquistati per un determinato venditore
-        Venditore v1 = venditoreDao.getById(1);
-        Object vendutiDaV1 = prodottoDao.vendutiDaVenditore(v1);
-        System.out.println("conteggio di prodotti venduti:" + vendutiDaV1);
+//        Venditore v1 = venditoreDao.getById(1);
+//        Object vendutiDaV1 = prodottoDao.vendutiDaVenditore(v1);
+//        System.out.println("conteggio di prodotti venduti:" + vendutiDaV1);
 
         //ricerca di prodottiAcquistati per range di date
-        Object nrProdotti = prodottoDao.venditeEffettuateInData(LocalDate.of(2024, 1, 25),
-                LocalDate.of(2024, 3, 31), v1.getId());
-        System.out.println("conteggio di prodotti venduti in una data:" + nrProdotti);
+//        Object nrProdotti = prodottoDao.venditeEffettuateInData(LocalDate.of(2024, 1, 25),
+//                LocalDate.of(2024, 3, 31), v1.getId());
+//        System.out.println("conteggio di prodotti venduti in una data:" + nrProdotti);
 
         //Verifica rapida di validità abbonamento per singola tessera
 //        TesseraCliente t1 = tesseraDao.getById(283);
@@ -49,8 +49,26 @@ public class UseApp {
 //        veicoloDao.closeEM();
 //        venditoreDao.closeEM();
 
-        Veicolo veicolo1 = veicoloDao.getVeicoloById(1);
-        Manutenzione manutenzione2 = creaManutenzione(veicolo1, LocalDate.of(2024,3,10),LocalDate.of(2024,3,20));
+//        Veicolo veicolo1 = veicoloDao.getVeicoloById(1);
+//        Manutenzione manutenzione2 = creaManutenzione(veicolo1, LocalDate.of(2024,3,10),LocalDate.of(2024,3,20));
+        Tratta tratta1=creaTratta(TipoTratta.EXTRA_URBANA,"Palermo","Catania");
+        Venditore v1=creaVenditore("Da Mario");
+//        Biglietto biglietto = creaBiglietto(v1,tratta1);
+//        Biglietto biglietto1 = creaBiglietto(v1,tratta1);
+//        Biglietto biglietto = (Biglietto) prodottoDao.getById(8);
+//        Veicolo veicolo1=creaVeicolo(TipoVeicolo.AUTOBUS);
+//        Corsa c = creaCorsa(veicolo1,tratta1,LocalDateTime.of(2024,1,28,8,20));
+        Corsa c = corsaDao.cercaCorsaById(18);
+//        biglietto.timbraBiglietto(c);
+//        prodottoDao.save(biglietto);
+        Biglietto biglietto1 = (Biglietto) prodottoDao.getById(9);
+//        biglietto.timbraBiglietto(c);
+//        prodottoDao.save(biglietto1);
+
+        biglietto1.timbraBiglietto(c);
+        prodottoDao.save(biglietto1);
+
+        c.stampaListaBiglietti();
 
     }
 
@@ -121,9 +139,9 @@ public class UseApp {
         return null;
     }
 
-    public static Biglietto creaBiglietto(Venditore venditore, Corsa corsa) {
+    public static Biglietto creaBiglietto(Venditore venditore, Tratta tratta) {
         try {
-            Biglietto biglietto = new Biglietto(venditore, corsa);
+            Biglietto biglietto = new Biglietto(venditore, tratta);
             prodottoDao.save(biglietto);
             return biglietto;
         } catch (Exception e) {
@@ -170,26 +188,25 @@ public class UseApp {
 //        TesseraCliente t1 = tesseraDao.getById(283);//  Tessera Emilio
 //        TesseraCliente t2 = tesseraDao.getById(621);//  Tessera Tommaso
 
-//        Venditore v1=creaVenditore("Da Mario");
+//
 //        DistributoreAutomatico d1=creaDistributore("Shish",StatoDistributore.ATTIVO);
 //        Venditore v1 = venditoreDao.getById(1);
 //        DistributoreAutomatico d1 = (DistributoreAutomatico) venditoreDao.getById(2);
 
-//        Tratta tratta1=creaTratta(TipoTratta.EXTRA_URBANA,"Palermo","Catania");
+//
 //        Tratta tratta1 = trattaDao.getTrattaById(1);
 //
 //        Abbonamento a1=creaAbbonamento(v1,tratta1,TipoAbbonamento.MENSILE,t1);
 //        Abbonamento abbonamento1 = (Abbonamento) prodottoDao.getById(1);
 
-//        Veicolo veicolo1=creaVeicolo(TipoVeicolo.AUTOBUS);
+//
 
 
 //        Corsa c = creaCorsa(veicolo1,tratta1,LocalDateTime.of(2024,1,28,8,20));
 //        Corsa corsa1 = corsaDao.cercaCorsaById(3);
 
-//        Biglietto biglietto = creaBiglietto(v1,corsa1);
-//        Biglietto biglietto1 = creaBiglietto(v1,corsa1);
-//        Biglietto biglietto1 = (Biglietto) prodottoDao.getById(2);
+//
+//
 //        Biglietto biglietto2 = (Biglietto) prodottoDao.getById(3);
 //        Biglietto biglietto3 = (Biglietto) prodottoDao.getById(4);
 

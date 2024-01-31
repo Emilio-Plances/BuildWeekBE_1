@@ -1,6 +1,8 @@
 package org.example.project.entities;
 
 import jakarta.persistence.*;
+import org.example.project.dao.ProdottoDao;
+
 import java.time.LocalDate;
 
 @Entity
@@ -23,11 +25,24 @@ public abstract class ProdottoAcquistato {
     @JoinColumn(name="venditore_fk",nullable = false)
     private Venditore venditore;
 
+    @ManyToOne
+    @JoinColumn(name="tratta_fk",nullable = false)
+    private Tratta tratta;
+
     public ProdottoAcquistato(){}
 
-    public ProdottoAcquistato(Venditore venditore) {
+    public ProdottoAcquistato(Venditore venditore, Tratta tratta) {
         this.venditore = venditore;
+        this.tratta = tratta;
         dataAcquisto=LocalDate.now();
+    }
+
+    public void caricaDatabase(ProdottoAcquistato p) {
+        ProdottoDao prodottoDao = new ProdottoDao();
+        try{prodottoDao.save(p);}
+        catch (Exception e){
+            System.out.println("Errore nel salvataggio");
+        }
     }
 
     public int getId() {
@@ -40,6 +55,7 @@ public abstract class ProdottoAcquistato {
 
     public void setDataAcquisto(LocalDate dataAcquisto) {
         this.dataAcquisto = dataAcquisto;
+        caricaDatabase(this);
     }
 
     public Venditore getVenditore() {
@@ -48,6 +64,7 @@ public abstract class ProdottoAcquistato {
 
     public void setVenditore(Venditore venditore) {
         this.venditore = venditore;
+        caricaDatabase(this);
     }
 
 

@@ -27,16 +27,10 @@ public class ProdottoDao {
         if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato()==StatoDistributore.FUORI_SERVIZIO) {
             throw new Exception("Il distributore non è attivo.");
         }
-        if(pa instanceof Biglietto){
-            int postiMassimi = ((Biglietto) pa).getCorsa().getVeicolo().getNumeroPosti();
-            int bigliettiTimbrati= corsaDao.numeroBigliettiTimbrati(((Biglietto) pa).getCorsa().getId());
-                    if(postiMassimi< bigliettiTimbrati){
-                        throw new Exception("Il veicolo ha raggiunto la capienza massima");}
-        }
+
         em.persist(pa);
         et.commit();
     }
-
 
     // Metodo per ottenere un elemento dato il suo ISBN
     public ProdottoAcquistato getById(int id){

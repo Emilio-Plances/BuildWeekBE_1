@@ -27,14 +27,7 @@ public class ManutenzioneDao {
         EntityTransaction transaction = em.getTransaction();
         Veicolo veicolo = manutenzione.getVeicoloM();
         List<Object[]> manutenzioni = veicoloDao.dataManutenzioniVeicolo(veicolo.getId());
-        for (Object[] periodo : manutenzioni) {
-            LocalDate dataInizioEsistente = (LocalDate) periodo[0];
-            LocalDate dataFineEsistente = (LocalDate) periodo[1];
 
-            if (isPeriodoSovrapposto(manutenzione.getDataInizio(), manutenzione.getDataFine(), dataInizioEsistente, dataFineEsistente)) {
-                throw new Exception("La nuova manutenzione si sovrappone a un periodo già programmato.");
-            }
-        }
         veicolo.setStatoVeicolo(StatoVeicolo.IN_MANUTENZIONE);
         //SERVE AGGIORNARE IL DB
         transaction.begin();
@@ -42,7 +35,6 @@ public class ManutenzioneDao {
         transaction.commit();
         em.refresh(manutenzione);
     }
-
 
     public Manutenzione getManutenzioneById(int id) {
         return em.find(Manutenzione.class, id);
@@ -59,6 +51,7 @@ public class ManutenzioneDao {
         emf.close();
         em.close();
     }
+
     public boolean isPeriodoSovrapposto(LocalDate start1, LocalDate end1, LocalDate start2, LocalDate end2) {
         return !end1.isBefore(start2) && !start1.isAfter(end2);
     }

@@ -8,13 +8,12 @@ public class Biglietto extends ProdottoAcquistato {
     private boolean timbrato = false;
 
     @ManyToOne
-    @JoinColumn(name="corsa_fk",nullable = false)
+    @JoinColumn(name="corsa_fk")
     private Corsa corsa;
 
     public Biglietto() {}
-    public Biglietto(Venditore venditore, Corsa corsa) {
-        super(venditore);
-        this.corsa=corsa;
+    public Biglietto(Venditore venditore, Tratta tratta) {
+        super(venditore, tratta);
     }
     public boolean isTimbrato() {
         return timbrato;
@@ -31,6 +30,12 @@ public class Biglietto extends ProdottoAcquistato {
     public void setCorsa(Corsa corsa) {
         this.corsa = corsa;
     }
+
+    public void timbraBiglietto(Corsa corsa){
+        if (corsa != null) {
+            setTimbrato(true);
+            setCorsa(corsa);
+        }}
 
     @Override
     public String toString() {

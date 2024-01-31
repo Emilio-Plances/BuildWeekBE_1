@@ -20,6 +20,8 @@ import java.util.List;
         )
 })
 public class Corsa {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenza_venditore")
     @SequenceGenerator(name = "sequenza_venditore", initialValue = 1, allocationSize = 1)
@@ -57,15 +59,10 @@ public class Corsa {
         }
     }
 
-    public void timbraBiglietto(Biglietto biglietto){
-        for(Biglietto b : biglietti){
-           if (b.getId() == biglietto.getId()){
-               b.setTimbrato(true);
-               return;
-           }
-        }
-        System.out.println("Questo biglietto non è su questa corsa");
+    public void setBiglietti(List<Biglietto> biglietti) {
+        this.biglietti = biglietti;
     }
+
 
 
     public int getId() {
@@ -121,4 +118,12 @@ public class Corsa {
                 ", dataArrivo=" + dataArrivo +
                 ", durata=" + durata;
     }
+
+    public void stampaListaBiglietti() {
+        System.out.println("Lista dei biglietti per la corsa con ID " + id + ":");
+        if(biglietti != null){
+        for (Biglietto biglietto : biglietti) {
+            System.out.println("ID Biglietto: " + biglietto.getId());
+            System.out.println("Timbrato: " + biglietto.isTimbrato());
+        }}}
 }
