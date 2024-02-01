@@ -32,7 +32,7 @@ public class Biglietto extends ProdottoAcquistato {
     }
 
     public void timbraBiglietto(Corsa corsa){
-        if (corsa != null) {
+        if (!isTimbrato()) {
             setTimbrato(true);
             setCorsa(corsa);
         }}

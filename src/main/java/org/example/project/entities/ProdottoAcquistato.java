@@ -1,7 +1,7 @@
 package org.example.project.entities;
 
 import jakarta.persistence.*;
-import org.example.project.dao.ProdottoDao;
+
 
 import java.time.LocalDate;
 
@@ -37,13 +37,6 @@ public abstract class ProdottoAcquistato {
         dataAcquisto=LocalDate.now();
     }
 
-    public void caricaDatabase(ProdottoAcquistato p) {
-        ProdottoDao prodottoDao = new ProdottoDao();
-        try{prodottoDao.save(p);}
-        catch (Exception e){
-            System.out.println("Errore nel salvataggio");
-        }
-    }
 
     public int getId() {
         return id;
@@ -55,7 +48,6 @@ public abstract class ProdottoAcquistato {
 
     public void setDataAcquisto(LocalDate dataAcquisto) {
         this.dataAcquisto = dataAcquisto;
-        caricaDatabase(this);
     }
 
     public Venditore getVenditore() {
@@ -64,9 +56,7 @@ public abstract class ProdottoAcquistato {
 
     public void setVenditore(Venditore venditore) {
         this.venditore = venditore;
-        caricaDatabase(this);
     }
-
 
     @Override
     public String toString() {

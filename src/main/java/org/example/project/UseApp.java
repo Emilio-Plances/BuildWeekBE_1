@@ -53,20 +53,20 @@ public class UseApp {
 //        Manutenzione manutenzione2 = creaManutenzione(veicolo1, LocalDate.of(2024,3,10),LocalDate.of(2024,3,20));
         Tratta tratta1=creaTratta(TipoTratta.EXTRA_URBANA,"Palermo","Catania");
         Venditore v1=creaVenditore("Da Mario");
-//        Biglietto biglietto = creaBiglietto(v1,tratta1);
+        Biglietto biglietto = creaBiglietto(v1,tratta1);
 //        Biglietto biglietto1 = creaBiglietto(v1,tratta1);
 //        Biglietto biglietto = (Biglietto) prodottoDao.getById(8);
-//        Veicolo veicolo1=creaVeicolo(TipoVeicolo.AUTOBUS);
-//        Corsa c = creaCorsa(veicolo1,tratta1,LocalDateTime.of(2024,1,28,8,20));
-        Corsa c = corsaDao.cercaCorsaById(18);
-//        biglietto.timbraBiglietto(c);
-//        prodottoDao.save(biglietto);
+        Veicolo veicolo1=creaVeicolo(TipoVeicolo.AUTOBUS);
+        Corsa c = creaCorsa(veicolo1,tratta1,LocalDateTime.of(2024,1,28,8,20));
+//        Corsa c = corsaDao.cercaCorsaById(12);
+
+
+        biglietto.timbraBiglietto(c);
+
+//
         Biglietto biglietto1 = (Biglietto) prodottoDao.getById(9);
 //        biglietto.timbraBiglietto(c);
 //        prodottoDao.save(biglietto1);
-
-        biglietto1.timbraBiglietto(c);
-        prodottoDao.save(biglietto1);
 
         c.stampaListaBiglietti();
 
@@ -178,7 +178,10 @@ public class UseApp {
         }
     }
 
-
+    public static void timbraBiglietto(Biglietto biglietto, Corsa c) {
+        if (biglietto != null) {
+       biglietto.timbraBiglietto(c);
+    }}
 
 }
 
