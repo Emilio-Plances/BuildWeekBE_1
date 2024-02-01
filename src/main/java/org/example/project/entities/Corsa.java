@@ -13,12 +13,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "corsa")
-@NamedQueries({
-        @NamedQuery(
-                name = "Corsa.trovaBigliettiTimbrati",
-                query = "SELECT b FROM Corsa c JOIN c.biglietti b WHERE b.timbrato = true"
-        )
-})
 public class Corsa {
 
 
