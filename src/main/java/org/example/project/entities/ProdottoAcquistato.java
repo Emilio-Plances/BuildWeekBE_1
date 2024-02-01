@@ -3,6 +3,7 @@ package org.example.project.entities;
 import jakarta.persistence.*;
 import org.example.project.dao.ProdottoDao;
 
+
 import java.time.LocalDate;
 
 @Entity
@@ -16,7 +17,7 @@ public abstract class ProdottoAcquistato {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_prodotto")
     @SequenceGenerator(name="sequenza_prodotto",initialValue = 1,allocationSize = 1)
-    private int id;
+    private Integer id;
 
     @Column(name="data_acquisto",nullable = false)
     private LocalDate dataAcquisto;
@@ -37,19 +38,19 @@ public abstract class ProdottoAcquistato {
         dataAcquisto=LocalDate.now();
     }
 
-    public void caricaDatabase(ProdottoAcquistato p) {
+    public void caricaDatabase() {
         ProdottoDao prodottoDao = new ProdottoDao();
-        try{prodottoDao.save(p);}
+        try{prodottoDao.upDate(this);}
         catch (Exception e){
             System.out.println("Errore nel salvataggio");
+            System.out.println(e.getMessage());
+        }finally {
+            prodottoDao.closeEM();
         }
     }
 
-    public Tratta getTratta() {
-        return tratta;
-    }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -59,7 +60,6 @@ public abstract class ProdottoAcquistato {
 
     public void setDataAcquisto(LocalDate dataAcquisto) {
         this.dataAcquisto = dataAcquisto;
-        caricaDatabase(this);
     }
 
     public Venditore getVenditore() {
@@ -68,14 +68,16 @@ public abstract class ProdottoAcquistato {
 
     public void setVenditore(Venditore venditore) {
         this.venditore = venditore;
-        caricaDatabase(this);
     }
-
 
     @Override
     public String toString() {
         return  "id=" + id +
                 ", dataAcquisto=" + dataAcquisto +
                 ", venditore=" + venditore;
+    }
+
+    public Tratta getTratta() {
+        return tratta;
     }
 }

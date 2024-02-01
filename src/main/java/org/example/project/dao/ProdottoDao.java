@@ -9,8 +9,8 @@ import java.util.List;
 
 
 public class ProdottoDao {
-    private final EntityManagerFactory emf;
-    private final EntityManager em;
+    private EntityManagerFactory emf;
+    private EntityManager em;
     private CorsaDao corsaDao;
 
     // Costruttore: inizializza l'EntityManagerFactory e l'EntityManager
@@ -19,21 +19,34 @@ public class ProdottoDao {
         em = emf.createEntityManager();
     }
 
+
     // Metodo per salvare un elemento nel database
     public void save(ProdottoAcquistato pa) throws Exception {
         EntityTransaction et = em.getTransaction();
         et.begin();
+
         boolean check=true;
         if(pa instanceof Abbonamento a) check=checkPresenzaAbbonamento(a);
-        if (!check) throw new Exception("Questo utente è già sottoscritto a questo abbonamento");
+        if (!check) {
+            et.commit();
+            throw new Exception("Questo utente è già sottoscritto a questo abbonamento");
+        }
         if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato()==StatoDistributore.FUORI_SERVIZIO) {
+            et.commit();
             throw new Exception("Il distributore non è attivo.");
         }
         em.persist(pa);
         et.commit();
     }
 
-    // Metodo per ottenere un elemento dato il suo ISBN
+    public void upDate(ProdottoAcquistato pa) throws Exception {
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.merge(pa);
+        et.commit();
+    }
+
+        // Metodo per ottenere un elemento dato il suo ISBN
     public ProdottoAcquistato getById(int id){
         return em.find(ProdottoAcquistato.class, id);
     }

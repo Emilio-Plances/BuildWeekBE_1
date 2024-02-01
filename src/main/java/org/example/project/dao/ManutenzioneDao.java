@@ -8,6 +8,7 @@ import jakarta.persistence.Persistence;
 import org.example.project.entities.Manutenzione;
 import org.example.project.entities.Veicolo;
 import org.example.project.enums.StatoVeicolo;
+import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -23,17 +24,19 @@ public class ManutenzioneDao {
         veicoloDao = new VeicoloDao();
     }
 
-    public void saveManutenzione(Manutenzione manutenzione) throws Exception{
+    public void saveManutenzione(@NotNull Manutenzione manutenzione) throws Exception {
         EntityTransaction transaction = em.getTransaction();
         Veicolo veicolo = manutenzione.getVeicoloM();
-        List<Object[]> manutenzioni = veicoloDao.dataManutenzioniVeicolo(veicolo.getId());
 
-        veicolo.setStatoVeicolo(StatoVeicolo.IN_MANUTENZIONE);
-        //SERVE AGGIORNARE IL DB
-        transaction.begin();
-        em.persist(manutenzione);
-        transaction.commit();
-        em.refresh(manutenzione);
+        if (!veicolo.isInManutenzione()) {
+            veicolo.setStatoVeicolo(StatoVeicolo.IN_MANUTENZIONE);
+
+            // SERVE AGGIORNARE IL DB
+            transaction.begin();
+            em.persist(manutenzione);
+            transaction.commit();
+            em.refresh(manutenzione);
+        }
     }
 
     public Manutenzione getManutenzioneById(int id) {
@@ -50,10 +53,6 @@ public class ManutenzioneDao {
     public void closeEM(){
         emf.close();
         em.close();
-    }
-
-    public boolean isPeriodoSovrapposto(LocalDate start1, LocalDate end1, LocalDate start2, LocalDate end2) {
-        return !end1.isBefore(start2) && !start1.isAfter(end2);
     }
 
 
