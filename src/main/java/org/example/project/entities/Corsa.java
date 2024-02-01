@@ -58,9 +58,8 @@ public class Corsa {
             this.durata = (int) Duration.between(this.dataPartenza, this.dataArrivo).toMinutes();
         }
     }
-
-    public void setBiglietti(List<Biglietto> biglietti) {
-        this.biglietti = biglietti;
+    public void timbraBiglietto(Biglietto biglietto){
+        biglietto.setTimbrato(true);
     }
 
 

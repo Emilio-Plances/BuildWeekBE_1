@@ -71,7 +71,7 @@ public class ProdottoDao {
         return q.getResultList();
     }
 
-    public List<Object> abbonamentiScadutiPerTessera(int tesseraCliente){
+    public List<Object[]> abbonamentiScadutiPerTessera(int tesseraCliente){
         Query q = em.createNamedQuery("abbonamentiScadutiPerUtente");
         q.setParameter("tesseraCliente",tesseraCliente);
         return q.getResultList();

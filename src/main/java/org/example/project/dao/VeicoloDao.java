@@ -64,22 +64,16 @@ public class VeicoloDao {
     public List<Object[]> periodiServizioVeicolo(int idVeicolo) {
         try {
             List<Object[]> periodiServizio = new ArrayList<>();
-
             List<Object[]> manutenzioni =dataManutenzioniVeicolo(idVeicolo);
 
             LocalDate dataInizioPrimoServizioVeicolo = entityManager.find(Veicolo.class, idVeicolo).getDataInizioServizio();
-
             LocalDate dataInizioServizio = dataInizioPrimoServizioVeicolo;
 
             for (Object[] manutenzione : manutenzioni) {
                 LocalDate dataInizioManutenzione = (LocalDate) manutenzione[0];
-
                 periodiServizio.add(new Object[]{dataInizioServizio, dataInizioManutenzione});
-
                 dataInizioServizio = (LocalDate) manutenzione[1];
             }
-
-
             periodiServizio.add(new Object[]{dataInizioServizio, LocalDate.now()});
 
             return periodiServizio;
@@ -91,6 +85,7 @@ public class VeicoloDao {
 
 
     public int sommaGiorniServizio(int idVeicolo){
+
         int sommaGiorni = 0;
 
         List<Object[]> periodiServizio =periodiServizioVeicolo(idVeicolo);
@@ -101,13 +96,10 @@ public class VeicoloDao {
             long giorniServizio = ChronoUnit.DAYS.between(dataInizio, dataFine) + 1;
             sommaGiorni += (int) giorniServizio;
         }}
-
-
         return sommaGiorni;
     }
-
-
     public int sommaGiorniManutenzione(int idVeicolo){
+
         int sommaGiorni = 0;
 
         List<Object[]> periodiManutenzione =dataManutenzioniVeicolo(idVeicolo);
@@ -118,8 +110,6 @@ public class VeicoloDao {
                 long giorniManutenzione = ChronoUnit.DAYS.between(dataInizio, dataFine) + 1;
                 sommaGiorni += (int) giorniManutenzione;
             }}
-
-
         return sommaGiorni;
     }
 }
