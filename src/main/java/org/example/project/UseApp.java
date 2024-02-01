@@ -19,9 +19,9 @@ public class UseApp {
     private static final VenditoreDao venditoreDao = new VenditoreDao();
     public static void main(String[] args) throws Exception {
 
-        TesseraCliente t1 = tesseraDao.getById(929);//  Tessera Emilio
-        TesseraCliente t2 = tesseraDao.getById(887);//  Tessera Tommaso
-        TesseraCliente t3 = tesseraDao.getById(437);//  Tessera Calogero
+        TesseraCliente t1 = tesseraDao.getById(219);//  Tessera Emilio
+        TesseraCliente t2 = tesseraDao.getById(404);//  Tessera Tommaso
+        TesseraCliente t3 = tesseraDao.getById(550);//  Tessera Calogero
 
         Venditore v1 = venditoreDao.getById(1);
         DistributoreAutomatico d1 = (DistributoreAutomatico) venditoreDao.getById(2);
@@ -32,6 +32,9 @@ public class UseApp {
         Tratta tratta2 = trattaDao.getTrattaById(2);
         Tratta tratta3 = trattaDao.getTrattaById(3);
         Tratta tratta4 = trattaDao.getTrattaById(4);
+
+
+
 
         Abbonamento abbonamento1 = (Abbonamento) prodottoDao.getById(1);
         Abbonamento abbonamento2 = (Abbonamento) prodottoDao.getById(2);
@@ -48,12 +51,10 @@ public class UseApp {
         Corsa corsa1 = corsaDao.cercaCorsaById(7);
         Corsa corsa2 = corsaDao.cercaCorsaById(8);
 
-
         Biglietto biglietto1 = (Biglietto) prodottoDao.getById(5);
         Biglietto biglietto2 = (Biglietto) prodottoDao.getById(6);
         Biglietto biglietto3 = (Biglietto) prodottoDao.getById(7);
         Biglietto biglietto4 = (Biglietto) prodottoDao.getById(8);
-
 
         Manutenzione m1 = manutenzioneDao.getManutenzioneById(1);
         Manutenzione m2 = manutenzioneDao.getManutenzioneById(2);
@@ -68,21 +69,19 @@ public class UseApp {
         Object vendutiDaV1 = prodottoDao.vendutiDaVenditore(v1);
         System.out.println("conteggio di prodotti venduti:" + vendutiDaV1);
         System.out.println("----------------------------------------------------------------");
-
-        //ricerca di prodottiAcquistati per range di date e venditore
+//
+//        //ricerca di prodottiAcquistati per range di date e venditore
 
         Object nrProdotti = prodottoDao.venditeEffettuateInData(LocalDate.of(2024, 1, 25),
                 LocalDate.of(2024, 3, 31), v1.getId());
         System.out.println("conteggio di prodotti venduti in una data:" + nrProdotti);
         System.out.println("----------------------------------------------------------------");
-
-//        //Verifica rapida di validità abbonamento per singola tessera
-        Abbonamento a1=creaAbbonamento(v2,tratta3,TipoAbbonamento.MENSILE,t3);
-
+//
+//      //Verifica rapida di validità abbonamento per singola tessera
 
         Abbonamento ab =(Abbonamento) prodottoDao.getById(1);
         ab.setValiditaAbbonamento(false);
-        prodottoDao.save(ab);
+        prodottoDao.upDate(ab);
         List<Object[]> abbonamentiScaduti = prodottoDao.abbonamentiScadutiPerTessera(t1.getTessera_cliente());
         for (Object[] abb : abbonamentiScaduti) {
             System.out.println("abbId:" + abb[0]);
@@ -91,30 +90,21 @@ public class UseApp {
         }
         System.out.println("----------------------------------------------------------------");
 
-        //metodo per avere la lista di manutenzioni:
+//        //metodo per avere la lista di manutenzioni:
 
-        stampaListaManutenziioni(veicolo1);
+        stampaListaManutenziioni(veicolo2);
+        System.out.println("----------------------------------------------------------------");
+//
+//        //metodo per avere la lista dei dati di servizio
+        stampaPeriodiDiServizio(veicolo2);
         System.out.println("----------------------------------------------------------------");
 
-        //metodo per avere la lista dei dati di servizio
-        stampaPeriodiDiServizio(veicolo1);
-        System.out.println("----------------------------------------------------------------");
-
-        //timbratura di un biglietto
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//        //timbratura di un biglietto
+//        biglietto3.timbraBiglietto(corsa2);
+//        biglietto1.timbraBiglietto(corsa2);
+        corsa2.getBiglietti().forEach(System.out::println);
+        List<Biglietto> bigliettos = corsa2.cercaBigliettoPerData(LocalDate.of(2024,01,22),LocalDate.of(2024,02,4));
+        bigliettos.forEach(System.out::println);
 
 
 

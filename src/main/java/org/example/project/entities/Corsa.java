@@ -14,8 +14,6 @@ import java.util.List;
 @Entity
 @Table(name = "corsa")
 public class Corsa {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenza_venditore")
     @SequenceGenerator(name = "sequenza_venditore", initialValue = 1, allocationSize = 1)
@@ -56,6 +54,16 @@ public class Corsa {
         biglietto.setTimbrato(true);
     }
 
+
+    public List<Biglietto> cercaBigliettoPerData (LocalDate primaData, LocalDate secondaData){
+        List<Biglietto> bigliettiPerData = new ArrayList<Biglietto>();
+        for (Biglietto b : biglietti){
+            if (primaData.isBefore(b.getDataTimbro().toLocalDate()) && secondaData.isAfter(b.getDataTimbro().toLocalDate())){
+                bigliettiPerData.add(b);
+            }
+        }
+        return  bigliettiPerData;
+    }
 
     public int getId() {
         return id;

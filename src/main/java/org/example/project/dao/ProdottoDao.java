@@ -19,14 +19,14 @@ public class ProdottoDao {
         em = emf.createEntityManager();
     }
 
+
     // Metodo per salvare un elemento nel database
     public void save(ProdottoAcquistato pa) throws Exception {
         EntityTransaction et = em.getTransaction();
         et.begin();
 
         boolean check=true;
-        if(pa instanceof Abbonamento a && pa.getId()==null) check=checkPresenzaAbbonamento(a);
-
+        if(pa instanceof Abbonamento a) check=checkPresenzaAbbonamento(a);
         if (!check) {
             et.commit();
             throw new Exception("Questo utente è già sottoscritto a questo abbonamento");
@@ -39,7 +39,14 @@ public class ProdottoDao {
         et.commit();
     }
 
-    // Metodo per ottenere un elemento dato il suo ISBN
+    public void upDate(ProdottoAcquistato pa) throws Exception {
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.merge(pa);
+        et.commit();
+    }
+
+        // Metodo per ottenere un elemento dato il suo ISBN
     public ProdottoAcquistato getById(int id){
         return em.find(ProdottoAcquistato.class, id);
     }
