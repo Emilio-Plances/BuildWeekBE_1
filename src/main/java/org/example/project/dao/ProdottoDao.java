@@ -25,13 +25,16 @@ public class ProdottoDao {
         et.begin();
 
         boolean check=true;
-        if(pa instanceof Abbonamento a) check=checkPresenzaAbbonamento(a);
+        if(pa instanceof Abbonamento a && pa.getId()==null) check=checkPresenzaAbbonamento(a);
 
-        if (!check) throw new Exception("Questo utente è già sottoscritto a questo abbonamento");
+        if (!check) {
+            et.commit();
+            throw new Exception("Questo utente è già sottoscritto a questo abbonamento");
+        }
         if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato()==StatoDistributore.FUORI_SERVIZIO) {
+            et.commit();
             throw new Exception("Il distributore non è attivo.");
         }
-
         em.persist(pa);
         et.commit();
     }

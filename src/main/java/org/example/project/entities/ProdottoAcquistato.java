@@ -16,7 +16,7 @@ public abstract class ProdottoAcquistato {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "sequenza_prodotto")
     @SequenceGenerator(name="sequenza_prodotto",initialValue = 1,allocationSize = 1)
-    private int id;
+    private Integer id;
 
     @Column(name="data_acquisto",nullable = false)
     private LocalDate dataAcquisto;
@@ -45,7 +45,7 @@ public abstract class ProdottoAcquistato {
         }
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -73,5 +73,9 @@ public abstract class ProdottoAcquistato {
         return  "id=" + id +
                 ", dataAcquisto=" + dataAcquisto +
                 ", venditore=" + venditore;
+    }
+
+    public Tratta getTratta() {
+        return tratta;
     }
 }
