@@ -12,6 +12,7 @@ import java.time.LocalDate;
 @NamedQuery(name = "abbonamentiScadutiPerUtente", query = "SELECT a.id, a.tesseraCliente.cognome, a.validitaAbbonamento" +
         " FROM Abbonamento a WHERE a.fineValidita<CURRENT_DATE or a.validitaAbbonamento = false " +
         "and a.tesseraCliente.tesseraCliente = :tesseraCliente")
+@NamedQuery(name="checkExisting",query="SELECT a FROM Abbonamento a WHERE a.tratta.id=:trattaId AND a.tesseraCliente.id=:tesseraId")
 public class Abbonamento extends ProdottoAcquistato {
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_abbonamento", nullable = false)

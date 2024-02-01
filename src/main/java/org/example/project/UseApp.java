@@ -19,26 +19,89 @@ public class UseApp {
     private static final VenditoreDao venditoreDao = new VenditoreDao();
 
     public static void main(String[] args) throws Exception {
+
+        TesseraCliente t1 = tesseraDao.getById(180);//  Tessera Emilio
+        TesseraCliente t2 = tesseraDao.getById(611);//  Tessera Tommaso
+        TesseraCliente t3 = tesseraDao.getById(825);//  Tessera Tommaso
+
+        Venditore v1 = venditoreDao.getById(1);
+        DistributoreAutomatico d1 = (DistributoreAutomatico) venditoreDao.getById(2);
+
+        Tratta tratta1 = trattaDao.getTrattaById(1);
+        Tratta tratta2 = trattaDao.getTrattaById(2);
+        Tratta tratta3 = trattaDao.getTrattaById(3);
+
+        Veicolo veicolo1 = veicoloDao.getVeicoloById(1);
+        Veicolo veicolo2 = veicoloDao.getVeicoloById(2);
+
+        Corsa corsa1 = corsaDao.cercaCorsaById(3);
+        Corsa corsa2 = corsaDao.cercaCorsaById(4);
+        Corsa corsa3 = corsaDao.cercaCorsaById(5);
+        Corsa corsa4 = corsaDao.cercaCorsaById(6);
+
+        Biglietto biglietto1 = (Biglietto) prodottoDao.getById(6);
+        Biglietto biglietto2 = (Biglietto) prodottoDao.getById(7);
+        Biglietto biglietto3 = (Biglietto) prodottoDao.getById(8);
+
+        Manutenzione m1 = manutenzioneDao.getManutenzioneById(1);
+        Manutenzione m2 = manutenzioneDao.getManutenzioneById(2);
+
+        //RICHIESTE DELLA TRACCIA:
+
         //ricerca di prodottiAcquistati per un determinato venditore
-//        Venditore v1 = venditoreDao.getById(1);
-//        Object vendutiDaV1 = prodottoDao.vendutiDaVenditore(v1);
-//        System.out.println("conteggio di prodotti venduti:" + vendutiDaV1);
+
+        Object vendutiDaV1 = prodottoDao.vendutiDaVenditore(v1);
+        System.out.println("conteggio di prodotti venduti:" + vendutiDaV1);
+        System.out.println("----------------------------------------------------------------");
 
         //ricerca di prodottiAcquistati per range di date
-//        Object nrProdotti = prodottoDao.venditeEffettuateInData(LocalDate.of(2024, 1, 25),
-//                LocalDate.of(2024, 3, 31), v1.getId());
-//        System.out.println("conteggio di prodotti venduti in una data:" + nrProdotti);
+
+        Object nrProdotti = prodottoDao.venditeEffettuateInData(LocalDate.of(2024, 1, 25),
+                LocalDate.of(2024, 3, 31), v1.getId());
+        System.out.println("conteggio di prodotti venduti in una data:" + nrProdotti);
+        System.out.println("----------------------------------------------------------------");
 
         //Verifica rapida di validità abbonamento per singola tessera
-//        TesseraCliente t1 = tesseraDao.getById(283);
-//        List<Object> abbonamentiScaduti = prodottoDao.abbonamentiScadutiPerTessera(t1.getTessera_cliente());
-//        for (int i = 0; i < abbonamentiScaduti.size(); i++){
-//            System.out.println();
-//        }
 
+        List<Object[]> abbonamentiScaduti = prodottoDao.abbonamentiScadutiPerTessera(t1.getTessera_cliente());
+//        Abbonamento ab =(Abbonamento) prodottoDao.getById(5);
+//        ab.setValiditaAbbonamento(false);
+//        prodottoDao.save(ab);
+        for (Object[] abb : abbonamentiScaduti) {
+            System.out.println("abbId:" + abb[0]);
+            System.out.println("nomeTessera:" + abb[1]);
+            System.out.println("validita:" + abb[2]);
+        }
+        System.out.println("----------------------------------------------------------------");
 
         //metodo per avere la lista di manutenzioni:
-//        stampaListaManutenziioni(veicolo1);
+        stampaListaManutenziioni(veicolo1);
+        System.out.println("----------------------------------------------------------------");
+
+        //metodo per avere la lista dei dati di servizio
+        stampaPeriodiDiServizio(veicolo1);
+        System.out.println("----------------------------------------------------------------");
+
+        //timbratura di un biglietto
+        corsa1.timbraBiglietto(biglietto1);
+        prodottoDao.save(biglietto1);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //        corsaDao.closeEM();
@@ -48,28 +111,6 @@ public class UseApp {
 //        trattaDao.closeEM();
 //        veicoloDao.closeEM();
 //        venditoreDao.closeEM();
-
-//        Veicolo veicolo1 = veicoloDao.getVeicoloById(1);
-//        Manutenzione manutenzione2 = creaManutenzione(veicolo1, LocalDate.of(2024,3,10),LocalDate.of(2024,3,20));
-        Tratta tratta1=creaTratta(TipoTratta.EXTRA_URBANA,"Palermo","Catania");
-        Venditore v1=creaVenditore("Da Mario");
-        Biglietto biglietto = creaBiglietto(v1,tratta1);
-//        Biglietto biglietto1 = creaBiglietto(v1,tratta1);
-//        Biglietto biglietto = (Biglietto) prodottoDao.getById(8);
-        Veicolo veicolo1=creaVeicolo(TipoVeicolo.AUTOBUS);
-        Corsa c = creaCorsa(veicolo1,tratta1,LocalDateTime.of(2024,1,28,8,20));
-//        Corsa c = corsaDao.cercaCorsaById(12);
-
-
-        biglietto.timbraBiglietto(c);
-
-//
-        Biglietto biglietto1 = (Biglietto) prodottoDao.getById(9);
-//        biglietto.timbraBiglietto(c);
-//        prodottoDao.save(biglietto1);
-
-        c.stampaListaBiglietti();
-
     }
 
     public static TesseraCliente creaTessera(String nome, String cognome, LocalDate dataNascita, Genere genere, CategoriaCliente categoriaCliente) {
@@ -169,20 +210,27 @@ public class UseApp {
         return null;
     }
 
+    public static void stampaPeriodiDiServizio(Veicolo veicolo){
+        List<Object[]> periodiServizio = veicoloDao.periodiServizioVeicolo(veicolo.getId());
+
+        for (Object[] periodo : periodiServizio) {
+            LocalDate dataInizio = (LocalDate) periodo[0];
+            LocalDate dataFine = (LocalDate) periodo[1];
+
+            System.out.println("Periodo di servizio: " + dataInizio + " - " + dataFine);
+        }
+        System.out.println("Il veicolo con ID: " + veicolo.getId() + " ha effettuato " + veicoloDao.sommaGiorniServizio(veicolo.getId()) + " giorni di servizio");
+        System.out.println("Il veicolo con ID: " + veicolo.getId() + " ha effettuato " + veicoloDao.sommaGiorniManutenzione(veicolo.getId()) + " giorni di manutenzione");
+    }
+
     public static void stampaListaManutenziioni(Veicolo veicolo) {
         List<Object[]> manutenzioni = veicoloDao.dataManutenzioniVeicolo(veicolo.getId());
         for (Object[] manutenzione : manutenzioni) {
             LocalDate dataInizio = (LocalDate) manutenzione[0];
             LocalDate dataFine = (LocalDate) manutenzione[1];
-            System.out.println(" data inizio:" + dataInizio + " data fine:" + dataInizio);
+            System.out.println(" data inizio manutenzione:" + dataInizio + " data fine:" + dataInizio);
         }
     }
-
-    public static void timbraBiglietto(Biglietto biglietto, Corsa c) {
-        if (biglietto != null) {
-       biglietto.timbraBiglietto(c);
-    }}
-
 }
 
 
@@ -191,47 +239,31 @@ public class UseApp {
 //        TesseraCliente t1 = tesseraDao.getById(283);//  Tessera Emilio
 //        TesseraCliente t2 = tesseraDao.getById(621);//  Tessera Tommaso
 
-//
+//        Venditore v1=creaVenditore("Da Mario");
 //        DistributoreAutomatico d1=creaDistributore("Shish",StatoDistributore.ATTIVO);
 //        Venditore v1 = venditoreDao.getById(1);
 //        DistributoreAutomatico d1 = (DistributoreAutomatico) venditoreDao.getById(2);
 
-//
+//        Tratta tratta1=creaTratta(TipoTratta.EXTRA_URBANA,"Palermo","Catania");
 //        Tratta tratta1 = trattaDao.getTrattaById(1);
 //
 //        Abbonamento a1=creaAbbonamento(v1,tratta1,TipoAbbonamento.MENSILE,t1);
 //        Abbonamento abbonamento1 = (Abbonamento) prodottoDao.getById(1);
 
-//
-
+//        Veicolo veicolo1=creaVeicolo(TipoVeicolo.AUTOBUS);
+//        Veicolo veicolo1 = veicoloDao.getVeicoloById(1);
 
 //        Corsa c = creaCorsa(veicolo1,tratta1,LocalDateTime.of(2024,1,28,8,20));
 //        Corsa corsa1 = corsaDao.cercaCorsaById(3);
 
-//
-//
+//        Biglietto biglietto = creaBiglietto(v1,tratta1);
+//        Biglietto biglietto1 = creaBiglietto(v1,tratta1);
+//        Biglietto biglietto1 = (Biglietto) prodottoDao.getById(2);
 //        Biglietto biglietto2 = (Biglietto) prodottoDao.getById(3);
 //        Biglietto biglietto3 = (Biglietto) prodottoDao.getById(4);
 
+//        Manutenzione manutenzione1 = creaManutenzione(veicolo1, LocalDate.of(2024,3,10),LocalDate.of(2024,3,20));
 //        Manutenzione m1 = manutenzioneDao.getManutenzioneById(1);
 //        Manutenzione m2 = manutenzioneDao.getManutenzioneById(2);
 
-//List<Object[]> manutenzioni = veicoloDao.dataManutenzioniVeicolo(veicolo1.getId());
-//        for (Object[] manutenzione : manutenzioni){
-//LocalDate dataInizio = (LocalDate)manutenzione[0];
-//LocalDate dataFine = (LocalDate) manutenzione[1];
-//            System.out.println("Data Inizio: " + dataInizio + ", Data Fine: " + dataFine);
-//        }
-//
-//
-//List<Object[]> periodiServizio = veicoloDao.periodiServizioVeicolo(1);
-//
-//        for (Object[] periodo : periodiServizio) {
-//LocalDate dataInizio = (LocalDate) periodo[0];
-//LocalDate dataFine = (LocalDate) periodo[1];
-//
-//            System.out.println("Periodo di servizio: " + dataInizio + " - " + dataFine);
-//        }
-//
-//                System.out.println("Il veicolo con ID: "+ veicolo1.getId()+" ha effettuato " +veicoloDao.sommaGiorniServizio(veicolo1.getId())+" giorni di servizio");
-//        System.out.println("Il veicolo con ID: "+ veicolo1.getId()+" ha effettuato " +veicoloDao.sommaGiorniManutenzione(veicolo1.getId())+" giorni di manutenzione");
+

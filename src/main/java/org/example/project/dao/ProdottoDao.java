@@ -24,6 +24,10 @@ public class ProdottoDao {
         EntityTransaction et = em.getTransaction();
         et.begin();
 
+        boolean check=true;
+        if(pa instanceof Abbonamento a) check=checkPresenzaAbbonamento(a);
+
+        if (!check) throw new Exception("Questo utente è già sottoscritto a questo abbonamento");
         if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato()==StatoDistributore.FUORI_SERVIZIO) {
             throw new Exception("Il distributore non è attivo.");
         }
@@ -67,7 +71,7 @@ public class ProdottoDao {
         return q.getResultList();
     }
 
-    public List<Object> abbonamentiScadutiPerTessera(int tesseraCliente){
+    public List<Object[]> abbonamentiScadutiPerTessera(int tesseraCliente){
         Query q = em.createNamedQuery("abbonamentiScadutiPerUtente");
         q.setParameter("tesseraCliente",tesseraCliente);
         return q.getResultList();
@@ -85,5 +89,12 @@ public class ProdottoDao {
         Query q= em.createNamedQuery("vendutiDaVenditore");
         q.setParameter("Venditore",venditore);
         return q.getSingleResult();
+    }
+
+    public boolean checkPresenzaAbbonamento(Abbonamento a){
+        Query q= em.createNamedQuery("checkExisting");
+        q.setParameter("trattaId",a.getTratta().getId());
+        q.setParameter("tesseraId",a.getTesseraCliente().getTessera_cliente());
+        return q.getResultList().isEmpty();
     }
 }

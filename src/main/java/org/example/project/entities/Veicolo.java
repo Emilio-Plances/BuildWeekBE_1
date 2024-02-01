@@ -87,7 +87,7 @@ public class Veicolo {
 
 
     public boolean isDisponibile() {
-        return statoVeicolo == StatoVeicolo.IN_SERVIZIO && isVeicoloNonImpegnato();
+        return statoVeicolo == StatoVeicolo.IN_SERVIZIO;
     }
 
 

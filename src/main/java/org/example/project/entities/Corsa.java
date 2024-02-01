@@ -30,7 +30,7 @@ public class Corsa {
     private Tratta tratta;
 
     @OneToMany(mappedBy = "corsa", cascade = CascadeType.ALL)
-    private List<Biglietto> biglietti=new ArrayList<>();
+    private final List<Biglietto> biglietti=new ArrayList<>();
 
     @Column(name = "data_partenza", nullable = false)
     private LocalDateTime dataPartenza;
@@ -52,11 +52,9 @@ public class Corsa {
             this.durata = (int) Duration.between(this.dataPartenza, this.dataArrivo).toMinutes();
         }
     }
-
-    public void setBiglietti(List<Biglietto> biglietti) {
-        this.biglietti = biglietti;
+    public void timbraBiglietto(Biglietto biglietto) {
+        biglietto.setTimbrato(true);
     }
-
 
 
     public int getId() {
