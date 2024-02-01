@@ -9,8 +9,8 @@ import java.util.List;
 
 
 public class ProdottoDao {
-    private EntityManagerFactory emf;
-    private EntityManager em;
+    private final EntityManagerFactory emf;
+    private final EntityManager em;
     private CorsaDao corsaDao;
 
     // Costruttore: inizializza l'EntityManagerFactory e l'EntityManager
@@ -23,15 +23,12 @@ public class ProdottoDao {
     public void save(ProdottoAcquistato pa) throws Exception {
         EntityTransaction et = em.getTransaction();
         et.begin();
-
         boolean check=true;
         if(pa instanceof Abbonamento a) check=checkPresenzaAbbonamento(a);
-
         if (!check) throw new Exception("Questo utente è già sottoscritto a questo abbonamento");
         if (pa.getVenditore() instanceof DistributoreAutomatico distributore && distributore.getStato()==StatoDistributore.FUORI_SERVIZIO) {
             throw new Exception("Il distributore non è attivo.");
         }
-
         em.persist(pa);
         et.commit();
     }

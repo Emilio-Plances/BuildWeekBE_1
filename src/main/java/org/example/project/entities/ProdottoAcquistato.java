@@ -45,6 +45,10 @@ public abstract class ProdottoAcquistato {
         }
     }
 
+    public Tratta getTratta() {
+        return tratta;
+    }
+
     public int getId() {
         return id;
     }
