@@ -180,9 +180,9 @@ public class UseApp {
         return null;
     }
 
-    public static Biglietto creaBiglietto(Venditore venditore, Corsa corsa) {
+    public static Biglietto creaBiglietto(Venditore venditore, Tratta tratta) {
         try {
-            Biglietto biglietto = new Biglietto(venditore, corsa);
+            Biglietto biglietto = new Biglietto(venditore, tratta);
             prodottoDao.save(biglietto);
             return biglietto;
         } catch (Exception e) {
@@ -256,8 +256,8 @@ public class UseApp {
 //        Corsa c = creaCorsa(veicolo1,tratta1,LocalDateTime.of(2024,1,28,8,20));
 //        Corsa corsa1 = corsaDao.cercaCorsaById(3);
 
-//        Biglietto biglietto = creaBiglietto(v1,corsa1);
-//        Biglietto biglietto1 = creaBiglietto(v1,corsa1);
+//        Biglietto biglietto = creaBiglietto(v1,tratta1);
+//        Biglietto biglietto1 = creaBiglietto(v1,tratta1);
 //        Biglietto biglietto1 = (Biglietto) prodottoDao.getById(2);
 //        Biglietto biglietto2 = (Biglietto) prodottoDao.getById(3);
 //        Biglietto biglietto3 = (Biglietto) prodottoDao.getById(4);

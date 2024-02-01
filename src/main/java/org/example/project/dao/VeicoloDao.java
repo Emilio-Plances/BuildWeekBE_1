@@ -16,8 +16,8 @@ import java.util.List;
 
 
 public class VeicoloDao {
-    private EntityManager entityManager;
-    private EntityManagerFactory emf;
+    private final EntityManager entityManager;
+    private final EntityManagerFactory emf;
 
     public VeicoloDao() {
         this.emf = Persistence.createEntityManagerFactory("biglietteria");
@@ -58,9 +58,6 @@ public class VeicoloDao {
                     .setParameter("idVeicolo", idVeicolo)
                     .getResultList();
     }
-
-
-
     public List<Object[]> periodiServizioVeicolo(int idVeicolo) {
         try {
             List<Object[]> periodiServizio = new ArrayList<>();
@@ -82,8 +79,6 @@ public class VeicoloDao {
             return Collections.emptyList();
         }
     }
-
-
     public int sommaGiorniServizio(int idVeicolo){
 
         int sommaGiorni = 0;

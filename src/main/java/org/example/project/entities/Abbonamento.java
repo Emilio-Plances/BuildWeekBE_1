@@ -79,10 +79,6 @@ public class Abbonamento extends ProdottoAcquistato {
         this.validitaAbbonamento = validitaAbbonamento;
     }
 
-    public Tratta getTratta() {
-        return tratta;
-    }
-
     @Override
     public String toString() {
         return super.toString() +
