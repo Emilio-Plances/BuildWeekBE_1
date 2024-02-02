@@ -64,6 +64,10 @@ public class Veicolo {
         }
     }
 
+    public List<Manutenzione> getManutenzioni() {
+        return manutenzioni;
+    }
+
     public int getId() {
         return id;
     }
@@ -99,34 +103,60 @@ public class Veicolo {
         return this.statoVeicolo == StatoVeicolo.IN_MANUTENZIONE;
     }
 
+    public void setToServizio(){
+        VeicoloDao veicoloDao = new VeicoloDao();
+        LocalDate ultimaDataManutenzione = veicoloDao.getUltimaDataManutenzione(getId());
+        if ((ultimaDataManutenzione == null || LocalDate.now().isAfter(ultimaDataManutenzione))) {
+        setStatoVeicolo(StatoVeicolo.IN_SERVIZIO);
+    }}
+
 
     public boolean isDisponibile(Corsa c) {
-        VeicoloDao veicoloDao = new VeicoloDao();
 
-        LocalDate ultimaDataManutenzione = veicoloDao.getUltimaDataManutenzione(getId());
-
-        if (isVeicoloNonImpegnato(c) &&  (ultimaDataManutenzione == null || LocalDate.now().isAfter(ultimaDataManutenzione))) {
-            System.out.println("ciao");
-            setStatoVeicolo(StatoVeicolo.IN_SERVIZIO);
+        if (isVeicoloNonImpegnato(c)) {
+            for (Manutenzione manutenzione : manutenzioni) {
+                LocalDate dataInizioManutenzione = manutenzione.getDataInizio();
+                LocalDate dataFineManutenzione = manutenzione.getDataFine();
+                boolean check;
+                if (dataFineManutenzione == null) {
+                    check = c.getDataPartenza().isBefore(dataInizioManutenzione.plusDays(7).atStartOfDay()) &&
+                            c.getDataPartenza().isAfter(dataInizioManutenzione.minusDays(1).atStartOfDay());
+                } else {
+                    check = c.getDataPartenza().isBefore(dataFineManutenzione.atStartOfDay()) &&
+                            c.getDataPartenza().isAfter(dataInizioManutenzione.atStartOfDay());
+                }
+                if (check) {
+                    return false;
+                }
+            }
             return true;
         }
         return false;
     }
 
 
+
     private boolean isVeicoloNonImpegnato(Corsa c) {
         if (listaCorse != null && !listaCorse.isEmpty()) {
-            System.out.println(c);
             for (Corsa corsa : listaCorse) {
-                System.out.println(corsa);
-                if(corsa.getDataArrivo() == null) return false;
-                boolean check1= c.getDataPartenza().isBefore(corsa.getDataArrivo());
-                boolean check2= c.getDataPartenza().isAfter(corsa.getDataPartenza());
-                if (check1 && check2) return false;
+                boolean check;
+                if (corsa.getDataArrivo() == null) {
+                    check = c.getDataPartenza().isBefore(corsa.getDataPartenza().plusHours(24)) &&
+                            c.getDataPartenza().isAfter(corsa.getDataPartenza().minusHours(1));
+                } else {
+                    check = c.getDataPartenza().isBefore(corsa.getDataArrivo()) &&
+                            c.getDataPartenza().isAfter(corsa.getDataPartenza());
+                }
+                if (check) {
+                    return false;
+                }
             }
         }
         return true;
     }
+
+
+
 
     @Override
     public String toString() {
