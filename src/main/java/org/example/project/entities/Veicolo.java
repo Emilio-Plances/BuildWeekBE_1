@@ -1,6 +1,7 @@
 package org.example.project.entities;
 
 import jakarta.persistence.*;
+import org.example.project.dao.VeicoloDao;
 import org.example.project.enums.StatoVeicolo;
 import org.example.project.enums.TipoVeicolo;
 
@@ -71,7 +72,6 @@ public class Veicolo {
         this.numeroPosti= setNumeroPosti();
     }
 
-
     public LocalDate getDataInizioServizio() {
         return dataInizioServizio;
     }
@@ -85,9 +85,14 @@ public class Veicolo {
     }
 
 
-
     public boolean isDisponibile() {
-        return statoVeicolo == StatoVeicolo.IN_SERVIZIO;
+        VeicoloDao veicoloDao = new VeicoloDao();
+        LocalDate ultimaDataManutenzione = veicoloDao.getUltimaDataManutenzione(getId());
+        if (isVeicoloNonImpegnato() &&  (ultimaDataManutenzione == null || LocalDate.now().isAfter(ultimaDataManutenzione))) {
+            setStatoVeicolo(StatoVeicolo.IN_SERVIZIO);
+            return true;
+        }
+        return false;
     }
 
 

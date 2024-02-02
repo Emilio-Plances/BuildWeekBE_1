@@ -19,9 +19,9 @@ public class UseApp {
     private static final VenditoreDao venditoreDao = new VenditoreDao();
     public static void main(String[] args) throws Exception {
 
-        TesseraCliente t1 = tesseraDao.getById(219);//  Tessera Emilio
-        TesseraCliente t2 = tesseraDao.getById(404);//  Tessera Tommaso
-        TesseraCliente t3 = tesseraDao.getById(550);//  Tessera Calogero
+        TesseraCliente t1 = tesseraDao.getById(163);//  Tessera Emilio
+        TesseraCliente t2 = tesseraDao.getById(206);//  Tessera Tommaso
+        TesseraCliente t3 = tesseraDao.getById(523);//  Tessera Calogero
 
         Venditore v1 = venditoreDao.getById(1);
         DistributoreAutomatico d1 = (DistributoreAutomatico) venditoreDao.getById(2);
@@ -95,10 +95,16 @@ public class UseApp {
         stampaPeriodiDiServizio(veicolo2);
         System.out.println("----------------------------------------------------------------");
 
-//        //timbratura di un biglietto
-//        biglietto3.timbraBiglietto(corsa2);
-//        biglietto1.timbraBiglietto(corsa2);
+        //timbratura di un biglietto
+        biglietto3.timbraBiglietto(corsa2);
+        biglietto1.timbraBiglietto(corsa2);
+
+
+        //biglietti timbrati in una corsa
         corsa2.getBiglietti().forEach(System.out::println);
+
+
+        //biglietti timbrati in una corsa in un certo periodo di tempo
         List<Biglietto> bigliettos = corsa2.cercaBigliettoPerData(LocalDate.of(2024,01,22),LocalDate.of(2024,02,4));
         bigliettos.forEach(System.out::println);
 
@@ -115,6 +121,20 @@ public class UseApp {
 //        veicoloDao.closeEM();
 //        venditoreDao.closeEM();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public static void stampaPeriodiDiServizio(Veicolo veicolo){
         List<Object[]> periodiServizio = veicoloDao.periodiServizioVeicolo(veicolo.getId());
 
@@ -125,7 +145,6 @@ public class UseApp {
             System.out.println("Periodo di servizio: " + dataInizio + " - " + dataFine);
         }
         System.out.println("Il veicolo con ID: " + veicolo.getId() + " ha effettuato " + veicoloDao.sommaGiorniServizio(veicolo.getId()) + " giorni di servizio");
-        System.out.println("Il veicolo con ID: " + veicolo.getId() + " ha effettuato " + veicoloDao.sommaGiorniManutenzione(veicolo.getId()) + " giorni di manutenzione");
     }
 
     public static void stampaListaManutenziioni(Veicolo veicolo) {
@@ -135,48 +154,9 @@ public class UseApp {
             LocalDate dataFine = (LocalDate) manutenzione[1];
             System.out.println(" data inizio manutenzione:" + dataInizio + " data fine:" + dataInizio);
         }
+        System.out.println("Il veicolo con ID: " + veicolo.getId() + " ha effettuato " + veicoloDao.sommaGiorniManutenzione(veicolo.getId()) + " giorni di manutenzione");
     }
 }
-
-//        TesseraCliente t1=creaTessera("Emilio","Plances",LocalDate.of(1997,3,7),Genere.M,CategoriaCliente.STUDENTE);
-//        TesseraCliente t2= creaTessera("Tommaso","Cantarini",LocalDate.of(1991,6,20),Genere.M,CategoriaCliente.STUDENTE);
-//        TesseraCliente t3= creaTessera("Calogero","Teresi",LocalDate.of(1999,3,12),Genere.M,CategoriaCliente.STUDENTE);
-
-//        Venditore v1=creaVenditore("Da Mario");
-//        DistributoreAutomatico d1=creaDistributore("Shish",StatoDistributore.ATTIVO);
-//        Venditore v2=creaVenditore("Da Carlo");
-//        DistributoreAutomatico d2=creaDistributore("BellOchhio",StatoDistributore.ATTIVO);
-
-//        Tratta tratta1=creaTratta(TipoTratta.EXTRA_URBANA,"Palermo","Catania");
-//        Tratta tratta2=creaTratta(TipoTratta.URBANA,"Via piave","Via Isonzo");
-//        Tratta tratta3=creaTratta(TipoTratta.EXTRA_URBANA,"Cagliari","Oristano");
-//        Tratta tratta4=creaTratta(TipoTratta.EXTRA_URBANA,"Ancona","Osimo");
-
-//        Abbonamento a1=creaAbbonamento(v1,tratta1,TipoAbbonamento.MENSILE,t1);
-//        Abbonamento a2=creaAbbonamento(v2,tratta2,TipoAbbonamento.MENSILE,t1);
-//        Abbonamento a3=creaAbbonamento(d1,tratta1,TipoAbbonamento.MENSILE,t2);
-//        Abbonamento a4=creaAbbonamento(v1,tratta1,TipoAbbonamento.MENSILE,t3);
-
-//Veicolo veicolo1=creaVeicolo(TipoVeicolo.AUTOBUS);
-//        Veicolo veicolo2=creaVeicolo(TipoVeicolo.AUTOBUS);
-//        Veicolo veicolo3=creaVeicolo(TipoVeicolo.TRAM);
-//        Veicolo veicolo4=creaVeicolo(TipoVeicolo.TRAM);
-
-//
-//        Corsa c1 = creaCorsa(veicolo1,tratta1,LocalDateTime.of(2024,1,28,8,20));
-//        Corsa c2= creaCorsa(veicolo2,tratta1,LocalDateTime.of(2024,1,28,10,20));
-//        Corsa c3= creaCorsa(veicolo3,tratta2,LocalDateTime.of(2024,1,28,12,20));
-//        Corsa c4 = creaCorsa(veicolo4,tratta2,LocalDateTime.of(2024,1,28,14,20));
-
-//        Biglietto biglietto = creaBiglietto(v1,tratta1);
-//        Biglietto biglietto1 = creaBiglietto(v1,tratta1);
-//        Biglietto biglietto2 = creaBiglietto(v1,tratta2);
-//        Biglietto biglietto3 = creaBiglietto(v1,tratta2);
-
-//        Manutenzione manutenzione1 = creaManutenzione(veicolo1, LocalDate.of(2024,3,10),LocalDate.of(2024,3,20));
-//        Manutenzione manutenzione2 = creaManutenzione(veicolo1, LocalDate.of(2024,6,10),LocalDate.of(2024,6,20));
-//        Manutenzione manutenzione3 = creaManutenzione(veicolo2, LocalDate.of(2024,3,10),LocalDate.of(2024,3,20));
-//        Manutenzione manutenzione4 = creaManutenzione(veicolo2, LocalDate.of(2024,6,10),LocalDate.of(2024,6,20));
 
 
 

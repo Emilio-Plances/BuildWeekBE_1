@@ -100,5 +100,27 @@ public class VeicoloDao {
             }}
         return sommaGiorni;
     }
+
+    public LocalDate getUltimaDataManutenzione(int idVeicolo) {
+        try {
+            return entityManager.createNamedQuery("Manutenzione.ultimaDataPerVeicoloId", LocalDate.class)
+                    .setParameter("idVeicolo", idVeicolo)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public LocalDate getInizioManutenzioneProgrammata(int idVeicolo) {
+        try {
+            return entityManager.createNamedQuery("Manutenzione.ultimaDataInizioPerVeicoloId", LocalDate.class)
+                    .setParameter("idVeicolo", idVeicolo)
+                    .setMaxResults(1)
+                    .getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
 }
 

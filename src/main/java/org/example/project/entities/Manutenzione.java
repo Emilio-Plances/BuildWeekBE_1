@@ -7,7 +7,11 @@ import java.time.LocalDate;
 @Table(name="manutenzioni")
 @NamedQueries({
         @NamedQuery(name = "Manutenzione.cercaPerVeicoloId",
-        query = "SELECT m.dataInizio, m.dataFine FROM Manutenzione m WHERE m.veicoloM.id = :idVeicolo")
+        query = "SELECT m.dataInizio, m.dataFine FROM Manutenzione m WHERE m.veicoloM.id = :idVeicolo"),
+        @NamedQuery(name = "Manutenzione.ultimaDataPerVeicoloId",
+                query = "SELECT MAX(m.dataFine) FROM Manutenzione m WHERE m.veicoloM.id = :idVeicolo"),
+        @NamedQuery(name = "Manutenzione.ultimaDataInizioPerVeicoloId",
+        query = "SELECT MAX(m.dataInizio) FROM Manutenzione m WHERE m.veicoloM.id = :idVeicolo")
 })
 public class Manutenzione {
     @Id
