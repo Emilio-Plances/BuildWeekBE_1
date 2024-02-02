@@ -124,7 +124,6 @@ public class UseApp {
         venditoreDao.closeEM();
     }
 
-
     public static TesseraCliente creaTessera(String nome, String cognome, LocalDate dataNascita, Genere genere, CategoriaCliente categoriaCliente) throws Exception {
         TesseraCliente t = new TesseraCliente(nome, cognome, dataNascita, genere, categoriaCliente);
         tesseraDao.save(t);
