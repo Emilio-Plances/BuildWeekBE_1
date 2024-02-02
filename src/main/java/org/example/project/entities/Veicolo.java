@@ -105,7 +105,7 @@ public class Veicolo {
 
         LocalDate ultimaDataManutenzione = veicoloDao.getUltimaDataManutenzione(getId());
 
-        if (isVeicoloNonImpegnato(c) &&  (ultimaDataManutenzione == null || .isAfter(ultimaDataManutenzione))) {
+        if (isVeicoloNonImpegnato(c) &&  (ultimaDataManutenzione == null || LocalDate.now().isAfter(ultimaDataManutenzione))) {
             System.out.println("ciao");
             setStatoVeicolo(StatoVeicolo.IN_SERVIZIO);
             return true;
