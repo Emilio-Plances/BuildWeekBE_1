@@ -19,9 +19,9 @@ public class UseApp {
     private static final VenditoreDao venditoreDao = new VenditoreDao();
     public static void main(String[] args) throws Exception {
 
-        TesseraCliente t1 = tesseraDao.getById(682);//  Tessera Emilio
-        TesseraCliente t2 = tesseraDao.getById(757);//  Tessera Tommaso
-        TesseraCliente t3 = tesseraDao.getById(137);//  Tessera Calogero
+        TesseraCliente t1 = tesseraDao.getById(455);//  Tessera Emilio
+        TesseraCliente t2 = tesseraDao.getById(448);//  Tessera Tommaso
+        TesseraCliente t3 = tesseraDao.getById(918);//  Tessera Calogero
 
         Venditore v1 = venditoreDao.getById(1);
         DistributoreAutomatico d1 = (DistributoreAutomatico) venditoreDao.getById(2);
@@ -111,8 +111,8 @@ public class UseApp {
 
 //        corsa2.setDataArrivo(LocalDateTime.of(2024,5,15,15,15,15));
 
-
-        Corsa corsa5 = creaCorsa(veicolo2, tratta1, LocalDateTime.of(2025,1,28,12,5,5));
+        corsa4.setDataArrivo(LocalDateTime.of(2024,1,28,15,0,0));
+        Corsa corsa5 = creaCorsa(veicolo2, tratta1, LocalDateTime.of(2024,3,12,12,0,0));
 
 
         corsaDao.closeEM();

@@ -43,7 +43,8 @@ public class Veicolo {
     public Veicolo(TipoVeicolo tipoVeicolo) {
         this.dataInizioServizio = LocalDate.now().minusMonths(3);
         this.statoVeicolo = StatoVeicolo.IN_SERVIZIO;
-        setTipoVeicolo(tipoVeicolo);
+        this.tipoVeicolo=tipoVeicolo;
+        setNumeroPosti();
     }
     public int setNumeroPosti(){
         if (this.tipoVeicolo==TipoVeicolo.TRAM){
@@ -101,22 +102,27 @@ public class Veicolo {
 
 
     public boolean isDisponibile(Corsa c) {
-        VeicoloDao veicoloDao = new VeicoloDao();
-
-        LocalDate ultimaDataManutenzione = veicoloDao.getUltimaDataManutenzione(getId());
-
-        if (isVeicoloNonImpegnato(c) &&  (ultimaDataManutenzione == null || LocalDate.now().isAfter(ultimaDataManutenzione))) {
-            System.out.println("ciao");
+        if (isVeicoloNonImpegnato(c) && isVeicoloInManutenzione(c)) {
             setStatoVeicolo(StatoVeicolo.IN_SERVIZIO);
             return true;
         }
         return false;
     }
 
+    private boolean isVeicoloInManutenzione(Corsa c) {
+        if (manutenzioni != null && !manutenzioni.isEmpty()) {
+            for (Manutenzione manutenzione : manutenzioni) {
+                if(manutenzione.getDataFine()==null)return false;
+                boolean check1= c.getDataPartenza().isBefore(manutenzione.getDataFine().atStartOfDay());
+                boolean check2= c.getDataPartenza().isAfter(manutenzione.getDataInizio().atStartOfDay());
+                if (check1 && check2) return false;
+            }
+        }
+        return true;
+    }
 
     private boolean isVeicoloNonImpegnato(Corsa c) {
-        if (listaCorse != null && !listaCorse.isEmpty()) {
-            System.out.println(c);
+        if (listaCorse != null && !listaCorse.isEmpty()){
             for (Corsa corsa : listaCorse) {
                 System.out.println(corsa);
                 if(corsa.getDataArrivo() == null) return false;
