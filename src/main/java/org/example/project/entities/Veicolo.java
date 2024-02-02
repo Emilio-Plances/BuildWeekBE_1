@@ -113,7 +113,8 @@ public class Veicolo {
         if (manutenzioni != null && !manutenzioni.isEmpty()) {
             for (Manutenzione manutenzione : manutenzioni) {
                 if(manutenzione.getDataFine()==null){
-                    return c.getDataPartenza().isBefore(manutenzione.getDataInizio().atStartOfDay());
+                     if(c.getDataPartenza().isBefore(manutenzione.getDataInizio().atStartOfDay()))return false;
+                     continue;
                 }
                 boolean check1= c.getDataPartenza().isBefore(manutenzione.getDataFine().atStartOfDay());
                 boolean check2= c.getDataPartenza().isAfter(manutenzione.getDataInizio().atStartOfDay());
@@ -127,10 +128,7 @@ public class Veicolo {
         if (listaCorse != null && !listaCorse.isEmpty()){
             for (Corsa corsa : listaCorse) {
                 if(corsa.getDataArrivo() == null){
-                    System.out.println(c.getDataPartenza());
-                    System.out.println(corsa.getDataPartenza());
                     if(!c.getDataPartenza().isBefore(corsa.getDataPartenza())) return false;
-                    System.out.println("ciao");
                     continue;
                 }
                 boolean check1= c.getDataPartenza().isBefore(corsa.getDataArrivo());
