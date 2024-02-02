@@ -6,6 +6,7 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 import org.example.project.entities.Manutenzione;
+import org.example.project.entities.ProdottoAcquistato;
 import org.example.project.entities.Veicolo;
 import org.example.project.enums.StatoVeicolo;
 import org.jetbrains.annotations.NotNull;
@@ -16,7 +17,7 @@ import java.util.List;
 public class ManutenzioneDao {
     private final EntityManagerFactory emf;
     private final EntityManager em;
-    private VeicoloDao veicoloDao;
+    private final VeicoloDao veicoloDao;
 
     public ManutenzioneDao() {
         emf= Persistence.createEntityManagerFactory("biglietteria");
@@ -39,6 +40,12 @@ public class ManutenzioneDao {
         }
     }
 
+    public void upDate(Manutenzione m) throws Exception {
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.merge(m);
+        et.commit();
+    }
     public Manutenzione getManutenzioneById(int id) {
         return em.find(Manutenzione.class, id);
     }

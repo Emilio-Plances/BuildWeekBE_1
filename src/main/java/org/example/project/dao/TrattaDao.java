@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import org.example.project.entities.TesseraCliente;
 import org.example.project.entities.Tratta;
 
 public class TrattaDao {
@@ -21,7 +22,12 @@ public class TrattaDao {
         et.commit();
         em.refresh(t);
     }
-
+    public void upDate(Tratta t) throws Exception {
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.merge(t);
+        et.commit();
+    }
     public Tratta getTrattaById(int id){
         return em.find(Tratta.class,id);
     }

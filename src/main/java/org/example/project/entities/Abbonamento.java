@@ -50,7 +50,6 @@ public class Abbonamento extends ProdottoAcquistato {
         }
         return this.fineValidita;
     }
-
     public TipoAbbonamento getTipoAbbonamento() {
         return tipoAbbonamento;
     }

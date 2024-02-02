@@ -60,6 +60,7 @@ public abstract class ProdottoAcquistato {
 
     public void setDataAcquisto(LocalDate dataAcquisto) {
         this.dataAcquisto = dataAcquisto;
+        caricaDatabase();
     }
 
     public Venditore getVenditore() {
@@ -68,6 +69,7 @@ public abstract class ProdottoAcquistato {
 
     public void setVenditore(Venditore venditore) {
         this.venditore = venditore;
+        caricaDatabase();
     }
 
     @Override

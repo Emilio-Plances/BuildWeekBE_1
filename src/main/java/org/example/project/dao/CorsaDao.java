@@ -1,13 +1,7 @@
 package org.example.project.dao;
 
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.EntityTransaction;
-import jakarta.persistence.Persistence;
-import org.example.project.entities.Biglietto;
-import org.example.project.entities.Corsa;
-import org.example.project.entities.ProdottoAcquistato;
-import org.example.project.entities.Veicolo;
+import jakarta.persistence.*;
+import org.example.project.entities.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,9 +39,6 @@ public class CorsaDao {
 //        return
 //    }
 
-
-
-
     public void aggiungiCorsa(Corsa c) throws Exception {
         EntityTransaction et = em.getTransaction();
         et.begin();
@@ -60,6 +51,12 @@ public class CorsaDao {
         em.refresh(c);
     }
 
+    public void upDate(Corsa c) throws Exception {
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.merge(c);
+        et.commit();
+    }
     public Corsa cercaCorsaById(int id){
         return em.find(Corsa.class, id);
     }
@@ -74,5 +71,12 @@ public class CorsaDao {
     public void closeEM() {
         emf.close();
         em.close();
+    }
+
+    public long associazioneVeicoloTratta(Veicolo v, Tratta t){
+        Query q=em.createNamedQuery("associazioneVeicoloTratta");
+        q.setParameter("veicoloId",v.getId());
+        q.setParameter("trattaId",t.getId());
+        return (long) q.getSingleResult();
     }
 }

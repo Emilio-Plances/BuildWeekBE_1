@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import org.example.project.entities.TesseraCliente;
 import org.example.project.entities.Veicolo;
 
 import java.time.Duration;
@@ -29,6 +30,13 @@ public class VeicoloDao {
         transaction.begin();
         entityManager.persist(veicolo);
         transaction.commit();
+    }
+
+    public void upDate(Veicolo v) throws Exception {
+        EntityTransaction et = entityManager.getTransaction();
+        et.begin();
+        entityManager.merge(v);
+        et.commit();
     }
 
     public Veicolo getVeicoloById(int id){

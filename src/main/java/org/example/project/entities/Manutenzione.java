@@ -1,6 +1,9 @@
 package org.example.project.entities;
 
 import jakarta.persistence.*;
+import org.example.project.dao.CorsaDao;
+import org.example.project.dao.ManutenzioneDao;
+
 import java.time.LocalDate;
 
 @Entity
@@ -35,6 +38,17 @@ public class Manutenzione {
         this.dataFine = dataFine;
     }
 
+    public void caricaDatabase() {
+        ManutenzioneDao manutenzioneDao = new ManutenzioneDao();
+        try{manutenzioneDao.upDate(this);}
+        catch (Exception e){
+            System.out.println("Errore nel salvataggio");
+            System.out.println(e.getMessage());
+        }finally {
+            manutenzioneDao.closeEM();
+        }
+    }
+
     public int getId() {
         return id;
     }
@@ -45,6 +59,7 @@ public class Manutenzione {
 
     public void setVeicoloM(Veicolo veicoloM) {
         this.veicoloM = veicoloM;
+        caricaDatabase();
     }
 
     public LocalDate getDataInizio() {
@@ -53,6 +68,7 @@ public class Manutenzione {
 
     public void setDataInizio(LocalDate dataInizio) {
         this.dataInizio = dataInizio;
+        caricaDatabase();
     }
 
     public LocalDate getDataFine() {
@@ -61,6 +77,7 @@ public class Manutenzione {
 
     public void setDataFine(LocalDate dataFine) {
         this.dataFine = dataFine;
+        caricaDatabase();
     }
 
     @Override

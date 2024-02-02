@@ -1,12 +1,12 @@
 package org.example.project.entities;
 
 import jakarta.persistence.*;
+import org.example.project.dao.VeicoloDao;
 import org.example.project.enums.StatoVeicolo;
 import org.example.project.enums.TipoVeicolo;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -51,6 +51,18 @@ public class Veicolo {
             return 100;
         }
     }
+
+    public void caricaDatabase() {
+        VeicoloDao veicoloDao = new VeicoloDao();
+        try{veicoloDao.upDate(this);}
+        catch (Exception e){
+            System.out.println("Errore nel salvataggio");
+            System.out.println(e.getMessage());
+        }finally {
+            veicoloDao.closeEM();
+        }
+    }
+
     public int getId() {
         return id;
     }
@@ -62,6 +74,7 @@ public class Veicolo {
     }
     public void setStatoVeicolo(StatoVeicolo statoVeicolo) {
         this.statoVeicolo = statoVeicolo;
+        caricaDatabase();
     }
     public TipoVeicolo getTipoVeicolo() {
         return tipoVeicolo;
@@ -69,6 +82,7 @@ public class Veicolo {
     public void setTipoVeicolo(TipoVeicolo tipoVeicolo) {
         this.tipoVeicolo = tipoVeicolo;
         this.numeroPosti= setNumeroPosti();
+        caricaDatabase();
     }
 
 
@@ -78,6 +92,7 @@ public class Veicolo {
 
     public void setDataInizioServizio(LocalDate dataInizioServizio) {
         this.dataInizioServizio = dataInizioServizio;
+        caricaDatabase();
     }
 
     public boolean isInManutenzione() {
