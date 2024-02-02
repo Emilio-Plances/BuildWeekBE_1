@@ -105,14 +105,14 @@ public class UseApp {
 
 
         //biglietti timbrati in una corsa in un certo periodo di tempo
-        List<Biglietto> bigliettos = corsa2.cercaBigliettoPerData(LocalDate.of(2024,01,22),LocalDate.of(2024,02,4));
+        List<Biglietto> bigliettos = corsa2.cercaBigliettoPerData(LocalDate.of(2023,1,22),LocalDate.of(2024,2,4));
         bigliettos.forEach(System.out::println);
 
 
 //        corsa2.setDataArrivo(LocalDateTime.of(2024,5,15,15,15,15));
 
         corsa4.setDataArrivo(LocalDateTime.of(2024,1,28,15,0,0));
-        Corsa corsa5 = creaCorsa(veicolo2, tratta1, LocalDateTime.of(2024,3,12,12,0,0));
+        Corsa corsa5 = creaCorsa(veicolo2, tratta1, LocalDateTime.of(2023,3,12,12,0,0));
 
 
         corsaDao.closeEM();
@@ -178,19 +178,6 @@ public class UseApp {
         manutenzioneDao.saveManutenzione(m);
         return m;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public static void stampaPeriodiDiServizio(Veicolo veicolo){
         List<Object[]> periodiServizio = veicoloDao.periodiServizioVeicolo(veicolo.getId());

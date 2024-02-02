@@ -112,7 +112,9 @@ public class Veicolo {
     private boolean isVeicoloInManutenzione(Corsa c) {
         if (manutenzioni != null && !manutenzioni.isEmpty()) {
             for (Manutenzione manutenzione : manutenzioni) {
-                if(manutenzione.getDataFine()==null)return false;
+                if(manutenzione.getDataFine()==null){
+                    return c.getDataPartenza().isBefore(manutenzione.getDataInizio().atStartOfDay());
+                }
                 boolean check1= c.getDataPartenza().isBefore(manutenzione.getDataFine().atStartOfDay());
                 boolean check2= c.getDataPartenza().isAfter(manutenzione.getDataInizio().atStartOfDay());
                 if (check1 && check2) return false;
@@ -124,8 +126,13 @@ public class Veicolo {
     private boolean isVeicoloNonImpegnato(Corsa c) {
         if (listaCorse != null && !listaCorse.isEmpty()){
             for (Corsa corsa : listaCorse) {
-                System.out.println(corsa);
-                if(corsa.getDataArrivo() == null) return false;
+                if(corsa.getDataArrivo() == null){
+                    System.out.println(c.getDataPartenza());
+                    System.out.println(corsa.getDataPartenza());
+                    if(!c.getDataPartenza().isBefore(corsa.getDataPartenza())) return false;
+                    System.out.println("ciao");
+                    continue;
+                }
                 boolean check1= c.getDataPartenza().isBefore(corsa.getDataArrivo());
                 boolean check2= c.getDataPartenza().isAfter(corsa.getDataPartenza());
                 if (check1 && check2) return false;
