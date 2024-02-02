@@ -24,18 +24,11 @@ public class VeicoloDao {
         entityManager =emf.createEntityManager();
     }
 
-    public void saveVeicolo(Veicolo veicolo) {
+    public void saveVeicolo(Veicolo veicolo) throws Exception {
         EntityTransaction transaction = entityManager.getTransaction();
-        try {
-            transaction.begin();
-            entityManager.persist(veicolo);
-            transaction.commit();
-        } catch (Exception e) {
-            if (transaction != null && transaction.isActive()) {
-                transaction.rollback();
-            }
-            e.printStackTrace();
-        }
+        transaction.begin();
+        entityManager.persist(veicolo);
+        transaction.commit();
     }
 
     public Veicolo getVeicoloById(int id){
