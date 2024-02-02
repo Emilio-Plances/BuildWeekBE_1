@@ -55,6 +55,8 @@ public class DBGenerator {
             Manutenzione manutenzione2 = creaManutenzione(veicolo1, LocalDate.of(2024,6,10),LocalDate.of(2024,6,20));
             Manutenzione manutenzione3 = creaManutenzione(veicolo2, LocalDate.of(2024,3,10),LocalDate.of(2024,3,20));
             Manutenzione manutenzione4 = creaManutenzione(veicolo2, LocalDate.of(2024,6,10),LocalDate.of(2024,6,20));
+
+
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

@@ -113,7 +113,9 @@ public class Veicolo {
     private boolean isVeicoloNonImpegnato(Corsa c) {
         if (listaCorse != null && !listaCorse.isEmpty()) {
             for (Corsa corsa : listaCorse) {
-                if (corsa.getDataArrivo()== null || corsa.getDataArrivo().isAfter(c.getDataPartenza())) {
+                if (corsa.getDataArrivo()== null ||
+                        (c.getDataPartenza().isAfter(corsa.getDataPartenza())
+                                && c.getDataPartenza().isBefore(corsa.getDataArrivo()))) {
                     return false;
                 }
             }

@@ -112,15 +112,71 @@ public class UseApp {
         corsa2.setDataArrivo(LocalDateTime.of(2024,5,15,15,15,15));
 
 
+        Corsa corsa5 = creaCorsa(veicolo4, tratta1, LocalDateTime.of(2025,4,25,5,5,5));
 
 
-//        corsaDao.closeEM();
-//        manutenzioneDao.closeEM();
-//        prodottoDao.closeEM();
-//        tesseraDao.closeEM();
-//        trattaDao.closeEM();
-//        veicoloDao.closeEM();
-//        venditoreDao.closeEM();
+        corsaDao.closeEM();
+        manutenzioneDao.closeEM();
+        prodottoDao.closeEM();
+        tesseraDao.closeEM();
+        trattaDao.closeEM();
+        veicoloDao.closeEM();
+        venditoreDao.closeEM();
+    }
+
+
+    public static TesseraCliente creaTessera(String nome, String cognome, LocalDate dataNascita, Genere genere, CategoriaCliente categoriaCliente) throws Exception {
+        TesseraCliente t = new TesseraCliente(nome, cognome, dataNascita, genere, categoriaCliente);
+        tesseraDao.save(t);
+        return t;
+    }
+
+    public static Venditore creaVenditore(String nome) throws Exception{
+        Venditore v = new Venditore(nome);
+        venditoreDao.save(v);
+        return v;
+    }
+
+    public static DistributoreAutomatico creaDistributore(String nome, StatoDistributore statoDistributore)throws Exception {
+        DistributoreAutomatico d = new DistributoreAutomatico(nome, statoDistributore);
+        venditoreDao.save(d);
+        return d;
+    }
+
+    public static Tratta creaTratta(TipoTratta tipoTratta, String partenza, String destinazione)throws Exception {
+        Tratta t = new Tratta(tipoTratta, partenza, destinazione);
+        trattaDao.save(t);
+        return t;
+    }
+
+    public static Corsa creaCorsa(Veicolo veicolo, Tratta tratta, LocalDateTime dataPartenza)throws Exception {
+        Corsa c = new Corsa(veicolo, tratta, dataPartenza);
+        corsaDao.aggiungiCorsa(c);
+        return c;
+    }
+
+    public static Abbonamento creaAbbonamento(Venditore venditore, Tratta tratta, TipoAbbonamento tipoAbbonamento, TesseraCliente tesseraCliente)throws Exception {
+        Abbonamento a = new Abbonamento(venditore, tratta, tipoAbbonamento, tesseraCliente);
+        prodottoDao.save(a);
+        return a;
+    }
+
+    public static Biglietto creaBiglietto(Venditore venditore, Tratta tratta)throws Exception {
+        Biglietto biglietto = new Biglietto(venditore, tratta);
+        prodottoDao.save(biglietto);
+        return biglietto;
+    }
+
+    public static Veicolo creaVeicolo(TipoVeicolo tipoveicolo)throws Exception {
+        Veicolo v = new Veicolo(tipoveicolo);
+        veicoloDao.saveVeicolo(v);
+        return v;
+    }
+
+    public static Manutenzione creaManutenzione(Veicolo veicolo, LocalDate dataInizio, LocalDate dataFine) throws Exception{
+        Manutenzione m = new Manutenzione(veicolo, dataInizio, dataFine);
+        manutenzioneDao.saveManutenzione(m);
+        return m;
     }
 
 
