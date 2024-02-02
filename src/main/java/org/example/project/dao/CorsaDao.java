@@ -52,7 +52,7 @@ public class CorsaDao {
         EntityTransaction et = em.getTransaction();
         et.begin();
         Veicolo veicolo = c.getVeicolo();
-        if (!veicolo.isDisponibile()) {
+        if (!veicolo.isDisponibile(c)) {
             throw new Exception("Il veicolo non è disponibile per la corsa.");
         }
         em.persist(c);

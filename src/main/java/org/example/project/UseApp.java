@@ -109,6 +109,7 @@ public class UseApp {
         bigliettos.forEach(System.out::println);
 
 
+        corsa2.setDataArrivo(LocalDateTime.of(2024,5,15,15,15,15));
 
 
 

@@ -85,10 +85,10 @@ public class Veicolo {
     }
 
 
-    public boolean isDisponibile() {
+    public boolean isDisponibile(Corsa c) {
         VeicoloDao veicoloDao = new VeicoloDao();
         LocalDate ultimaDataManutenzione = veicoloDao.getUltimaDataManutenzione(getId());
-        if (isVeicoloNonImpegnato() &&  (ultimaDataManutenzione == null || LocalDate.now().isAfter(ultimaDataManutenzione))) {
+        if (isVeicoloNonImpegnato(c) &&  (ultimaDataManutenzione == null || LocalDate.now().isAfter(ultimaDataManutenzione))) {
             setStatoVeicolo(StatoVeicolo.IN_SERVIZIO);
             return true;
         }
@@ -96,10 +96,10 @@ public class Veicolo {
     }
 
 
-    private boolean isVeicoloNonImpegnato() {
+    private boolean isVeicoloNonImpegnato(Corsa c) {
         if (listaCorse != null && !listaCorse.isEmpty()) {
             for (Corsa corsa : listaCorse) {
-                if (corsa.getDataArrivo() == null || corsa.getDataArrivo().isAfter(LocalDateTime.now())) {
+                if (corsa.getDataArrivo()== null || corsa.getDataArrivo().isAfter(c.getDataPartenza())) {
                     return false;
                 }
             }
