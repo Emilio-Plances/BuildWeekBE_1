@@ -109,6 +109,14 @@ public class Veicolo {
         return false;
     }
 
+    public void setToServizio(){
+        VeicoloDao veicoloDao = new VeicoloDao();
+        LocalDate ultimaDataManutenzione = veicoloDao.getUltimaDataManutenzione(getId());
+        if ((ultimaDataManutenzione == null || LocalDate.now().isAfter(ultimaDataManutenzione))) {
+            setStatoVeicolo(StatoVeicolo.IN_SERVIZIO);
+        }}
+
+
     private boolean isVeicoloInManutenzione(Corsa c) {
         if (manutenzioni != null && !manutenzioni.isEmpty()) {
             for (Manutenzione manutenzione : manutenzioni) {
