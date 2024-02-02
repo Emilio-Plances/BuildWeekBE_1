@@ -1,6 +1,8 @@
 package org.example.project.entities;
 
 import jakarta.persistence.*;
+import org.example.project.dao.TesseraDao;
+import org.example.project.dao.TrattaDao;
 import org.example.project.enums.TipoTratta;
 
 import java.util.List;
@@ -33,18 +35,30 @@ public class Tratta {
         this.tipoTratta = tipoTratta;
         this.partenza = partenza;
         this.destinazione = destinazione;
-        this.mediaDurata = setmediaDurata();
     }
 
-    public double setmediaDurata() {
+    public void caricaDatabase() {
+        TrattaDao trattaDao = new TrattaDao();
+        try{trattaDao.upDate(this);}
+        catch (Exception e){
+            System.out.println("Errore nel salvataggio");
+            System.out.println(e.getMessage());
+        }finally {
+            trattaDao.closeEM();
+        }
+    }
+
+    public void setmediaDurata() {
         int somma = 0;
+        int count=0;
         if (listaCorse != null && !listaCorse.isEmpty()){
             for (Corsa c : listaCorse) {
+                if(c.getDurata()!=0) count++;
                 somma += c.getDurata();
             }
-            return (double) somma / this.listaCorse.size();
+            mediaDurata=(double) somma / count;
+            caricaDatabase();
         }
-        return 0;
     }
 
     public int getId() {
@@ -57,6 +71,7 @@ public class Tratta {
 
     public void setMediaDurata(double mediaDurata) {
         this.mediaDurata = mediaDurata;
+        caricaDatabase();
     }
 
     public TipoTratta getTipoTratta() {
@@ -65,6 +80,7 @@ public class Tratta {
 
     public void setTipoTratta(TipoTratta tipoTratta) {
         this.tipoTratta = tipoTratta;
+        caricaDatabase();
     }
 
     public String getPartenza() {
@@ -73,6 +89,7 @@ public class Tratta {
 
     public void setPartenza(String partenza) {
         this.partenza = partenza;
+        caricaDatabase();
     }
 
     public String getDestinazione() {
@@ -81,6 +98,7 @@ public class Tratta {
 
     public void setDestinazione(String destinazione) {
         this.destinazione = destinazione;
+        caricaDatabase();
     }
     @Override
     public String toString() {

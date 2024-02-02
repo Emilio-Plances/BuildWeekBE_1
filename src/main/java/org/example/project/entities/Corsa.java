@@ -13,6 +13,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "corse")
+@NamedQuery(name = "associazioneVeicoloTratta",query ="SELECT COUNT(c) FROM Corsa c WHERE c.tratta.id=:trattaId AND c.veicolo.id=:veicoloId" )
 public class Corsa {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenza_venditore")
@@ -48,13 +49,24 @@ public class Corsa {
         this.dataArrivo=dataArrivo;
         if (dataArrivo.isAfter(dataPartenza)){
             this.durata = (int) Duration.between(this.dataPartenza, this.dataArrivo).toMinutes();
+            tratta.setmediaDurata();
         }
+        caricaDatabase();
     }
     public void timbraBiglietto(Biglietto biglietto) {
         biglietto.setTimbrato(true);
     }
 
-
+    public void caricaDatabase() {
+        CorsaDao corsaDao = new CorsaDao();
+        try{corsaDao.upDate(this);}
+        catch (Exception e){
+            System.out.println("Errore nel salvataggio");
+            System.out.println(e.getMessage());
+        }finally {
+            corsaDao.closeEM();
+        }
+    }
     public List<Biglietto> cercaBigliettoPerData (LocalDate primaData, LocalDate secondaData){
         List<Biglietto> bigliettiPerData = new ArrayList<Biglietto>();
         for (Biglietto b : biglietti){
@@ -79,6 +91,7 @@ public class Corsa {
 
     public void setVeicolo(Veicolo veicolo) {
         this.veicolo = veicolo;
+        caricaDatabase();
     }
 
     public Tratta getTratta() {
@@ -87,6 +100,7 @@ public class Corsa {
 
     public void setTratta(Tratta tratta) {
         this.tratta = tratta;
+        caricaDatabase();
     }
 
     public LocalDateTime getDataPartenza() {
@@ -95,6 +109,7 @@ public class Corsa {
 
     public void setDataPartenza(LocalDateTime dataPartenza) {
         this.dataPartenza = dataPartenza;
+        caricaDatabase();
     }
 
     public LocalDateTime getDataArrivo() {
@@ -107,6 +122,7 @@ public class Corsa {
 
     public void setDurata(int durata) {
         this.durata = durata;
+        caricaDatabase();
     }
 
     @Override

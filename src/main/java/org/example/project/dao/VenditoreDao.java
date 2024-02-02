@@ -4,6 +4,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
+import org.example.project.entities.TesseraCliente;
 import org.example.project.entities.Venditore;
 
 public class VenditoreDao {
@@ -20,6 +21,13 @@ public class VenditoreDao {
         em.persist(v);
         et.commit();
         em.refresh(v);
+    }
+
+    public void upDate(Venditore v) throws Exception {
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.merge(v);
+        et.commit();
     }
 
     public Venditore getById(int id){

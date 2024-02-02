@@ -1,6 +1,7 @@
 package org.example.project.dao;
 
 import jakarta.persistence.*;
+import org.example.project.entities.ProdottoAcquistato;
 import org.example.project.entities.TesseraCliente;
 
 import java.time.LocalDate;
@@ -22,6 +23,12 @@ public class TesseraDao {
         et.commit();
     }
 
+    public void upDate(TesseraCliente t) throws Exception {
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.merge(t);
+        et.commit();
+    }
     public TesseraCliente getById(int id) {
         return em.find(TesseraCliente.class,id);
     }

@@ -1,6 +1,8 @@
 package org.example.project.entities;
 
 import jakarta.persistence.*;
+import org.example.project.dao.ProdottoDao;
+import org.example.project.dao.TesseraDao;
 import org.example.project.enums.CategoriaCliente;
 import org.example.project.enums.Genere;
 
@@ -39,7 +41,7 @@ public class TesseraCliente {
     private LocalDate dataRinnovo;
 
     @Transient
-    private List<Integer> listaTessere = new ArrayList<>();
+    private final List<Integer> listaTessere = new ArrayList<>();
 
     @OneToMany(mappedBy = "tesseraCliente")
     private List<Abbonamento> listaAbbonamenti;
@@ -71,6 +73,7 @@ public class TesseraCliente {
         } else {
             throw new Exception("No more space in archive");
         }
+
     }
     public void rinnovoTessera(){
         if(!statoTessera){
@@ -102,12 +105,24 @@ public class TesseraCliente {
         return listaAbbonamenti;
     }
 
+    public void caricaDatabase() {
+        TesseraDao tesseraDao = new TesseraDao();
+        try{tesseraDao.upDate(this);}
+        catch (Exception e){
+            System.out.println("Errore nel salvataggio");
+            System.out.println(e.getMessage());
+        }finally {
+            tesseraDao.closeEM();
+        }
+    }
+
     public String getNome() {
         return nome;
     }
 
     public void setNome(String nome) {
         this.nome = nome;
+        caricaDatabase();
     }
 
     public String getCognome() {
@@ -116,6 +131,7 @@ public class TesseraCliente {
 
     public void setCognome(String cognome) {
         this.cognome = cognome;
+        caricaDatabase();
     }
 
     public LocalDate getDataNascita() {
@@ -124,6 +140,7 @@ public class TesseraCliente {
 
     public void setDataNascita(LocalDate dataNascita) {
         this.dataNascita = dataNascita;
+        caricaDatabase();
     }
 
     public Genere getGenere() {
@@ -132,6 +149,7 @@ public class TesseraCliente {
 
     public void setGenere(Genere genere) {
         this.genere = genere;
+        caricaDatabase();
     }
 
     public CategoriaCliente getCategoriaCliente() {
@@ -140,6 +158,7 @@ public class TesseraCliente {
 
     public void setCategoriaCliente(CategoriaCliente categoriaCliente) {
         this.categoriaCliente = categoriaCliente;
+        caricaDatabase();
     }
 
     public LocalDate getDataScadenza() {
@@ -148,6 +167,7 @@ public class TesseraCliente {
 
     public void setDataScadenza(LocalDate dataScadenza) {
         this.dataScadenza = dataScadenza;
+        caricaDatabase();
     }
 
     public boolean isStatoTessera() {
@@ -156,6 +176,7 @@ public class TesseraCliente {
 
     public void setStatoTessera(boolean statoTessera) {
         this.statoTessera = statoTessera;
+        caricaDatabase();
     }
 
     @Override
