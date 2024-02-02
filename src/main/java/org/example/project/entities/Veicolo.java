@@ -99,29 +99,43 @@ public class Veicolo {
     }
 
 
-    public boolean isDisponibile(Corsa c) {
-        VeicoloDao veicoloDao = new VeicoloDao();
-        LocalDate ultimaDataManutenzione = veicoloDao.getUltimaDataManutenzione(getId());
-        if (isVeicoloNonImpegnato(c) &&  (ultimaDataManutenzione == null || LocalDate.now().isAfter(ultimaDataManutenzione))) {
-            setStatoVeicolo(StatoVeicolo.IN_SERVIZIO);
-            return true;
-        }
-        return false;
-    }
-
-
     private boolean isVeicoloNonImpegnato(Corsa c) {
         if (listaCorse != null && !listaCorse.isEmpty()) {
             for (Corsa corsa : listaCorse) {
-                if (corsa.getDataArrivo()== null ||
-                        (c.getDataPartenza().isAfter(corsa.getDataPartenza())
-                                && c.getDataPartenza().isBefore(corsa.getDataArrivo()))) {
-                    return false;
+                LocalDateTime dataPartenzaCorsa = corsa.getDataPartenza();
+                LocalDateTime dataArrivoCorsa = corsa.getDataArrivo();
+                LocalDateTime nuovaCorsaDataPartenza = c.getDataPartenza();
+                LocalDateTime nuovaCorsaDataArrivo = c.getDataArrivo();
+
+                // Verifica di sovrapposizione considerando date null come non sovrapposte
+                if ((dataPartenzaCorsa == null || nuovaCorsaDataArrivo == null || nuovaCorsaDataArrivo.isAfter(dataPartenzaCorsa))
+                        && (dataArrivoCorsa == null || nuovaCorsaDataPartenza == null || nuovaCorsaDataPartenza.isBefore(dataArrivoCorsa))) {
+                    return false;  // Sovrapposizione di date con la nuova corsa
                 }
             }
         }
-        return true;
+        return true;  // Il veicolo è disponibile se non ci sono sovrapposizioni
     }
+
+
+
+    public boolean isDisponibile(Corsa c) {
+        VeicoloDao veicoloDao = new VeicoloDao();
+        LocalDate ultimaDataManutenzione = veicoloDao.getUltimaDataManutenzione(getId());
+
+        // Controlla se il veicolo è non impegnato e se la nuova corsa si sovrappone con corse esistenti
+        if (isVeicoloNonImpegnato(c) && (ultimaDataManutenzione == null || LocalDate.now().isAfter(ultimaDataManutenzione))) {
+            setStatoVeicolo(StatoVeicolo.IN_SERVIZIO);
+            return true;  // Il veicolo è disponibile per la nuova corsa
+        }
+        return false;  // Il veicolo non è disponibile per la nuova corsa
+    }
+
+
+
+
+
+
 
 
     @Override

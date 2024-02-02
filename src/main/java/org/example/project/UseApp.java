@@ -112,7 +112,7 @@ public class UseApp {
         corsa2.setDataArrivo(LocalDateTime.of(2024,5,15,15,15,15));
 
 
-        Corsa corsa5 = creaCorsa(veicolo4, tratta1, LocalDateTime.of(2025,4,25,5,5,5));
+        Corsa corsa5 = creaCorsa(veicolo4, tratta1, LocalDateTime.of(2026,4,25,5,5,5));
 
 
         corsaDao.closeEM();
