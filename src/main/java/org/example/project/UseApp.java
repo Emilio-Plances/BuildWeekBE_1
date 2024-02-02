@@ -19,9 +19,9 @@ public class UseApp {
     private static final VenditoreDao venditoreDao = new VenditoreDao();
     public static void main(String[] args) throws Exception {
 
-        TesseraCliente t1 = tesseraDao.getById(163);//  Tessera Emilio
-        TesseraCliente t2 = tesseraDao.getById(206);//  Tessera Tommaso
-        TesseraCliente t3 = tesseraDao.getById(523);//  Tessera Calogero
+        TesseraCliente t1 = tesseraDao.getById(895);//  Tessera Emilio
+        TesseraCliente t2 = tesseraDao.getById(594);//  Tessera Tommaso
+        TesseraCliente t3 = tesseraDao.getById(37);//  Tessera Calogero
 
         Venditore v1 = venditoreDao.getById(1);
         DistributoreAutomatico d1 = (DistributoreAutomatico) venditoreDao.getById(2);
@@ -123,6 +123,13 @@ public class UseApp {
         veicoloDao.closeEM();
         venditoreDao.closeEM();
     }
+
+
+
+
+
+
+
 
 
     public static TesseraCliente creaTessera(String nome, String cognome, LocalDate dataNascita, Genere genere, CategoriaCliente categoriaCliente) throws Exception {

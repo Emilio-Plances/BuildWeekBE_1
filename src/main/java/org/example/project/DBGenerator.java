@@ -20,12 +20,12 @@ public class DBGenerator {
             TesseraCliente t1=creaTessera("Emilio","Plances", LocalDate.of(1997,3,7), Genere.M, CategoriaCliente.STUDENTE);
             TesseraCliente t2= creaTessera("Tommaso","Cantarini",LocalDate.of(1991,6,20),Genere.M,CategoriaCliente.STUDENTE);
             TesseraCliente t3= creaTessera("Calogero","Teresi",LocalDate.of(1999,3,12),Genere.M,CategoriaCliente.STUDENTE);
-
+//
             Venditore v1=creaVenditore("Da Mario");
             DistributoreAutomatico d1=creaDistributore("Shish", StatoDistributore.ATTIVO);
             Venditore v2=creaVenditore("Da Carlo");
             DistributoreAutomatico d2=creaDistributore("BellOchhio",StatoDistributore.ATTIVO);
-
+//
             Tratta tratta1=creaTratta(TipoTratta.EXTRA_URBANA,"Palermo","Catania");
             Tratta tratta2=creaTratta(TipoTratta.URBANA,"Via piave","Via Isonzo");
             Tratta tratta3=creaTratta(TipoTratta.EXTRA_URBANA,"Cagliari","Oristano");
@@ -35,7 +35,7 @@ public class DBGenerator {
             Abbonamento a2=creaAbbonamento(v2,tratta2,TipoAbbonamento.MENSILE,t1);
             Abbonamento a3=creaAbbonamento(d1,tratta1,TipoAbbonamento.MENSILE,t2);
             Abbonamento a4=creaAbbonamento(v1,tratta1,TipoAbbonamento.MENSILE,t3);
-
+//
             Veicolo veicolo1=creaVeicolo(TipoVeicolo.AUTOBUS);
             Veicolo veicolo2=creaVeicolo(TipoVeicolo.AUTOBUS);
             Veicolo veicolo3=creaVeicolo(TipoVeicolo.TRAM);

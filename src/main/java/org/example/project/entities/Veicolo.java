@@ -87,7 +87,6 @@ public class Veicolo {
     public void setTipoVeicolo(TipoVeicolo tipoVeicolo) {
         this.tipoVeicolo = tipoVeicolo;
         this.numeroPosti= setNumeroPosti();
-        caricaDatabase();
     }
 
     public LocalDate getDataInizioServizio() {
@@ -112,22 +111,14 @@ public class Veicolo {
 
 
     public boolean isDisponibile(Corsa c) {
-
-        if (isVeicoloNonImpegnato(c)) {
+        if (isVeicoloNonImpegnato(c) && manutenzioni != null) {
             for (Manutenzione manutenzione : manutenzioni) {
                 LocalDate dataInizioManutenzione = manutenzione.getDataInizio();
                 LocalDate dataFineManutenzione = manutenzione.getDataFine();
-                boolean check;
-                if (dataFineManutenzione == null) {
-                    check = c.getDataPartenza().isBefore(dataInizioManutenzione.plusDays(7).atStartOfDay()) &&
-                            c.getDataPartenza().isAfter(dataInizioManutenzione.minusDays(1).atStartOfDay());
-                } else {
-                    check = c.getDataPartenza().isBefore(dataFineManutenzione.atStartOfDay()) &&
-                            c.getDataPartenza().isAfter(dataInizioManutenzione.atStartOfDay());
-                }
-                if (check) {
-                    return false;
-                }
+                if (dataFineManutenzione == null) return false;
+                boolean check = c.getDataPartenza().isBefore(dataFineManutenzione.atStartOfDay()) &&
+                        c.getDataPartenza().isAfter(dataInizioManutenzione.atStartOfDay());
+                if (check) return false;
             }
             return true;
         }
@@ -135,25 +126,24 @@ public class Veicolo {
     }
 
 
-
     private boolean isVeicoloNonImpegnato(Corsa c) {
         if (listaCorse != null && !listaCorse.isEmpty()) {
             for (Corsa corsa : listaCorse) {
                 boolean check;
-                if (corsa.getDataArrivo() == null) {
-                    check = c.getDataPartenza().isBefore(corsa.getDataPartenza().plusHours(24)) &&
-                            c.getDataPartenza().isAfter(corsa.getDataPartenza().minusHours(1));
-                } else {
-                    check = c.getDataPartenza().isBefore(corsa.getDataArrivo()) &&
-                            c.getDataPartenza().isAfter(corsa.getDataPartenza());
-                }
+                if (corsa.getDataArrivo() == null) return false;
+
+                check = c.getDataPartenza().isBefore(corsa.getDataArrivo()) &&
+                        c.getDataPartenza().isAfter(corsa.getDataPartenza());
+
                 if (check) {
                     return false;
                 }
             }
+            return true;
         }
         return true;
     }
+
 
 
 
