@@ -34,8 +34,6 @@ public class UseApp {
         Tratta tratta4 = trattaDao.getTrattaById(4);
 
 
-
-
         Abbonamento abbonamento1 = (Abbonamento) prodottoDao.getById(1);
         Abbonamento abbonamento2 = (Abbonamento) prodottoDao.getById(2);
         Abbonamento abbonamento3 = (Abbonamento) prodottoDao.getById(3);
@@ -60,8 +58,6 @@ public class UseApp {
         Manutenzione m2 = manutenzioneDao.getManutenzioneById(2);
         Manutenzione m3 = manutenzioneDao.getManutenzioneById(3);
         Manutenzione m4 = manutenzioneDao.getManutenzioneById(4);
-
-
                                         //RICHIESTE DELLA TRACCIA
 
         // ricerca di prodottiAcquistati per un determinato venditore
@@ -119,104 +115,6 @@ public class UseApp {
 //        veicoloDao.closeEM();
 //        venditoreDao.closeEM();
     }
-
-    public static TesseraCliente creaTessera(String nome, String cognome, LocalDate dataNascita, Genere genere, CategoriaCliente categoriaCliente) {
-        try {
-            TesseraCliente t = new TesseraCliente(nome, cognome, dataNascita, genere, categoriaCliente);
-            tesseraDao.save(t);
-            return t;
-        } catch (Exception ex) {
-            System.out.println("Errore nella creazione tessera");
-        }
-        return null;
-    }
-
-    public static Venditore creaVenditore(String nome) {
-        try {
-            Venditore v = new Venditore(nome);
-            venditoreDao.save(v);
-            return v;
-        } catch (Exception ex) {
-            System.out.println("Errore nella creazione venditore");
-        }
-        return null;
-    }
-
-    public static DistributoreAutomatico creaDistributore(String nome, StatoDistributore statoDistributore) {
-        try {
-            DistributoreAutomatico d = new DistributoreAutomatico(nome, statoDistributore);
-            venditoreDao.save(d);
-            return d;
-        } catch (Exception ex) {
-            System.out.println("Errore nella creazione");
-        }
-        return null;
-    }
-
-    public static Tratta creaTratta(TipoTratta tipoTratta, String partenza, String destinazione) {
-        try {
-            Tratta t = new Tratta(tipoTratta, partenza, destinazione);
-            trattaDao.save(t);
-            return t;
-        } catch (Exception ex) {
-            System.out.println("Errore nella creazione tratta");
-        }
-        return null;
-    }
-
-    public static Corsa creaCorsa(Veicolo veicolo, Tratta tratta, LocalDateTime dataPartenza) {
-        try {
-            Corsa c = new Corsa(veicolo, tratta, dataPartenza);
-            corsaDao.aggiungiCorsa(c);
-            return c;
-        } catch (Exception e) {
-            System.out.println("Errore nella creazione corsa");
-        }
-        return null;
-    }
-
-    public static Abbonamento creaAbbonamento(Venditore venditore, Tratta tratta, TipoAbbonamento tipoAbbonamento, TesseraCliente tesseraCliente) {
-        try {
-            Abbonamento a = new Abbonamento(venditore, tratta, tipoAbbonamento, tesseraCliente);
-            prodottoDao.save(a);
-            return a;
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-            System.out.println("Errore nella creazione abbonamento");
-        }
-        return null;
-    }
-
-    public static Biglietto creaBiglietto(Venditore venditore, Tratta tratta) {
-        try {
-            Biglietto biglietto = new Biglietto(venditore, tratta);
-            prodottoDao.save(biglietto);
-            return biglietto;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Errore nella creazione del biglietto");
-        }
-        return null;
-    }
-
-    public static Veicolo creaVeicolo(TipoVeicolo tipoveicolo) {
-        Veicolo v = new Veicolo(tipoveicolo);
-        veicoloDao.saveVeicolo(v);
-        return v;
-    }
-
-    public static Manutenzione creaManutenzione(Veicolo veicolo, LocalDate dataInizio, LocalDate dataFine) {
-        try {
-            Manutenzione m = new Manutenzione(veicolo, dataInizio, dataFine);
-            manutenzioneDao.saveManutenzione(m);
-            return m;
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            System.out.println("Errore nella creazione manutenzione");
-        }
-        return null;
-    }
-
     public static void stampaPeriodiDiServizio(Veicolo veicolo){
         List<Object[]> periodiServizio = veicoloDao.periodiServizioVeicolo(veicolo.getId());
 

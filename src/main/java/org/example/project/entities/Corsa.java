@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "corsa")
+@Table(name = "corse")
 public class Corsa {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sequenza_venditore")

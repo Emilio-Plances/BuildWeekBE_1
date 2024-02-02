@@ -8,20 +8,18 @@ import java.util.List;
 
 
 public class TesseraDao {
-    private EntityManagerFactory emf;
-    private EntityManager em;
+    private final EntityManagerFactory emf;
+    private final EntityManager em;
 
     public TesseraDao() {
         this.emf = Persistence.createEntityManagerFactory("biglietteria");
         this.em = emf.createEntityManager();
     }
     public void save (TesseraCliente t)throws Exception{
-
         EntityTransaction et = em.getTransaction();
         et.begin();
         em.persist(t);
         et.commit();
-
     }
 
     public TesseraCliente getById(int id) {
