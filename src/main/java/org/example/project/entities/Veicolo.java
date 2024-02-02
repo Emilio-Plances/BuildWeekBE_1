@@ -5,6 +5,7 @@ import org.example.project.dao.VeicoloDao;
 import org.example.project.enums.StatoVeicolo;
 import org.example.project.enums.TipoVeicolo;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -101,8 +102,11 @@ public class Veicolo {
 
     public boolean isDisponibile(Corsa c) {
         VeicoloDao veicoloDao = new VeicoloDao();
+
         LocalDate ultimaDataManutenzione = veicoloDao.getUltimaDataManutenzione(getId());
-        if (isVeicoloNonImpegnato(c) &&  (ultimaDataManutenzione == null || LocalDate.now().isAfter(ultimaDataManutenzione))) {
+
+        if (isVeicoloNonImpegnato(c) &&  (ultimaDataManutenzione == null || .isAfter(ultimaDataManutenzione))) {
+            System.out.println("ciao");
             setStatoVeicolo(StatoVeicolo.IN_SERVIZIO);
             return true;
         }
@@ -112,17 +116,17 @@ public class Veicolo {
 
     private boolean isVeicoloNonImpegnato(Corsa c) {
         if (listaCorse != null && !listaCorse.isEmpty()) {
+            System.out.println(c);
             for (Corsa corsa : listaCorse) {
-                if (corsa.getDataArrivo()== null ||
-                        (c.getDataPartenza().isAfter(corsa.getDataPartenza())
-                                && c.getDataPartenza().isBefore(corsa.getDataArrivo()))) {
-                    return false;
-                }
+                System.out.println(corsa);
+                if(corsa.getDataArrivo() == null) return false;
+                boolean check1= c.getDataPartenza().isBefore(corsa.getDataArrivo());
+                boolean check2= c.getDataPartenza().isAfter(corsa.getDataPartenza());
+                if (check1 && check2) return false;
             }
         }
         return true;
     }
-
 
     @Override
     public String toString() {
